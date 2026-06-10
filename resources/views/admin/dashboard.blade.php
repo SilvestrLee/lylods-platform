@@ -42,9 +42,9 @@
                         </p>
 
                         <div class="mt-8 flex flex-wrap gap-3">
-                            <a href="{{ route('admin.investments.create') }}"
-                               class="rounded-full bg-[#c9a24d] px-6 py-3 text-sm font-bold text-[#07172f] shadow-sm hover:bg-[#d7b567]">
-                                Create Investment Record
+                            <a href="{{ route('admin.investment-plans.index') }}"
+                            class="block rounded-2xl px-4 py-3 text-slate-300 hover:bg-white/10 hover:text-white">
+                                    Investment Plans
                             </a>
 
                             <a href="{{ route('admin.investments.index') }}"
@@ -114,12 +114,12 @@
                                 Add Investment
                             </a>
 
-                            <a href="#"
+                            <a href="{{ route('admin.investment-plans.index') }}"
                                class="block rounded-2xl px-4 py-3 text-slate-300 hover:bg-white/10 hover:text-white">
                                 Investment Plans
                             </a>
 
-                            <a href="#"
+                            <a href="{{ route('admin.investors.index') }}"
                                class="block rounded-2xl px-4 py-3 text-slate-300 hover:bg-white/10 hover:text-white">
                                 Investors
                             </a>
@@ -233,17 +233,24 @@
                                     </span>
                                 </a>
 
-                                <div class="rounded-3xl border border-dashed border-[#d0d5dd] p-6">
+                                <a href="{{ route('admin.investors.index') }}"
+                                   class="group rounded-3xl border border-[#e6e8ee] p-6 transition hover:border-[#c9a24d] hover:bg-[#f7f3ea]">
                                     <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#123f8c]">
                                         Investor Accounts
                                     </p>
+
                                     <h3 class="mt-3 text-xl font-bold text-[#07172f]">
                                         User Management
                                     </h3>
+
                                     <p class="mt-3 text-sm leading-6 text-[#667085]">
-                                        Future module for creating, editing, and managing investor account details.
+                                        Create, view, and update investor login accounts from the admin backend.
                                     </p>
-                                </div>
+
+                                    <span class="mt-5 inline-flex rounded-full bg-[#07172f] px-4 py-2 text-xs font-bold text-white">
+                                        Manage
+                                    </span>
+                                </a>
 
                                 <div class="rounded-3xl border border-dashed border-[#d0d5dd] p-6">
                                     <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#123f8c]">
@@ -304,7 +311,7 @@
 
                             <div class="rounded-[2rem] bg-[#07172f] p-8 text-white shadow-sm">
                                 <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#c9a24d]">
-                                    Recommended Next
+                                    Recently Added
                                 </p>
 
                                 <h2 class="mt-2 text-2xl font-bold">
@@ -312,16 +319,21 @@
                                 </h2>
 
                                 <p class="mt-4 leading-7 text-slate-300">
-                                    The next backend improvement should allow admins to create and manage investment plans directly from the admin panel instead of relying on seed or test data.
+                                    Admin users can now create, edit, activate, and deactivate investment plans directly from the backend.
                                 </p>
 
                                 <div class="mt-6 rounded-2xl bg-white/10 p-5">
                                     <p class="font-semibold text-white">
-                                        Suggested next module
+                                        Current backend capability
                                     </p>
                                     <p class="mt-2 text-sm leading-6 text-slate-300">
-                                        Create, edit, activate, and deactivate investment plans so future investment records can be tied to admin-managed plan options.
+                                        Investment records can now be tied to admin-managed plan options instead of relying only on seed or test data.
                                     </p>
+
+                                    <a href="{{ route('admin.investment-plans.index') }}"
+                                    class="mt-5 inline-flex rounded-full bg-[#c9a24d] px-5 py-3 text-sm font-bold text-[#07172f] hover:bg-[#d7b567]">
+                                        Manage Plans
+                                    </a>
                                 </div>
                             </div>
                         </div>

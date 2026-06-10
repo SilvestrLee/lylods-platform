@@ -53,7 +53,11 @@ class AdminInvestmentController extends Controller
             ->orderBy('name')
             ->get();
 
-        $plans = InvestmentPlan::where('is_active', true)
+        $plans = InvestmentPlan::query()
+            ->where('is_active', true)
+            ->when($investment->investment_plan_id, function ($query) use ($investment) {
+                $query->orWhere('id', $investment->investment_plan_id);
+            })
             ->orderBy('name')
             ->get();
 
