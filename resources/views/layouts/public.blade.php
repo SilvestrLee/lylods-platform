@@ -71,7 +71,7 @@
             </div>
 
             <div class="mt-8 border-t border-slate-800 pt-6 text-sm text-slate-400">
-                © {{ date('Y') }} The Lylods Group. All rights reserved.
+                &copy; {{ date('Y') }} The Lylods Group. All rights reserved.
             </div>
         </div>
     </footer>
