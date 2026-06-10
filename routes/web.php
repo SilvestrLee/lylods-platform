@@ -32,6 +32,9 @@ Route::middleware(['auth', 'admin'])
         Route::get('/investments', [AdminInvestmentController::class, 'index'])->name('investments.index');
         Route::get('/investments/create', [AdminInvestmentController::class, 'create'])->name('investments.create');
         Route::post('/investments', [AdminInvestmentController::class, 'store'])->name('investments.store');
+
+        Route::get('/investments/{investment}/edit', [AdminInvestmentController::class, 'edit'])->name('investments.edit');
+        Route::patch('/investments/{investment}', [AdminInvestmentController::class, 'update'])->name('investments.update');
     });
 
 require __DIR__.'/auth.php';

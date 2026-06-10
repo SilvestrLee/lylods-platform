@@ -31,7 +31,7 @@
                         All Investment Records
                     </h3>
                     <p class="mt-1 text-sm text-[#667085]">
-                        View investor investment records managed by the admin.
+                        View and manage investor investment records.
                     </p>
                 </div>
 
@@ -45,6 +45,7 @@
                                 <th class="px-5 py-4 font-semibold">Expected Return</th>
                                 <th class="px-5 py-4 font-semibold">Status</th>
                                 <th class="px-5 py-4 font-semibold">Start Date</th>
+                                <th class="px-5 py-4 font-semibold">Action</th>
                             </tr>
                         </thead>
 
@@ -76,10 +77,17 @@
                                     <td class="px-5 py-5 text-[#667085]">
                                         {{ $investment->start_date?->format('M d, Y') ?? '-' }}
                                     </td>
+
+                                    <td class="px-5 py-5">
+                                        <a href="{{ route('admin.investments.edit', $investment) }}"
+                                           class="rounded-full bg-[#07172f] px-4 py-2 text-xs font-semibold text-white">
+                                            Edit
+                                        </a>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-5 py-8 text-center text-[#667085]">
+                                    <td colspan="7" class="px-5 py-8 text-center text-[#667085]">
                                         No investment records have been created yet.
                                     </td>
                                 </tr>

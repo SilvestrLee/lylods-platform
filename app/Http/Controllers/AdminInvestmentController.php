@@ -38,7 +38,46 @@ class AdminInvestmentController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validated = $this->validateInvestment($request);
+
+        Investment::create($validated);
+
+        return redirect()
+            ->route('admin.investments.index')
+            ->with('success', 'Investment record created successfully.');
+    }
+
+    public function edit(Investment $investment)
+    {
+        $investors = User::where('role', 'investor')
+            ->orderBy('name')
+            ->get();
+
+        $plans = InvestmentPlan::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        return view('admin.investments.edit', [
+            'investment' => $investment,
+            'investors' => $investors,
+            'plans' => $plans,
+        ]);
+    }
+
+    public function update(Request $request, Investment $investment)
+    {
+        $validated = $this->validateInvestment($request);
+
+        $investment->update($validated);
+
+        return redirect()
+            ->route('admin.investments.index')
+            ->with('success', 'Investment record updated successfully.');
+    }
+
+    private function validateInvestment(Request $request): array
+    {
+        return $request->validate([
             'user_id' => ['required', 'exists:users,id'],
             'investment_plan_id' => ['nullable', 'exists:investment_plans,id'],
             'amount' => ['required', 'numeric', 'min:0'],
@@ -48,11 +87,5 @@ class AdminInvestmentController extends Controller
             'maturity_date' => ['nullable', 'date', 'after_or_equal:start_date'],
             'notes' => ['nullable', 'string'],
         ]);
-
-        Investment::create($validated);
-
-        return redirect()
-            ->route('admin.investments.index')
-            ->with('success', 'Investment record created successfully.');
     }
 }
