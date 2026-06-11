@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminInvestmentController;
 use App\Http\Controllers\AdminInvestmentPlanController;
 use App\Http\Controllers\AdminInvestorController;
+use App\Http\Controllers\AdminNoticeController;
 use App\Http\Controllers\InvestorDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicPageController;
@@ -29,7 +30,9 @@ Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', fn () => redirect()->route('admin.dashboard'))->name('home');
+
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/investments', [AdminInvestmentController::class, 'index'])->name('investments.index');
         Route::get('/investments/create', [AdminInvestmentController::class, 'create'])->name('investments.create');
@@ -48,6 +51,12 @@ Route::middleware(['auth', 'admin'])
         Route::post('/investors', [AdminInvestorController::class, 'store'])->name('investors.store');
         Route::get('/investors/{investor}/edit', [AdminInvestorController::class, 'edit'])->name('investors.edit');
         Route::patch('/investors/{investor}', [AdminInvestorController::class, 'update'])->name('investors.update');
+
+        Route::get('/notices', [AdminNoticeController::class, 'index'])->name('notices.index');
+        Route::get('/notices/create', [AdminNoticeController::class, 'create'])->name('notices.create');
+        Route::post('/notices', [AdminNoticeController::class, 'store'])->name('notices.store');
+        Route::get('/notices/{notice}/edit', [AdminNoticeController::class, 'edit'])->name('notices.edit');
+        Route::patch('/notices/{notice}', [AdminNoticeController::class, 'update'])->name('notices.update');
     });
 
 require __DIR__.'/auth.php';
