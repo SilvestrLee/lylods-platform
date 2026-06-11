@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Notice;
 
 class InvestorDashboardController extends Controller
 {
@@ -16,18 +16,29 @@ class InvestorDashboardController extends Controller
             ->get();
 
         $totalInvestment = $investments->sum('amount');
-
-        $activeInvestments = $investments
-            ->where('status', 'active')
-            ->count();
-
+        $activeInvestments = $investments->where('status', 'active')->count();
         $expectedReturns = $investments->sum('expected_return');
 
-        return view('dashboard.index', [
-            'investments' => $investments,
-            'totalInvestment' => $totalInvestment,
-            'activeInvestments' => $activeInvestments,
-            'expectedReturns' => $expectedReturns,
-        ]);
+        $notices = Notice::where('is_published', true)
+            ->latest('published_at')
+            ->take(5)
+            ->get();
+
+        return view('dashboard.index', compact(
+            'investments',
+            'totalInvestment',
+            'activeInvestments',
+            'expectedReturns',
+            'notices'
+        ));
+    }
+
+    public function notices()
+    {
+        $notices = Notice::where('is_published', true)
+            ->latest('published_at')
+            ->paginate(10);
+
+        return view('dashboard.notices', compact('notices'));
     }
 }

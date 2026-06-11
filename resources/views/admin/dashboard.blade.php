@@ -129,8 +129,8 @@
                                 Documents
                             </a>
 
-                            <a href="#"
-                               class="block rounded-2xl px-4 py-3 text-slate-300 hover:bg-white/10 hover:text-white">
+                            <a href="{{ route('admin.notices.index') }}"
+                                class="block rounded-2xl px-4 py-3 text-slate-300 hover:bg-white/10 hover:text-white">
                                 Notices
                             </a>
 

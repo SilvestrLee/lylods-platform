@@ -19,6 +19,15 @@ class InvestmentPlan extends Model
         'is_active',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'minimum_amount' => 'decimal:2',
+            'expected_return_rate' => 'decimal:2',
+            'is_active' => 'boolean',
+        ];
+    }
+
     public function investments(): HasMany
     {
         return $this->hasMany(Investment::class);

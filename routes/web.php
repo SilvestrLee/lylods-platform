@@ -18,6 +18,7 @@ Route::get('/contact', [PublicPageController::class, 'contact'])->name('contact'
 
 Route::middleware(['auth', 'investor'])->group(function () {
     Route::get('/dashboard', [InvestorDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/notices', [InvestorDashboardController::class, 'notices'])->name('dashboard.notices');
 });
 
 Route::middleware(['auth'])->group(function () {
