@@ -56,6 +56,7 @@
                     <table class="min-w-full divide-y divide-[#e6e8ee] text-left text-sm">
                         <thead class="bg-[#f8fafc] text-[#667085]">
                             <tr>
+                                <th class="px-6 py-4 font-semibold">Investor ID</th>
                                 <th class="px-6 py-4 font-semibold">Investor</th>
                                 <th class="px-6 py-4 font-semibold">Email</th>
                                 <th class="px-6 py-4 font-semibold">Investment Records</th>
@@ -67,6 +68,12 @@
                         <tbody class="divide-y divide-[#e6e8ee] bg-white">
                             @forelse ($investors as $investor)
                                 <tr>
+                                    <td class="px-6 py-5">
+                                        <span class="rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-bold text-[#07172f]">
+                                            {{ $investor->investor_number ?? 'INV-' . str_pad($investor->id, 5, '0', STR_PAD_LEFT) }}
+                                        </span>
+                                    </td>
+
                                     <td class="px-6 py-5">
                                         <p class="font-bold text-[#07172f]">
                                             {{ $investor->name }}
@@ -99,7 +106,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-6 py-12 text-center">
+                                    <td colspan="6" class="px-6 py-12 text-center">
                                         <p class="text-lg font-bold text-[#07172f]">
                                             No investor accounts yet
                                         </p>

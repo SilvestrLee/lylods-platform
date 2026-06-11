@@ -60,7 +60,7 @@
                                 <option value="">Select investor</option>
                                 @foreach ($investors as $investor)
                                     <option value="{{ $investor->id }}" @selected(old('user_id', $investment->user_id) == $investor->id)>
-                                        {{ $investor->name }} - {{ $investor->email }}
+                                        {{ $investor->investor_number ? $investor->investor_number . ' - ' : '' }}{{ $investor->name }} - {{ $investor->email }}
                                     </option>
                                 @endforeach
                             </select>
@@ -73,13 +73,24 @@
 
                             <select id="investment_plan_id" name="investment_plan_id"
                                     class="mt-2 w-full rounded-2xl border-[#d0d5dd] bg-white px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
-                                <option value="">No plan selected</option>
+                                <option value="" data-rate="0">No plan selected</option>
                                 @foreach ($plans as $plan)
-                                    <option value="{{ $plan->id }}" @selected(old('investment_plan_id', $investment->investment_plan_id) == $plan->id)>
+                                    <option
+                                        value="{{ $plan->id }}"
+                                        data-rate="{{ $plan->expected_return_rate ?? 0 }}"
+                                        @selected(old('investment_plan_id', $investment->investment_plan_id) == $plan->id)
+                                    >
                                         {{ $plan->name }}
+                                        @if (! is_null($plan->expected_return_rate))
+                                            — {{ rtrim(rtrim(number_format($plan->expected_return_rate, 2), '0'), '.') }}% ROI
+                                        @endif
                                     </option>
                                 @endforeach
                             </select>
+
+                            <p id="plan_rate_hint" class="mt-2 text-xs font-semibold text-[#667085]">
+                                Select a plan to calculate expected return automatically.
+                            </p>
                         </div>
                     </div>
 
@@ -103,7 +114,11 @@
                             <input id="expected_return" name="expected_return" type="number" min="0" step="0.01"
                                    value="{{ old('expected_return', $investment->expected_return) }}"
                                    class="mt-2 w-full rounded-2xl border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
-                                   placeholder="2000">
+                                   placeholder="Auto-calculated from selected plan">
+
+                            <p class="mt-2 text-xs text-[#667085]">
+                                You can still adjust this manually before saving.
+                            </p>
                         </div>
                     </div>
 
@@ -169,4 +184,39 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const planSelect = document.getElementById('investment_plan_id');
+        const amountInput = document.getElementById('amount');
+        const expectedReturnInput = document.getElementById('expected_return');
+        const planRateHint = document.getElementById('plan_rate_hint');
+
+        function formatRate(rate) {
+            return Number(rate).toLocaleString(undefined, {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function calculateExpectedReturn() {
+            const selectedOption = planSelect.options[planSelect.selectedIndex];
+            const rate = parseFloat(selectedOption?.dataset?.rate || 0);
+            const amount = parseFloat(amountInput.value || 0);
+
+            if (rate > 0) {
+                planRateHint.textContent = `Selected plan ROI: ${formatRate(rate)}%. Expected return will auto-calculate from amount.`;
+            } else {
+                planRateHint.textContent = 'Select a plan to calculate expected return automatically.';
+            }
+
+            if (amount > 0 && rate > 0) {
+                expectedReturnInput.value = ((amount * rate) / 100).toFixed(2);
+            }
+        }
+
+        planSelect?.addEventListener('change', calculateExpectedReturn);
+        amountInput?.addEventListener('input', calculateExpectedReturn);
+
+        calculateExpectedReturn();
+    </script>
 </x-app-layout>

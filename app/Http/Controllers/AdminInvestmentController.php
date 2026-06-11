@@ -82,7 +82,7 @@ class AdminInvestmentController extends Controller
     private function validateInvestment(Request $request): array
     {
         return $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
+            'user_id' => ['required', 'exists:users,id,role,investor'],
             'investment_plan_id' => ['nullable', 'exists:investment_plans,id'],
             'amount' => ['required', 'numeric', 'min:0'],
             'expected_return' => ['nullable', 'numeric', 'min:0'],

@@ -35,6 +35,7 @@ class AdminInvestorController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => 'investor',
+            'investor_number' => $this->generateInvestorNumber(),
         ]);
 
         return redirect()
@@ -59,6 +60,10 @@ class AdminInvestorController extends Controller
 
         $investor->name = $validated['name'];
         $investor->email = $validated['email'];
+
+        if (! $investor->investor_number) {
+            $investor->investor_number = $this->generateInvestorNumber();
+        }
 
         if (! empty($validated['password'])) {
             $investor->password = Hash::make($validated['password']);
@@ -88,5 +93,17 @@ class AdminInvestorController extends Controller
             ],
             'password' => $passwordRules,
         ]);
+    }
+
+    private function generateInvestorNumber(): string
+    {
+        $nextId = User::where('role', 'investor')->count() + 1;
+
+        do {
+            $investorNumber = 'INV-' . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+            $nextId++;
+        } while (User::where('investor_number', $investorNumber)->exists());
+
+        return $investorNumber;
     }
 }
