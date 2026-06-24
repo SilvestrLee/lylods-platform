@@ -63,6 +63,7 @@
                     <input type="text"
                            disabled
                            placeholder="Search… (coming soon)"
+                           title="Search coming soon"
                            class="w-full rounded-full border border-[#e6e8ee] bg-[#f7f9fc] py-2 pl-9 pr-4 text-sm text-[#07172f] placeholder:text-[#98a2b3] focus:outline-none cursor-not-allowed opacity-60">
                 </div>
             </div>

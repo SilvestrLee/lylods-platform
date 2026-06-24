@@ -44,7 +44,7 @@
                     <div>
                         <label for="name" class="block text-sm font-semibold text-[#07172f]">Full Name</label>
                         <input id="name" name="name" type="text" value="{{ old('name', $investor->name) }}" required
-                               class="mt-2 block w-full rounded-2xl border-[#d0d5dd] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
+                               class="mt-2 block w-full rounded-2xl border-[#d0d5dd] @error('name') border-red-400 ring-1 ring-red-400 @enderror shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
                         @error('name')
                             <p class="mt-2 text-sm font-semibold text-red-600">{{ $message }}</p>
                         @enderror
@@ -53,7 +53,7 @@
                     <div>
                         <label for="email" class="block text-sm font-semibold text-[#07172f]">Email Address</label>
                         <input id="email" name="email" type="email" value="{{ old('email', $investor->email) }}" required
-                               class="mt-2 block w-full rounded-2xl border-[#d0d5dd] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
+                               class="mt-2 block w-full rounded-2xl border-[#d0d5dd] @error('email') border-red-400 ring-1 ring-red-400 @enderror shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
                         @error('email')
                             <p class="mt-2 text-sm font-semibold text-red-600">{{ $message }}</p>
                         @enderror

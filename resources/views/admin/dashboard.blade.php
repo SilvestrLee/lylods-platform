@@ -165,12 +165,13 @@
                         <span class="mt-5 inline-flex rounded-full bg-[#07172f] px-4 py-2 text-xs font-bold text-white">Manage</span>
                     </a>
 
-                    <div class="rounded-3xl border border-dashed border-[#d0d5dd] p-6">
-                        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#123f8c]">Documents</p>
-                        <h3 class="mt-3 text-xl font-bold text-[#07172f]">Investor Documents</h3>
-                        <p class="mt-3 text-sm leading-6 text-[#667085]">Future module for attaching notices, statements, and documents to investor accounts.</p>
-                        <span class="mt-5 inline-flex rounded-full border border-[#d0d5dd] bg-[#f7f9fc] px-4 py-2 text-xs font-semibold text-[#98a2b3]">Coming Soon</span>
-                    </div>
+                    <a href="{{ route('admin.notices.index') }}"
+                       class="group rounded-3xl border border-[#e6e8ee] p-6 transition hover:border-[#c9a24d] hover:bg-[#f7f3ea]">
+                        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#c9a24d]">Notices</p>
+                        <h3 class="mt-3 text-xl font-bold text-[#07172f]">Investor Notices</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Create and publish official updates and announcements to investor dashboard users.</p>
+                        <span class="mt-5 inline-flex rounded-full bg-[#07172f] px-4 py-2 text-xs font-bold text-white">Manage</span>
+                    </a>
                 </div>
             </div>
 

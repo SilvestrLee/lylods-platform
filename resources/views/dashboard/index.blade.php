@@ -128,6 +128,11 @@
                         </div>
                     </div>
                 @empty
+                    <div class="mt-5 sm:hidden">
+                        <x-empty-state icon="investments"
+                                       heading="No investment records yet"
+                                       subtext="Your investment records will appear here once assigned by the administrator." />
+                    </div>
                 @endforelse
 
                 {{-- Desktop table --}}
@@ -162,7 +167,7 @@
                                     <td class="px-5 py-4 text-right font-semibold text-[#07172f]">
                                         £{{ number_format($investment->amount ?? 0, 2) }}
                                     </td>
-                                    <td class="px-5 py-4 text-right text-[#667085]">
+                                    <td class="px-5 py-4 text-right font-semibold text-[#07172f]">
                                         £{{ number_format($investment->expected_return ?? 0, 2) }}
                                     </td>
                                     <td class="px-5 py-4">
@@ -193,13 +198,6 @@
                     </table>
                 </div>
 
-                @if (isset($investments) && $investments->isEmpty())
-                    <div class="mt-6 sm:hidden">
-                        <x-empty-state icon="investments"
-                                       heading="No investment records yet"
-                                       subtext="Your investment records will appear here once assigned by the administrator." />
-                    </div>
-                @endif
             </div>
 
             {{-- Sidebar: Notices + Support --}}

@@ -23,7 +23,9 @@
             </div>
         @endif
 
-        <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
+        <div x-data="{ search: '' }" class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
+
+            {{-- Header --}}
             <div class="flex flex-col gap-4 border-b border-[#e6e8ee] p-6 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">Investor Records</p>
@@ -36,7 +38,54 @@
                 </a>
             </div>
 
-            <div class="overflow-x-auto">
+            {{-- Live search --}}
+            <div class="border-b border-[#e6e8ee] px-6 py-4">
+                <div class="relative max-w-sm">
+                    <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-[#98a2b3]">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+                        </svg>
+                    </span>
+                    <input x-model="search" type="text" placeholder="Search by name or email…"
+                           class="w-full rounded-full border border-[#e6e8ee] bg-[#f7f9fc] py-2 pl-9 pr-4 text-sm text-[#07172f] placeholder:text-[#98a2b3] focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                </div>
+            </div>
+
+            {{-- Mobile card view --}}
+            <div class="divide-y divide-[#e6e8ee] sm:hidden">
+                @forelse ($investors as $investor)
+                    <div x-show="search === '' || '{{ strtolower($investor->name) }}'.includes(search.toLowerCase()) || '{{ strtolower($investor->email) }}'.includes(search.toLowerCase())"
+                         class="p-5 transition hover:bg-[#f8fafc]">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <p class="font-bold text-[#07172f]">{{ $investor->name }}</p>
+                                <p class="mt-0.5 text-xs text-[#667085]">{{ $investor->email }}</p>
+                            </div>
+                            <span class="shrink-0 rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-bold text-[#07172f]">
+                                {{ $investor->investor_number ?? 'INV-' . str_pad($investor->id, 5, '0', STR_PAD_LEFT) }}
+                            </span>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between gap-3">
+                            <span class="rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-semibold text-[#07172f]">
+                                {{ $investor->investments_count }} record{{ $investor->investments_count === 1 ? '' : 's' }}
+                            </span>
+                            <a href="{{ route('admin.investors.edit', $investor) }}"
+                               class="rounded-full bg-[#07172f] px-4 py-2 text-xs font-bold text-white hover:bg-[#123f8c]">Edit</a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="p-8">
+                        <x-empty-state icon="investors"
+                                       heading="No investor accounts yet"
+                                       subtext="Create your first investor account to begin assigning investment records."
+                                       :action-url="route('admin.investors.create')"
+                                       action-label="Add First Investor" />
+                    </div>
+                @endforelse
+            </div>
+
+            {{-- Desktop table --}}
+            <div class="hidden overflow-x-auto sm:block">
                 <table class="min-w-full divide-y divide-[#e6e8ee] text-left text-sm">
                     <thead class="bg-[#f8fafc] text-[#667085]">
                         <tr>
@@ -48,10 +97,10 @@
                             <th class="px-6 py-4 font-semibold">Action</th>
                         </tr>
                     </thead>
-
                     <tbody class="divide-y divide-[#e6e8ee] bg-white">
                         @forelse ($investors as $investor)
-                            <tr class="transition hover:bg-[#f8fafc]">
+                            <tr x-show="search === '' || '{{ strtolower($investor->name) }}'.includes(search.toLowerCase()) || '{{ strtolower($investor->email) }}'.includes(search.toLowerCase())"
+                                class="transition hover:bg-[#f8fafc]">
                                 <td class="px-6 py-5">
                                     <span class="rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-bold text-[#07172f]">
                                         {{ $investor->investor_number ?? 'INV-' . str_pad($investor->id, 5, '0', STR_PAD_LEFT) }}

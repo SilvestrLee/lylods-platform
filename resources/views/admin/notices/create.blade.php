@@ -41,7 +41,7 @@
                     <div>
                         <label for="title" class="block text-sm font-semibold text-[#07172f]">Notice Title</label>
                         <input id="title" name="title" type="text" value="{{ old('title') }}" required
-                               class="mt-2 block w-full rounded-2xl border-[#d0d5dd] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
+                               class="mt-2 block w-full rounded-2xl border-[#d0d5dd] @error('title') border-red-400 ring-1 ring-red-400 @enderror shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
                                placeholder="e.g. Investment update notice">
                         @error('title')
                             <p class="mt-2 text-sm font-semibold text-red-600">{{ $message }}</p>
@@ -51,7 +51,7 @@
                     <div>
                         <label for="body" class="block text-sm font-semibold text-[#07172f]">Notice Body</label>
                         <textarea id="body" name="body" rows="8" required
-                                  class="mt-2 block w-full rounded-2xl border-[#d0d5dd] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
+                                  class="mt-2 block w-full rounded-2xl border-[#d0d5dd] @error('body') border-red-400 ring-1 ring-red-400 @enderror shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
                                   placeholder="Write the full notice message here.">{{ old('body') }}</textarea>
                         @error('body')
                             <p class="mt-2 text-sm font-semibold text-red-600">{{ $message }}</p>

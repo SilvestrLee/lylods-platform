@@ -54,7 +54,7 @@
                     <div>
                         <label for="user_id" class="block text-sm font-semibold text-[#07172f]">Investor</label>
                         <select id="user_id" name="user_id" required
-                                class="mt-2 w-full rounded-2xl border-[#d0d5dd] bg-white px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
+                                class="mt-2 w-full rounded-2xl border-[#d0d5dd] @error('user_id') border-red-400 ring-1 ring-red-400 @enderror bg-white px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]">
                             <option value="">Select investor</option>
                             @foreach ($investors as $investor)
                                 <option value="{{ $investor->id }}" @selected(old('user_id') == $investor->id)>
@@ -91,7 +91,7 @@
                         <label for="amount" class="block text-sm font-semibold text-[#07172f]">Amount (£)</label>
                         <input id="amount" name="amount" type="number" min="0" step="0.01" required
                                value="{{ old('amount') }}"
-                               class="mt-2 w-full rounded-2xl border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
+                               class="mt-2 w-full rounded-2xl border-[#d0d5dd] @error('amount') border-red-400 ring-1 ring-red-400 @enderror px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:ring-[#123f8c]"
                                placeholder="25000">
                     </div>
 

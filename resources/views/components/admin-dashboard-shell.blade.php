@@ -42,6 +42,7 @@
 
                 <h3 class="mt-3 text-xl font-bold">Control Panel</h3>
 
+                @php $draftCount = \App\Models\Notice::where('is_published', false)->count(); @endphp
                 <nav class="mt-8 flex-1 space-y-1 text-sm font-medium" aria-label="Admin navigation">
 
                     {{-- Overview --}}
@@ -90,6 +91,20 @@
                         Investors
                     </a>
 
+                    {{-- Notices --}}
+                    <a href="{{ route('admin.notices.index') }}"
+                       class="flex items-center gap-3 rounded-2xl px-4 py-2.5 transition {{ request()->routeIs('admin.notices.*') ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
+                        <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a3 3 0 1 1-5.714 0"/>
+                        </svg>
+                        Notices
+                        @if ($draftCount > 0)
+                            <span class="ms-auto rounded-full bg-[#c9a24d] px-2 py-0.5 text-[10px] font-bold text-[#07172f]">
+                                {{ $draftCount }}
+                            </span>
+                        @endif
+                    </a>
+
                     {{-- Documents (coming soon) --}}
                     <span class="flex cursor-not-allowed items-center gap-3 rounded-2xl px-4 py-2.5 text-slate-500 opacity-60">
                         <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -98,15 +113,6 @@
                         Documents
                         <span class="ms-auto rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-slate-400">Soon</span>
                     </span>
-
-                    {{-- Notices --}}
-                    <a href="{{ route('admin.notices.index') }}"
-                       class="flex items-center gap-3 rounded-2xl px-4 py-2.5 transition {{ request()->routeIs('admin.notices.*') ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
-                        <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a3 3 0 1 1-5.714 0"/>
-                        </svg>
-                        Notices
-                    </a>
 
                     {{-- Profile Settings --}}
                     <a href="{{ route('profile.edit') }}"
