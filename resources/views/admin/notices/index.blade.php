@@ -2,14 +2,9 @@
     <x-slot name="header">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#c9a24d]">
-                    Investor Notices
-                </p>
-                <h2 class="mt-1 font-serif text-2xl font-bold text-[#07172f]">
-                    Manage Notices
-                </h2>
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#c9a24d]">Investor Notices</p>
+                <h2 class="mt-1 font-serif text-2xl font-bold text-[#07172f]">Manage Notices</h2>
             </div>
-
             <a href="{{ route('admin.notices.create') }}"
                class="rounded-full bg-[#07172f] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#123f8c]">
                 Add Notice
@@ -18,8 +13,12 @@
     </x-slot>
 
     <x-admin-dashboard-shell>
+        <x-slot name="breadcrumbs">
+            <x-breadcrumbs :crumbs="[['label' => 'Notices']]" />
+        </x-slot>
+
         @if (session('success'))
-            <div class="rounded-2xl border border-green-200 bg-green-50 px-5 py-4 text-sm font-semibold text-green-800">
+            <div class="rounded-2xl bg-emerald-50 px-5 py-4 text-sm font-semibold text-emerald-800 ring-1 ring-emerald-200">
                 {{ session('success') }}
             </div>
         @endif
@@ -27,21 +26,12 @@
         <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
             <div class="flex flex-col gap-4 border-b border-[#e6e8ee] p-6 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">
-                        Notice Records
-                    </p>
-
-                    <h1 class="mt-2 text-2xl font-bold text-[#07172f]">
-                        Investor Notice List
-                    </h1>
-
-                    <p class="mt-2 text-sm leading-6 text-[#667085]">
-                        Create and manage notices that can be published to investor dashboard users.
-                    </p>
+                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">Notice Records</p>
+                    <h1 class="mt-2 text-2xl font-bold text-[#07172f]">Investor Notice List</h1>
+                    <p class="mt-2 text-sm leading-6 text-[#667085]">Create and manage notices that can be published to investor dashboard users.</p>
                 </div>
-
                 <a href="{{ route('admin.notices.create') }}"
-                   class="inline-flex rounded-full bg-[#c9a24d] px-5 py-3 text-sm font-bold text-[#07172f] hover:bg-[#d7b567]">
+                   class="inline-flex shrink-0 rounded-full bg-[#c9a24d] px-5 py-3 text-sm font-bold text-[#07172f] hover:bg-[#d7b567]">
                     Create New Notice
                 </a>
             </div>
@@ -60,37 +50,22 @@
 
                     <tbody class="divide-y divide-[#e6e8ee] bg-white">
                         @forelse ($notices as $notice)
-                            <tr>
+                            <tr class="transition hover:bg-[#f8fafc]">
                                 <td class="px-6 py-5">
-                                    <p class="font-bold text-[#07172f]">
-                                        {{ $notice->title }}
-                                    </p>
-
+                                    <p class="font-bold text-[#07172f]">{{ $notice->title }}</p>
                                     <p class="mt-1 max-w-xl text-sm leading-6 text-[#667085]">
-                                        {{ \Illuminate\Support\Str::limit($notice->body, 130) }}
+                                        {{ \Illuminate\Support\Str::limit($notice->body, 120) }}
                                     </p>
                                 </td>
-
                                 <td class="px-6 py-5">
-                                    @if ($notice->is_published)
-                                        <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700">
-                                            Published
-                                        </span>
-                                    @else
-                                        <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
-                                            Draft
-                                        </span>
-                                    @endif
+                                    <x-status-badge :status="$notice->is_published ? 'published' : 'draft'" />
                                 </td>
-
                                 <td class="px-6 py-5 text-[#667085]">
-                                    {{ $notice->published_at ? $notice->published_at->format('M d, Y') : '-' }}
+                                    {{ $notice->published_at ? $notice->published_at->format('M d, Y') : '—' }}
                                 </td>
-
                                 <td class="px-6 py-5 text-[#667085]">
-                                    {{ $notice->creator?->name ?? '-' }}
+                                    {{ $notice->creator?->name ?? '—' }}
                                 </td>
-
                                 <td class="px-6 py-5">
                                     <a href="{{ route('admin.notices.edit', $notice) }}"
                                        class="rounded-full bg-[#07172f] px-4 py-2 text-xs font-bold text-white hover:bg-[#123f8c]">
@@ -100,19 +75,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-12 text-center">
-                                    <p class="text-lg font-bold text-[#07172f]">
-                                        No notices yet
-                                    </p>
-
-                                    <p class="mt-2 text-sm text-[#667085]">
-                                        Create your first notice to begin publishing updates to investor users.
-                                    </p>
-
-                                    <a href="{{ route('admin.notices.create') }}"
-                                       class="mt-5 inline-flex rounded-full bg-[#07172f] px-5 py-3 text-sm font-bold text-white hover:bg-[#123f8c]">
-                                        Add First Notice
-                                    </a>
+                                <td colspan="5">
+                                    <x-empty-state icon="notices"
+                                                   heading="No notices yet"
+                                                   subtext="Create your first notice to begin publishing updates to investor users."
+                                                   :action-url="route('admin.notices.create')"
+                                                   action-label="Add First Notice" />
                                 </td>
                             </tr>
                         @endforelse

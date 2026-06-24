@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700|playfair-display:700&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -22,7 +22,7 @@
             </div>
 
             @isset($header)
-                <header class="bg-white border-b border-gray-100">
+                <header class="bg-white border-b border-[#e6e8ee]">
                     <div class="mx-auto max-w-7xl px-6 py-6">
                         {{ $header }}
                     </div>
