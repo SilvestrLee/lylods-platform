@@ -1,94 +1,191 @@
-<x-layouts.public title="Contact - The Lylods Group">
-    <section class="bg-[#07172f] text-white">
-        <div class="mx-auto max-w-7xl px-6 py-24">
+<x-layouts.public title="Contact — The Lylods Group">
+
+    {{-- Hero with background image --}}
+    <section class="relative overflow-hidden bg-[#07172f] text-white">
+        {{-- CMS: replace image with contact->hero_image --}}
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=80"
+                 alt="" class="h-full w-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/90 to-[#07172f]/60"></div>
+        </div>
+        <div class="relative mx-auto max-w-7xl px-6 py-28">
             <div class="max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">
-                    Contact The Lylods Group
-                </p>
-
-                <h1 class="mt-6 font-serif text-5xl font-bold leading-tight tracking-tight md:text-7xl">
-                    Enquiries, access support, and platform communication.
-                </h1>
-
-                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">
-                    Use this page for company enquiries, investor access support, and communication related to The Lylods Group platform.
-                </p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Contact The Lylods Group</p>
+                <h1 class="mt-6 font-serif text-5xl font-bold leading-tight tracking-tight md:text-7xl">Get in Touch</h1>
+                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Whether you have a business enquiry, require information about our services, are interested in investment, or need investor access support — we are here to assist.</p>
             </div>
         </div>
     </section>
 
+    {{-- Contact info + form --}}
     <section class="bg-[#f7f3ea]">
-        <div class="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+
+            {{-- Contact info panel --}}
             <div>
-                <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">
-                    Get in Touch
-                </p>
+                <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">Contact Information</p>
+                <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Reach our team directly.</h2>
+                <p class="mt-4 leading-7 text-[#667085]">Use the form to send an enquiry or contact us using the details below. We aim to respond to all enquiries within two business days.</p>
 
-                <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] md:text-5xl">
-                    Contact details will be added from approved client information.
-                </h2>
-
-                <p class="mt-5 text-lg leading-8 text-[#667085]">
-                    Final contact details, office information, phone numbers, email addresses, and inquiry handling notes should come from the client-approved content.
-                </p>
-            </div>
-
-            <div class="rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm">
-                <div class="space-y-6">
-                    <div class="rounded-2xl border border-[#e6e8ee] p-6">
-                        <h3 class="text-lg font-bold text-[#07172f]">General Enquiries</h3>
-                        <p class="mt-2 leading-7 text-[#667085]">
-                            For business, service, company, or partnership-related communication.
-                        </p>
+                <div class="mt-8 space-y-4">
+                    <div class="flex items-start gap-4 rounded-2xl border border-[#e6e8ee] bg-white p-6">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#07172f]">
+                            <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">General Enquiries</p>
+                            <p class="mt-1 font-semibold text-[#07172f]">enquiries@lylodsgroup.com</p>
+                            <p class="mt-1 text-sm text-[#667085]">For business, services, and general company information.</p>
+                        </div>
                     </div>
 
-                    <div class="rounded-2xl border border-[#e6e8ee] p-6">
-                        <h3 class="text-lg font-bold text-[#07172f]">Investor Access Support</h3>
-                        <p class="mt-2 leading-7 text-[#667085]">
-                            For login, dashboard access, or investor account-related assistance.
-                        </p>
+                    <div class="flex items-start gap-4 rounded-2xl border border-[#e6e8ee] bg-white p-6">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">Office</p>
+                            <p class="mt-1 font-semibold text-[#07172f]">United Kingdom</p>
+                            <p class="mt-1 text-sm text-[#667085]">Office address available upon request.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 rounded-2xl border border-[#e6e8ee] bg-white p-6">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#c9a24d]">
+                            <svg class="h-5 w-5 text-[#07172f]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">Business Hours</p>
+                            <p class="mt-1 font-semibold text-[#07172f]">Monday – Friday</p>
+                            <p class="mt-1 text-sm text-[#667085]">9:00am – 5:00pm GMT</p>
+                        </div>
                     </div>
 
                     <div class="rounded-2xl bg-[#07172f] p-6 text-white">
-                        <h3 class="text-lg font-bold">Secure Platform Access</h3>
-                        <p class="mt-2 leading-7 text-slate-300">
-                            Existing users can log in through the secure dashboard access area.
-                        </p>
-
-                        <a href="{{ route('login') }}"
-                           class="mt-5 inline-flex rounded-full bg-[#c9a24d] px-6 py-3 text-sm font-bold text-[#07172f] hover:bg-[#d8b765]">
-                            Go to Login
-                        </a>
+                        <div class="flex items-start gap-4">
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#c9a24d]">
+                                <svg class="h-5 w-5 text-[#07172f]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">Investor Access</p>
+                                <p class="mt-1 font-semibold">Existing investors</p>
+                                <p class="mt-1 text-sm text-slate-300">Log in to the investor portal for dashboard access, records, and official notices.</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('login') }}" class="mt-4 inline-flex rounded-full bg-[#c9a24d] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#d8b765]">Investor Login</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="bg-white">
-        <div class="mx-auto max-w-7xl px-6 py-20">
-            <div class="grid gap-6 md:grid-cols-3">
-                <div class="rounded-3xl border border-[#e6e8ee] p-8">
-                    <h3 class="text-xl font-bold text-[#07172f]">Business Enquiry</h3>
-                    <p class="mt-4 leading-7 text-[#667085]">
-                        For enquiries about The Lylods Group, services, company information, and public-facing communication.
-                    </p>
+            {{-- Contact form --}}
+            <div class="rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm"
+                 x-data="{ submitted: false }">
+
+                <div x-show="!submitted">
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#123f8c]">Send an Enquiry</p>
+                    <h3 class="mt-2 text-2xl font-bold text-[#07172f]">How can we help?</h3>
+                    <p class="mt-2 text-sm leading-6 text-[#667085]">Complete the form and a member of our team will be in touch.</p>
+
+                    <form class="mt-8 space-y-5" @submit.prevent="submitted = true">
+                        <div class="grid gap-5 sm:grid-cols-2">
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Full Name <span class="text-red-500">*</span></label>
+                                <input type="text" required placeholder="Your full name"
+                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Email Address <span class="text-red-500">*</span></label>
+                                <input type="email" required placeholder="your@email.com"
+                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-[#07172f]">Enquiry Type <span class="text-red-500">*</span></label>
+                            <select required
+                                    class="mt-2 w-full rounded-2xl border border-[#d0d5dd] bg-white px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                <option value="">Select enquiry type</option>
+                                <option value="services">Services Enquiry</option>
+                                <option value="business">Business &amp; Partnerships</option>
+                                <option value="investment">Investment Information</option>
+                                <option value="investor-access">Investor Access Support</option>
+                                <option value="general">General Information</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-[#07172f]">Organisation <span class="text-[#667085] font-normal">(optional)</span></label>
+                            <input type="text" placeholder="Your company or organisation"
+                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-[#07172f]">Message <span class="text-red-500">*</span></label>
+                            <textarea required rows="5" placeholder="Please provide details of your enquiry..."
+                                      class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]"></textarea>
+                        </div>
+
+                        <div class="border-t border-[#e6e8ee] pt-5">
+                            <button type="submit"
+                                    class="w-full rounded-full bg-[#07172f] px-6 py-3.5 text-sm font-bold text-white hover:bg-[#123f8c] sm:w-auto">
+                                Send Enquiry
+                            </button>
+                            <p class="mt-3 text-xs text-[#667085]">We aim to respond within two business days.</p>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="rounded-3xl border border-[#e6e8ee] p-8">
-                    <h3 class="text-xl font-bold text-[#07172f]">Investor Enquiry</h3>
-                    <p class="mt-4 leading-7 text-[#667085]">
-                        For investor-related questions, dashboard access, and investment information support.
-                    </p>
-                </div>
-
-                <div class="rounded-3xl border border-[#e6e8ee] p-8">
-                    <h3 class="text-xl font-bold text-[#07172f]">Admin Support</h3>
-                    <p class="mt-4 leading-7 text-[#667085]">
-                        For platform management, account setup, and backend-related operational support.
-                    </p>
+                <div x-show="submitted" style="display:none;" class="py-8 text-center">
+                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#f7f3ea]">
+                        <svg class="h-8 w-8 text-[#07172f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 font-serif text-2xl font-bold text-[#07172f]">Enquiry Received</h3>
+                    <p class="mt-3 leading-7 text-[#667085]">Thank you for reaching out. A member of our team will review your enquiry and respond within two business days.</p>
+                    <button @click="submitted = false"
+                            class="mt-6 rounded-full border border-[#d0d5dd] px-6 py-2.5 text-sm font-semibold text-[#07172f] hover:bg-[#f7f3ea]">
+                        Send Another Enquiry
+                    </button>
                 </div>
             </div>
         </div>
     </section>
+
+    {{-- Enquiry types --}}
+    <section class="bg-white">
+        <div class="mx-auto max-w-7xl px-6 py-20">
+            <div class="max-w-2xl">
+                <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">How We Can Help</p>
+                <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f]">What is your enquiry about?</h2>
+            </div>
+
+            <div class="mt-10 grid gap-6 md:grid-cols-3">
+                <div class="rounded-3xl border border-[#e6e8ee] p-8">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#07172f]">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-[#07172f]">Business &amp; Services</h3>
+                    <p class="mt-4 leading-7 text-[#667085]">For enquiries about our professional services, specific disciplines, project-based engagements, or partnership opportunities with The Lylods Group.</p>
+                </div>
+
+                <div class="rounded-3xl border border-[#e6e8ee] p-8">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#123f8c]">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"/></svg>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-[#07172f]">Investment Enquiries</h3>
+                    <p class="mt-4 leading-7 text-[#667085]">For enquiries related to investment, investor access, dashboard support, or investor account assistance. Existing investors can also log in directly via the investor portal.</p>
+                </div>
+
+                <div class="rounded-3xl border border-[#e6e8ee] p-8">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#c9a24d]">
+                        <svg class="h-6 w-6 text-[#07172f]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-[#07172f]">General Information</h3>
+                    <p class="mt-4 leading-7 text-[#667085]">For general questions about The Lylods Group, our organisation, our approach, or any other matter not covered above. We welcome all professional enquiries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </x-layouts.public>

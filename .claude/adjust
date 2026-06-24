@@ -1,0 +1,193 @@
+Important Design Requirement
+
+The public-facing website must feel relatable, contextual and credible.
+
+The website should not rely on text only.
+
+Use high-quality contextual images and iconography throughout the website.
+
+
+Images should be relevant to each section.
+
+
+Examples
+
+
+Project Management
+
+Images of project teams reviewing plans, site meetings, planning sessions
+
+
+Engineering & Infrastructure
+
+Construction sites
+Bridges
+Roads
+Buildings
+Industrial facilities
+
+
+Digital Transformation
+
+Data visualizations
+Networks
+Cloud infrastructure
+Business technology
+
+
+Technology & Innovation
+
+AI
+Digital interfaces
+Software teams
+Emerging technologies
+
+
+Training & Capacity Development
+
+Workshops
+Professional seminars
+Corporate training
+
+
+Business Consulting
+
+Boardroom discussions
+Business strategy meetings
+Executives collaborating
+
+
+Recruitment & Workforce Solutions
+
+Interview sessions
+Diverse professional teams
+Talent acquisition
+
+
+Compliance & Information Security
+
+Cybersecurity imagery
+Security dashboards
+Audit and governance concepts
+
+
+Investor Section
+
+Professional business meetings
+Financial analysis
+Corporate growth visuals
+
+
+Testimonials
+
+Portrait placeholders
+Client logos placeholders
+
+
+Insights
+
+Article thumbnails
+Publication covers
+
+
+Contact
+
+Office environment
+Location imagery
+
+
+
+
+Icons
+
+Icons should supplement content where appropriate.
+
+Preferred icon libraries
+
+Heroicons
+Lucide
+Tabler Icons
+
+
+Avoid emoji icons.
+
+
+Examples
+
+
+Capability cards
+
+Service cards
+
+Statistics section
+
+Mega menu items
+
+Why Choose Us section
+
+Process section
+
+Contact methods
+
+Footer quick links
+
+
+
+
+
+Image Sources
+
+During development use curated placeholder images.
+
+Suggested sources
+
+Unsplash
+
+Pexels
+
+Pixabay
+
+
+Images should later be replaceable from the CMS.
+
+
+CMS readiness
+
+Images should eventually be managed from backend modules.
+
+Do not hardcode image paths permanently.
+
+Prepare the structure so future CMS integration can replace images without changing layouts.
+
+The website should feel closer to
+
+Bechtel
+
+AECOM
+
+WSP
+
+Arup
+
+PwC
+
+Deloitte
+
+Accenture
+
+
+and farther away from
+
+small agency websites
+
+WordPress themes
+
+investment-only firms
+
+crypto landing pages
+
+generic consulting templates
+
+go ahead and implement
+
+use 21st dev and ui ux pro max skill

@@ -25,3 +25,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+.claude_backup_before_lylods_cleanup_20260624_035228/
+resources/views_backup_20260612_071328/
+skills-lock.json
+
