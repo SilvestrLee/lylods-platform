@@ -9,20 +9,46 @@
             <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/90 to-[#07172f]/60"></div>
         </div>
         <div class="relative mx-auto max-w-7xl px-6 py-28">
-            <div class="max-w-4xl">
+            <div class="tlg-reveal max-w-4xl">
                 <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Contact The Lylods Group</p>
-                <h1 class="mt-6 font-serif text-5xl font-bold leading-tight tracking-tight md:text-7xl">Get in Touch</h1>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-[0.95] tracking-tight md:text-5xl lg:text-[3.5rem] xl:text-[3.85rem]">Get in Touch</h1>
                 <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Whether you have a business enquiry, require information about our services, are interested in investment, or need investor access support — we are here to assist.</p>
             </div>
         </div>
     </section>
+
+    {{-- Stats band --}}
+    <div class="border-t border-white/10 bg-[#07172f]">
+        <div class="mx-auto max-w-7xl px-6 py-8">
+            <dl class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 text-center">
+                <div class="tlg-reveal tlg-d1">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Response Target</dt>
+                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">2 Business Days</dd>
+                    <dd class="mt-1 text-xs text-slate-400">For all enquiry types</dd>
+                </div>
+                <div class="tlg-reveal tlg-d2">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Disciplines Available</dt>
+                    <dd class="mt-2 font-serif text-4xl font-bold text-white">8</dd>
+                </div>
+                <div class="tlg-reveal tlg-d3">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Our Base</dt>
+                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">United Kingdom</dd>
+                    <dd class="mt-1 text-xs text-slate-400">Operating internationally</dd>
+                </div>
+                <div class="tlg-reveal tlg-d4">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Enquiry Types</dt>
+                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">Services, Investment &amp; General</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
 
     {{-- Contact info + form --}}
     <section class="bg-[#f7f3ea]">
         <div class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
 
             {{-- Contact info panel --}}
-            <div>
+            <div class="tlg-reveal">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">Contact Information</p>
                 <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Reach our team directly.</h2>
                 <p class="mt-4 leading-7 text-[#667085]">Use the form to send an enquiry or contact us using the details below. We aim to respond to all enquiries within two business days.</p>
@@ -78,7 +104,7 @@
             </div>
 
             {{-- Contact form --}}
-            <div class="rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm"
+            <div class="tlg-reveal tlg-d1 rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm"
                  x-data="{ submitted: false }">
 
                 <div x-show="!submitted">
@@ -155,13 +181,13 @@
     {{-- Enquiry types --}}
     <section class="bg-white">
         <div class="mx-auto max-w-7xl px-6 py-20">
-            <div class="max-w-2xl">
+            <div class="tlg-reveal max-w-2xl">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">How We Can Help</p>
                 <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f]">What is your enquiry about?</h2>
             </div>
 
             <div class="mt-10 grid gap-6 md:grid-cols-3">
-                <div class="rounded-3xl border border-[#e6e8ee] p-8">
+                <div class="tlg-reveal tlg-d1 rounded-3xl border border-[#e6e8ee] border-t-4 border-t-[#07172f] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:shadow-md">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#07172f]">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg>
                     </div>
@@ -169,7 +195,7 @@
                     <p class="mt-4 leading-7 text-[#667085]">For enquiries about our professional services, specific disciplines, project-based engagements, or partnership opportunities with The Lylods Group.</p>
                 </div>
 
-                <div class="rounded-3xl border border-[#e6e8ee] p-8">
+                <div class="tlg-reveal tlg-d2 rounded-3xl border border-[#e6e8ee] border-t-4 border-t-[#123f8c] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:shadow-md">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#123f8c]">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"/></svg>
                     </div>
@@ -177,7 +203,7 @@
                     <p class="mt-4 leading-7 text-[#667085]">For enquiries related to investment, investor access, dashboard support, or investor account assistance. Existing investors can also log in directly via the investor portal.</p>
                 </div>
 
-                <div class="rounded-3xl border border-[#e6e8ee] p-8">
+                <div class="tlg-reveal tlg-d3 rounded-3xl border border-[#e6e8ee] border-t-4 border-t-[#c9a24d] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:shadow-md">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#c9a24d]">
                         <svg class="h-6 w-6 text-[#07172f]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg>
                     </div>

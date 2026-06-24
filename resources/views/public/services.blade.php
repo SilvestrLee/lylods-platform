@@ -4,31 +4,74 @@
     <section class="relative overflow-hidden bg-[#07172f] text-white">
         {{-- CMS: replace image with services->hero_image --}}
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=80"
+            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=80"
                  alt="" class="h-full w-full object-cover opacity-20">
             <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/90 to-[#07172f]/60"></div>
         </div>
         <div class="relative mx-auto max-w-7xl px-6 py-28">
-            <div class="max-w-4xl">
+            <div class="tlg-reveal max-w-4xl">
                 <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Professional Services</p>
-                <h1 class="mt-6 font-serif text-5xl font-bold leading-tight tracking-tight md:text-7xl">
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-[0.95] tracking-tight md:text-5xl lg:text-[3.5rem] xl:text-[3.85rem]">
                     Comprehensive Expertise for Complex Challenges
                 </h1>
                 <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">
                     The Lylods Group delivers across eight professional service disciplines, providing clients with the full range of expertise required for high-stakes and complex engagements. We bring structure, experience, and accountability to every scope of work.
                 </p>
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="{{ route('contact') }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] hover:bg-[#d8b765]">Discuss Your Requirements</a>
-                    <a href="{{ route('about') }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white hover:bg-white/10">About The Group</a>
+                    <a href="{{ route('contact') }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">Discuss Your Requirements</a>
+                    <a href="{{ route('about') }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">About The Group</a>
                 </div>
             </div>
         </div>
     </section>
 
+    {{-- Stats band --}}
+    <div class="border-t border-white/10 bg-[#07172f]">
+        <div class="mx-auto max-w-7xl px-6 py-8">
+            <dl class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 text-center">
+                <div class="tlg-reveal tlg-d1">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Service Areas</dt>
+                    <dd class="mt-2 font-serif text-4xl font-bold text-white">8</dd>
+                </div>
+                <div class="tlg-reveal tlg-d2">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Accountability Model</dt>
+                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">Single Partner</dd>
+                    <dd class="mt-1 text-xs text-slate-400">Across all disciplines</dd>
+                </div>
+                <div class="tlg-reveal tlg-d3">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Delivery Approach</dt>
+                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">Structured Methodology</dd>
+                    <dd class="mt-1 text-xs text-slate-400">Milestone-driven engagement</dd>
+                </div>
+                <div class="tlg-reveal tlg-d4">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Engagement Model</dt>
+                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">Advisory &amp; Delivery</dd>
+                    <dd class="mt-1 text-xs text-slate-400">From scoping to close-out</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+
+    {{-- Discipline quick-nav --}}
+    <div class="sticky top-[65px] z-40 border-b border-[#e6e8ee] bg-white/95 backdrop-blur-xl">
+        <div class="mx-auto max-w-7xl overflow-x-auto px-6">
+            <div class="flex gap-1 py-3 text-sm font-semibold" style="white-space:nowrap;">
+                <a href="#engineering" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Engineering</a>
+                <a href="#technology" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Technology</a>
+                <a href="#project-management" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Project Management</a>
+                <a href="#training" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Training</a>
+                <a href="#consulting" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Consulting</a>
+                <a href="#recruitment" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Recruitment</a>
+                <a href="#compliance" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Compliance</a>
+                <a href="#multidisciplinary" class="rounded-full px-4 py-2 text-[#07172f] transition-all duration-200 hover:bg-[#f7f3ea]">Multidisciplinary</a>
+            </div>
+        </div>
+    </div>
+
     {{-- Services list --}}
     <section class="bg-[#f7f3ea]">
         <div class="mx-auto max-w-7xl px-6 py-20">
-            <div class="max-w-3xl">
+            <div class="tlg-reveal max-w-3xl">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">Our Disciplines</p>
                 <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] md:text-5xl">Eight service areas. One accountable partner.</h2>
                 <p class="mt-5 text-lg leading-8 text-[#667085]">Our disciplines are structured to complement each other. Clients working across multiple areas benefit from coordinated advisory and unified delivery under a single point of accountability.</p>
@@ -37,7 +80,7 @@
             <div class="mt-14 space-y-6">
 
                 {{-- Engineering & Infrastructure --}}
-                <div id="engineering" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="engineering" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with engineering service image --}}
                         <div class="relative hidden lg:block">
@@ -54,8 +97,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 01</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Engineering &amp; Infrastructure Solutions</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We provide engineering consultancy and infrastructure advisory for projects requiring structural, civil, and operational expertise. Our teams support feasibility assessment, technical planning, delivery oversight, and asset management across sectors. We work alongside project owners, developers, and contractors to bring clarity and rigour to complex engineering programmes.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We provide engineering consultancy and infrastructure advisory for projects requiring technical rigour, delivery coordination, and sector-specific expertise.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Engineering consultancy and advisory</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Infrastructure planning and feasibility</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Project controls and delivery oversight</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Asset management support</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Technical coordination services</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Government infrastructure departments</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Developers and project owners</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Engineering contractors and subcontractors</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Energy and utilities operators</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Clearly defined technical scope</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Structured delivery oversight</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Risk-managed engineering programmes</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Documented feasibility and planning outputs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -64,7 +137,7 @@
                 </div>
 
                 {{-- Technology & Innovation --}}
-                <div id="technology" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="technology" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with technology service image --}}
                         <div class="relative hidden lg:block">
@@ -80,8 +153,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 02</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Technology &amp; Innovation Services</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We support digital transformation, systems integration, and technology strategy for organisations navigating change. Our advisory covers enterprise architecture, technology roadmap development, solution selection, and emerging technology adoption. We help clients modernise operations, improve efficiency, and position themselves for sustainable growth through informed technology decisions.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We support digital transformation, systems integration, and technology strategy for organisations navigating operational and structural change.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Digital transformation strategy</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Enterprise architecture advisory</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Technology roadmap development</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Systems integration planning</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Solution selection and evaluation</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>CIOs and transformation directors</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Government IT and digital teams</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Operations and process improvement leads</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations modernising legacy systems</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Aligned technology strategy</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Structured modernisation roadmap</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Improved operational efficiency</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Informed technology investment decisions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -90,7 +193,7 @@
                 </div>
 
                 {{-- Project Management --}}
-                <div id="project-management" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="project-management" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with project management service image --}}
                         <div class="relative hidden lg:block">
@@ -106,8 +209,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 03</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Project Management &amp; Delivery</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We provide end-to-end project and programme management services, from initial scope definition and planning through to delivery, close-out, and handover. Our approach is structured, milestone-driven, and transparent. We bring experienced project professionals who can lead, coordinate, or support delivery across industries, applying recognised methodologies tailored to each engagement.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We provide structured programme and project management across planning, execution, governance, and close-out phases.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Programme and project management</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>PMO design and implementation</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Risk and issue management</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Milestone planning and tracking</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Stakeholder reporting and governance</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Infrastructure and capital project owners</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Government programme offices</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Corporate delivery and transformation teams</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations managing multi-workstream programmes</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>On-track, milestone-led delivery</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Clear governance and accountability structure</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Reduced delivery risk</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Documented programme close-out</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -116,7 +249,7 @@
                 </div>
 
                 {{-- Training --}}
-                <div id="training" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="training" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with training service image --}}
                         <div class="relative hidden lg:block">
@@ -132,8 +265,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 04</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Training &amp; Capacity Development</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We design and deliver professional training, workforce upskilling, and capacity development programmes aligned to organisational goals and sector requirements. Our training engagements are tailored to the specific context of each client — whether addressing skills gaps, onboarding new capabilities, or preparing teams for regulatory or operational change. We measure our training outcomes by real-world application and sustained performance.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We design and deliver professional training and capacity development programmes tailored to your sector, team, and organisational objectives.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Professional skills and technical training</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Workforce upskilling programmes</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Regulatory and compliance training</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Onboarding and induction design</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Institutional capacity building</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>HR and learning &amp; development teams</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Public sector agencies and institutions</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations managing workforce transition</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Skills development and training bodies</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Measurable skills and competency improvement</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Regulatory readiness and compliance capability</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Higher-performing, better-prepared teams</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Documented training frameworks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -142,7 +305,7 @@
                 </div>
 
                 {{-- Business Consulting --}}
-                <div id="consulting" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="consulting" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with consulting service image --}}
                         <div class="relative hidden lg:block">
@@ -158,8 +321,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 05</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Business Consulting</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We provide strategic business advisory across operations, growth planning, organisational design, and performance improvement. Our consultants work alongside leadership teams to inform critical decisions, identify efficiencies, and support the execution of business strategy. We bring an independent, evidence-based perspective designed to challenge assumptions and strengthen outcomes.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We provide strategic advisory and performance improvement consulting for leadership teams navigating change, growth, and operational complexity.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Business strategy development</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Operational improvement and optimisation</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisational design and restructuring</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Performance benchmarking</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Executive advisory and decision support</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>C-suite and senior leadership teams</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Boards and executive committees</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Growth-stage and transforming organisations</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations requiring independent advisory</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Clear strategic direction and priorities</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Improved operational performance</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Informed, evidence-based decision-making</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Structured improvement roadmaps</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -168,7 +361,7 @@
                 </div>
 
                 {{-- Recruitment --}}
-                <div id="recruitment" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="recruitment" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with recruitment service image --}}
                         <div class="relative hidden lg:block">
@@ -184,8 +377,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 06</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Recruitment &amp; Workforce Solutions</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We support organisations in identifying, attracting, and placing skilled professionals across a range of functions and seniority levels. Our recruitment services extend from permanent placement to specialist interim and contract roles. We take time to understand the technical and cultural requirements of each role to ensure the right fit for both client and candidate.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We source, screen, and place specialist professionals across permanent, interim, and contract roles — matched to the technical and cultural requirements of each engagement.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Specialist professional placement</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Interim and contract staffing</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Workforce planning and gap analysis</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Role profiling and talent sourcing</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Multi-discipline team augmentation</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Hiring managers and HR departments</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Project teams with specialist resource gaps</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Infrastructure and engineering programmes</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations scaling delivery capacity</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Right-fit professionals placed efficiently</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Faster capability deployment</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Reduced recruitment friction and cost</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Sustained workforce capacity</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -194,7 +417,7 @@
                 </div>
 
                 {{-- Compliance & Governance --}}
-                <div id="compliance" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="compliance" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with compliance service image --}}
                         <div class="relative hidden lg:block">
@@ -210,8 +433,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 07</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Compliance, Governance &amp; Information Security</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We help organisations understand and meet their regulatory obligations, strengthen internal governance structures, and protect information assets against risk. Our advisory covers compliance framework development, policy design, audit readiness, data governance, and information security strategy. We work with clients to build robust, sustainable compliance cultures rather than one-time fixes.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">We help organisations strengthen their compliance frameworks, governance structures, and information security posture — building resilient, audit-ready practices.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Compliance framework design and review</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Policy development and documentation</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Audit readiness preparation</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Data governance and protection</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Information security strategy</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Compliance and legal officers</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Board governance and risk committees</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Regulated industries and public bodies</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations preparing for external audit</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Audit-ready governance documentation</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Robust and sustainable compliance culture</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Reduced regulatory and information risk</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Structured policy and governance frameworks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -220,7 +473,7 @@
                 </div>
 
                 {{-- Multidisciplinary --}}
-                <div id="multidisciplinary" class="scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                <div id="multidisciplinary" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                     <div class="lg:grid lg:grid-cols-[320px_1fr]">
                         {{-- CMS: replace with multidisciplinary service image --}}
                         <div class="relative hidden lg:block">
@@ -236,8 +489,38 @@
                                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Discipline 08</p>
                             </div>
                             <h2 class="mt-4 font-serif text-3xl font-bold text-[#07172f]">Multidisciplinary Consulting</h2>
-                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">For engagements that require expertise across multiple disciplines, The Lylods Group coordinates across our practice areas to provide cohesive, integrated consultancy under a single point of accountability. We manage the complexity of multi-discipline programmes so our clients can focus on their objectives. This approach is particularly valuable for large-scale projects, organisational transformation, and strategic initiatives with overlapping workstreams.</p>
-                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#07172f] hover:text-white">
+                            <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667085]">For engagements spanning multiple disciplines, The Lylods Group coordinates across practice areas under a single point of accountability — managing complexity so you can focus on outcomes.</p>
+                            <div class="mt-8 grid gap-6 border-t border-[#e6e8ee] pt-8 sm:grid-cols-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">What it covers</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Cross-discipline programme coordination</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Integrated advisory across multiple workstreams</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Unified reporting and governance</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Multi-team delivery management</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Strategic and operational integration</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Who it supports</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Large-scale project and programme owners</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Organisations with complex multi-function requirements</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Strategic transformation initiatives</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Clients requiring a single coordinating partner</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c9a24d]">Typical outcomes</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Unified delivery across disciplines</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Reduced coordination overhead and friction</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Single-source governance and accountability</li>
+                                        <li class="flex items-start gap-2 text-sm leading-6 text-[#667085]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>Structured, documented multi-discipline outputs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{{ route('contact') }}" class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#07172f] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
                                 Enquire About This Service
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
@@ -249,17 +532,108 @@
         </div>
     </section>
 
+    {{-- Capability matrix --}}
+    <section class="bg-[#07172f] text-white">
+        <div class="mx-auto max-w-7xl px-6 py-24">
+            <div class="tlg-reveal max-w-2xl">
+                <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Capability Overview</p>
+                <h2 class="mt-4 font-serif text-4xl font-bold">How our disciplines are structured.</h2>
+                <p class="mt-5 leading-7 text-slate-300">Our eight service areas are grouped across three practice clusters — enabling coordinated, cross-disciplinary delivery under a single accountable partner.</p>
+            </div>
+
+            <div class="mt-14 grid gap-6 lg:grid-cols-3">
+                {{-- Technical Practice --}}
+                <div class="tlg-reveal tlg-d1 rounded-[1.75rem] border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:bg-white/10">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Technical Practice</p>
+                    <h3 class="mt-4 text-xl font-bold text-white">Engineering &amp; Technology</h3>
+                    <p class="mt-4 text-sm leading-7 text-slate-300">Specialist technical expertise for infrastructure projects, digital transformation, and systems-level challenges across sectors.</p>
+                    <ul class="mt-6 space-y-3">
+                        <li class="flex items-center gap-2.5 text-sm text-slate-200">
+                            <svg class="h-4 w-4 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Engineering &amp; Infrastructure Solutions
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-slate-200">
+                            <svg class="h-4 w-4 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Technology &amp; Innovation Services
+                        </li>
+                    </ul>
+                    <div class="mt-8 border-t border-white/10 pt-6">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Typical Sectors</p>
+                        <p class="mt-2 text-xs text-slate-400">Infrastructure · Energy · Government · Industrial</p>
+                    </div>
+                </div>
+
+                {{-- Delivery Practice --}}
+                <div class="tlg-reveal tlg-d2 rounded-[1.75rem] border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:bg-white/10">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Delivery Practice</p>
+                    <h3 class="mt-4 text-xl font-bold text-white">Programme &amp; People</h3>
+                    <p class="mt-4 text-sm leading-7 text-slate-300">End-to-end programme management and human capital services — ensuring delivery capability and workforce readiness at every stage.</p>
+                    <ul class="mt-6 space-y-3">
+                        <li class="flex items-center gap-2.5 text-sm text-slate-200">
+                            <svg class="h-4 w-4 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Project Management &amp; Delivery
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-slate-200">
+                            <svg class="h-4 w-4 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Training &amp; Capacity Development
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-slate-200">
+                            <svg class="h-4 w-4 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Recruitment &amp; Workforce Solutions
+                        </li>
+                    </ul>
+                    <div class="mt-8 border-t border-white/10 pt-6">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Typical Sectors</p>
+                        <p class="mt-2 text-xs text-slate-400">All sectors · Cross-industry · Public &amp; Private</p>
+                    </div>
+                </div>
+
+                {{-- Advisory Practice --}}
+                <div class="tlg-reveal tlg-d3 rounded-[1.75rem] bg-[#c9a24d] p-8 transition-all duration-300 hover:brightness-105">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#07172f]">Advisory Practice</p>
+                    <h3 class="mt-4 text-xl font-bold text-[#07172f]">Strategy &amp; Governance</h3>
+                    <p class="mt-4 text-sm leading-7 text-[#07172f]/75">Strategic advisory, governance leadership, and integrated multi-discipline engagement for organisations navigating complexity.</p>
+                    <ul class="mt-6 space-y-3">
+                        <li class="flex items-center gap-2.5 text-sm text-[#07172f]">
+                            <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Business Consulting
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-[#07172f]">
+                            <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Compliance &amp; Governance
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-[#07172f]">
+                            <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Multidisciplinary Consulting
+                        </li>
+                    </ul>
+                    <div class="mt-8 border-t border-[#07172f]/20 pt-6">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#07172f]/60">Typical Sectors</p>
+                        <p class="mt-2 text-xs text-[#07172f]/70">Financial Services · Professional Services · Technology · Government</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tlg-reveal mt-12">
+                <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">
+                    Discuss Your Requirements
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
     {{-- CTA --}}
     <section class="bg-white">
         <div class="mx-auto max-w-7xl px-6 py-20">
-            <div class="rounded-[2rem] bg-[#07172f] px-8 py-12 text-white md:px-12">
+            <div class="tlg-reveal rounded-[2rem] bg-[#07172f] px-8 py-12 text-white md:px-12">
                 <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                     <div>
                         <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">Work With Us</p>
                         <h2 class="mt-4 font-serif text-4xl font-bold">Discuss your requirements with our team.</h2>
                         <p class="mt-4 max-w-2xl leading-7 text-slate-300">Whether you have a defined scope of work or an early-stage need, we welcome conversations about how The Lylods Group can support your organisation.</p>
                     </div>
-                    <a href="{{ route('contact') }}" class="inline-flex justify-center rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] hover:bg-[#d8b765]">Get in Touch</a>
+                    <a href="{{ route('contact') }}" class="inline-flex justify-center rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">Get in Touch</a>
                 </div>
             </div>
         </div>
