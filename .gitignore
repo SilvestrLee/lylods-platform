@@ -33,3 +33,6 @@ skills-lock.json
 
 # Internal project planning documents
 source/
+
+# Claude local workspace
+.claude/
