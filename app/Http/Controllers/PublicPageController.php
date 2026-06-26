@@ -30,4 +30,34 @@ class PublicPageController extends Controller
     {
         return view('public.contact');
     }
+
+    public function caseStudies()
+    {
+        return view('public.case-studies');
+    }
+
+    public function insights()
+    {
+        return view('public.insights');
+    }
+
+    public function property()
+    {
+        return view('public.property');
+    }
+
+    public function careers()
+    {
+        return view('public.careers');
+    }
+
+    public function privacy()
+    {
+        return view('public.privacy');
+    }
+
+    public function communityProjects()
+    {
+        return view('public.community-projects');
+    }
 }

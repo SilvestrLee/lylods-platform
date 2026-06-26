@@ -15,6 +15,12 @@ Route::get('/about', [PublicPageController::class, 'about'])->name('about');
 Route::get('/services', [PublicPageController::class, 'services'])->name('services');
 Route::get('/investment', [PublicPageController::class, 'investment'])->name('investment');
 Route::get('/contact', [PublicPageController::class, 'contact'])->name('contact');
+Route::get('/case-studies', [PublicPageController::class, 'caseStudies'])->name('case-studies');
+Route::get('/insights', [PublicPageController::class, 'insights'])->name('insights');
+Route::get('/property', [PublicPageController::class, 'property'])->name('property');
+Route::get('/careers', [PublicPageController::class, 'careers'])->name('careers');
+Route::get('/privacy', [PublicPageController::class, 'privacy'])->name('privacy');
+Route::get('/community-projects', [PublicPageController::class, 'communityProjects'])->name('community-projects');
 
 Route::middleware(['auth', 'investor'])->group(function () {
     Route::get('/dashboard', [InvestorDashboardController::class, 'index'])->name('dashboard');
