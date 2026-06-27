@@ -4,6 +4,13 @@
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
+        {{-- CMS: replace with community->hero_image --}}
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1800&q=80"
+                 alt=""
+                 class="h-full w-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/90 to-[#07172f]/60"></div>
+        </div>
         <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
                 <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Service Area 05</p>
@@ -16,7 +23,6 @@
                 </div>
             </div>
         </div>
-        <div class="absolute inset-0 -z-10 opacity-10" style="background-image: radial-gradient(circle at 75% 25%, #c9a24d 0%, transparent 50%), radial-gradient(circle at 20% 75%, #123f8c 0%, transparent 50%)"></div>
     </section>
 
     {{-- Section One — What We Support --}}
@@ -110,6 +116,12 @@
                         Talk to Us About Your Project
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                     </a>
+                    {{-- CMS: replace with community->audience_image --}}
+                    <div class="mt-10 overflow-hidden rounded-2xl shadow-md">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+                             alt="Community stakeholder meeting"
+                             class="h-64 w-full object-cover object-center">
+                    </div>
                 </div>
                 {{-- Future CMS-managed community content --}}
                 <div class="grid gap-3 sm:grid-cols-2">
@@ -143,6 +155,12 @@
                     <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">Our Role</p>
                     <h2 class="mt-4 font-serif text-4xl font-bold lg:text-[2.4rem]">We help you move from idea to action.</h2>
                     <p class="mt-5 leading-8 text-slate-300">The Lylods Group acts as a practical delivery partner — helping community projects gain clarity, structure, coordination and momentum at every stage.</p>
+                    {{-- CMS: replace with community->role_image --}}
+                    <div class="mt-8 overflow-hidden rounded-2xl border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                             alt="Project planning and coordination session"
+                             class="h-60 w-full object-cover object-center">
+                    </div>
                 </div>
                 {{-- Future CMS-managed community content --}}
                 <div class="space-y-4">
@@ -215,52 +233,112 @@
             {{-- Future CMS-managed community content --}}
             <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 
-                <div class="tlg-reveal tlg-d1 group rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
-                        <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+                {{-- Card 1 --}}
+                <div class="tlg-reveal tlg-d1 group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
+                    {{-- CMS: replace with community->engagement_image_01 --}}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80"
+                             alt="Community training session"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/40 to-transparent"></div>
                     </div>
-                    <h3 class="mt-6 font-bold text-[#07172f]">Community training programme</h3>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">Designing and coordinating structured training programmes for community groups, charities or public-sector partners.</p>
+                    <div class="p-8">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+                        </div>
+                        <h3 class="mt-6 font-bold text-[#07172f]">Community training programme</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Designing and coordinating structured training programmes for community groups, charities or public-sector partners.</p>
+                    </div>
                 </div>
 
-                <div class="tlg-reveal tlg-d2 group rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
-                        <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg>
+                {{-- Card 2 --}}
+                <div class="tlg-reveal tlg-d2 group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
+                    {{-- CMS: replace with community->engagement_image_02 --}}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80"
+                             alt="Employability support discussion"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/40 to-transparent"></div>
                     </div>
-                    <h3 class="mt-6 font-bold text-[#07172f]">Employability support initiative</h3>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">Supporting programme design and delivery for employability and skills-based initiatives targeting local communities.</p>
+                    <div class="p-8">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg>
+                        </div>
+                        <h3 class="mt-6 font-bold text-[#07172f]">Employability support initiative</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Supporting programme design and delivery for employability and skills-based initiatives targeting local communities.</p>
+                    </div>
                 </div>
 
-                <div class="tlg-reveal tlg-d3 group rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
-                        <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                {{-- Card 3 --}}
+                <div class="tlg-reveal tlg-d3 group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
+                    {{-- CMS: replace with community->engagement_image_03 --}}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=600&q=80"
+                             alt="Youth development group activity"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/40 to-transparent"></div>
                     </div>
-                    <h3 class="mt-6 font-bold text-[#07172f]">Youth development project</h3>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">Coordinating structured youth engagement projects that connect young people with opportunities, mentors and structured support.</p>
+                    <div class="p-8">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                        </div>
+                        <h3 class="mt-6 font-bold text-[#07172f]">Youth development project</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Coordinating structured youth engagement projects that connect young people with opportunities, mentors and structured support.</p>
+                    </div>
                 </div>
 
-                <div class="tlg-reveal tlg-d1 group rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
-                        <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/></svg>
+                {{-- Card 4 --}}
+                <div class="tlg-reveal tlg-d1 group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
+                    {{-- CMS: replace with community->engagement_image_04 --}}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80"
+                             alt="Local business and community meeting"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/40 to-transparent"></div>
                     </div>
-                    <h3 class="mt-6 font-bold text-[#07172f]">Local business support programme</h3>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">Planning and coordinating programmes that connect local businesses with community networks, training or partnership opportunities.</p>
+                    <div class="p-8">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/></svg>
+                        </div>
+                        <h3 class="mt-6 font-bold text-[#07172f]">Local business support programme</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Planning and coordinating programmes that connect local businesses with community networks, training or partnership opportunities.</p>
+                    </div>
                 </div>
 
-                <div class="tlg-reveal tlg-d2 group rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
-                        <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
+                {{-- Card 5 --}}
+                <div class="tlg-reveal tlg-d2 group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
+                    {{-- CMS: replace with community->engagement_image_05 --}}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?auto=format&fit=crop&w=600&q=80"
+                             alt="Multi-organisation partnership meeting"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/40 to-transparent"></div>
                     </div>
-                    <h3 class="mt-6 font-bold text-[#07172f]">Partnership coordination</h3>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">Supporting multi-organisation partnerships by managing communication, shared planning and joint accountability across all partners.</p>
+                    <div class="p-8">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
+                        </div>
+                        <h3 class="mt-6 font-bold text-[#07172f]">Partnership coordination</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Supporting multi-organisation partnerships by managing communication, shared planning and joint accountability across all partners.</p>
+                    </div>
                 </div>
 
-                <div class="tlg-reveal tlg-d3 group rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] p-8 transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
-                        <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                {{-- Card 6 --}}
+                <div class="tlg-reveal tlg-d3 group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-[#f7f3ea] transition-all duration-300 hover:border-[#c9a24d] hover:bg-white hover:shadow-md">
+                    {{-- CMS: replace with community->engagement_image_06 --}}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80"
+                             alt="Capacity building workshop in progress"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/40 to-transparent"></div>
                     </div>
-                    <h3 class="mt-6 font-bold text-[#07172f]">Capacity building workshop</h3>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">Designing and delivering structured workshops that help organisations build internal skills, confidence and processes.</p>
+                    <div class="p-8">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#07172f] transition-all duration-300 group-hover:bg-[#123f8c]">
+                            <svg class="h-5 w-5 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                        </div>
+                        <h3 class="mt-6 font-bold text-[#07172f]">Capacity building workshop</h3>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">Designing and delivering structured workshops that help organisations build internal skills, confidence and processes.</p>
+                    </div>
                 </div>
 
             </div>

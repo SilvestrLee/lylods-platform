@@ -21,6 +21,11 @@ Route::get('/property', [PublicPageController::class, 'property'])->name('proper
 Route::get('/careers', [PublicPageController::class, 'careers'])->name('careers');
 Route::get('/privacy', [PublicPageController::class, 'privacy'])->name('privacy');
 Route::get('/community-projects', [PublicPageController::class, 'communityProjects'])->name('community-projects');
+Route::get('/privacy-notice', [PublicPageController::class, 'privacyNotice'])->name('privacy-notice');
+Route::get('/cookie-notice', [PublicPageController::class, 'cookieNotice'])->name('cookie-notice');
+Route::get('/accessibility', [PublicPageController::class, 'accessibility'])->name('accessibility');
+Route::get('/complaints', [PublicPageController::class, 'complaints'])->name('complaints');
+Route::get('/terms', [PublicPageController::class, 'terms'])->name('terms');
 
 Route::middleware(['auth', 'investor'])->group(function () {
     Route::get('/dashboard', [InvestorDashboardController::class, 'index'])->name('dashboard');

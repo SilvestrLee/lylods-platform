@@ -12,7 +12,9 @@
 </head>
 <body class="bg-[#f7f3ea] text-[#172033] antialiased">
 
-    <header x-data="{ open: false, openMenu: null, mobileServices: false, scrolled: false }" @scroll.window="scrolled = window.scrollY > 8"
+    <header x-data="{ open: false, openMenu: null, mobileServices: false, mobileAbout: false, scrolled: false }"
+            @scroll.window="scrolled = window.scrollY > 8"
+            @keydown.escape.window="openMenu = null; open = false"
             :class="scrolled ? 'shadow-[0_2px_20px_rgba(7,23,47,0.08)]' : ''"
             class="sticky top-0 z-50 border-b border-[#e6e8ee] bg-white/95 backdrop-blur-xl transition-shadow duration-300">
         <div class="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-4">
@@ -22,81 +24,170 @@
                 The Lylods Group
             </a>
 
-            {{-- Desktop navigation --}}
-            <nav class="hidden items-center gap-1 lg:flex">
+            {{-- Desktop navigation — position:relative makes it the containing block for mega panels --}}
+            <nav class="relative hidden items-center gap-1 lg:flex" aria-label="Main navigation">
 
                 <a href="{{ route('home') }}"
-                   class="rounded-full px-4 py-2 text-sm font-semibold hover:bg-[#f7f3ea] hover:text-[#07172f] transition-colors duration-200 {{ request()->routeIs('home') ? 'text-[#07172f] bg-[#f7f3ea]' : 'text-[#172033]' }}">
+                   class="rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('home') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}">
                     Home
                 </a>
 
-                <a href="{{ route('about') }}"
-                   class="rounded-full px-4 py-2 text-sm font-semibold hover:bg-[#f7f3ea] hover:text-[#07172f] transition-colors duration-200 {{ request()->routeIs('about') ? 'text-[#07172f] bg-[#f7f3ea]' : 'text-[#172033]' }}">
-                    About
-                </a>
-
-                {{-- Services mega dropdown --}}
-                <div class="relative" @mouseenter="openMenu = 'services'" @mouseleave="openMenu = null">
-                    <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold {{ request()->routeIs('services') ? 'text-[#07172f] bg-[#f7f3ea]' : 'text-[#172033]' }} hover:bg-[#f7f3ea] hover:text-[#07172f]">
-                        Services
-                        <svg class="h-3.5 w-3.5 transition-transform duration-150" :class="openMenu === 'services' ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                {{-- About mega menu --}}
+                <div @mouseenter="$el._t = setTimeout(() => openMenu = 'about', 175)"
+                     @mouseleave="clearTimeout($el._t); openMenu = null">
+                    <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('about') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}"
+                            aria-haspopup="true"
+                            :aria-expanded="openMenu === 'about'"
+                            @click="openMenu = openMenu === 'about' ? null : 'about'">
+                        About
+                        <svg class="h-3.5 w-3.5 transition-transform duration-150" :class="openMenu === 'about' ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div x-show="openMenu === 'services'"
-                         x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1"
-                         class="absolute left-0 top-full mt-2 w-[600px] rounded-2xl border border-[#e6e8ee] bg-white p-5 shadow-xl" style="display:none;">
-                        <p class="mb-3 px-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Our Service Disciplines</p>
-                        <div class="grid grid-cols-[1fr_180px] gap-x-3">
-                            {{-- Service categories --}}
-                            <div class="space-y-0.5">
-                                <a href="{{ route('services') }}#business-technology" class="flex items-start gap-2.5 rounded-xl px-3 py-2.5 hover:bg-[#f7f3ea]">
-                                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#123f8c]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg>
-                                    <div><p class="text-sm font-semibold text-[#07172f]">Business &amp; Technology</p><p class="text-xs text-[#667085]">Digital transformation, tech strategy &amp; consulting.</p></div>
-                                </a>
-                                <a href="{{ route('services') }}#training-recruitment" class="flex items-start gap-2.5 rounded-xl px-3 py-2.5 hover:bg-[#f7f3ea]">
-                                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#123f8c]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
-                                    <div><p class="text-sm font-semibold text-[#07172f]">Training &amp; Recruitment</p><p class="text-xs text-[#667085]">Professional development &amp; specialist placement.</p></div>
-                                </a>
-                                <a href="{{ route('services') }}#compliance-governance" class="flex items-start gap-2.5 rounded-xl px-3 py-2.5 hover:bg-[#f7f3ea]">
-                                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#123f8c]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
-                                    <div><p class="text-sm font-semibold text-[#07172f]">Compliance &amp; Governance</p><p class="text-xs text-[#667085]">Regulatory compliance &amp; information governance.</p></div>
-                                </a>
-                                <a href="{{ route('property') }}" class="flex items-start gap-2.5 rounded-xl px-3 py-2.5 hover:bg-[#f7f3ea]">
-                                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#123f8c]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg>
-                                    <div><p class="text-sm font-semibold text-[#07172f]">Property &amp; Development</p><p class="text-xs text-[#667085]">Real estate advisory &amp; development management.</p></div>
-                                </a>
-                                <a href="{{ route('community-projects') }}" class="flex items-start gap-2.5 rounded-xl px-3 py-2.5 hover:bg-[#f7f3ea]">
-                                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#123f8c]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>
-                                    <div><p class="text-sm font-semibold text-[#07172f]">Community Projects</p><p class="text-xs text-[#667085]">Social impact &amp; community-focused delivery.</p></div>
+
+                    {{-- About mega panel — centered against nav width --}}
+                    <div x-show="openMenu === 'about'"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 translate-y-2"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 translate-y-2"
+                         class="absolute left-1/2 top-full mt-3 w-[680px] -translate-x-1/2 rounded-[28px] border border-[#e7e1d4] bg-white/95 px-10 py-9 shadow-[0_35px_80px_rgba(7,23,47,.18)] backdrop-blur-xl"
+                         style="display:none;">
+                        <div class="grid grid-cols-[280px_220px] gap-8">
+                            {{-- Column 1 --}}
+                            <div>
+                                <h2 class="font-serif text-2xl font-bold leading-tight text-[#07172f]">About The Lylod's Group</h2>
+                                <p class="mt-3 text-sm leading-7 text-slate-600">
+                                    Learn about our approach, sectors,<br>experience and commitment to delivering<br>practical outcomes.
+                                </p>
+                                <a href="{{ route('about') }}"
+                                   class="mt-6 inline-flex items-center rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#123f8c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
+                                    About Us →
                                 </a>
                             </div>
-                            {{-- CTA sidebar --}}
-                            <div class="flex flex-col rounded-2xl bg-[#07172f] p-4">
-                                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Ready to discuss?</p>
-                                <p class="mt-2 text-xs leading-5 text-slate-300">Our team works across all disciplines. Get in touch to discuss your requirements.</p>
-                                <div class="mt-auto space-y-2 pt-4">
-                                    <a href="{{ route('contact') }}" class="block rounded-full bg-[#c9a24d] px-4 py-2 text-center text-xs font-bold text-[#07172f] hover:bg-[#d8b765]">Get in Touch</a>
-                                    <a href="{{ route('services') }}" class="block rounded-full border border-white/20 px-4 py-2 text-center text-xs font-bold text-white hover:bg-white/10">View All Services</a>
-                                </div>
+                            {{-- Column 2 --}}
+                            <div class="space-y-3">
+                                <a href="{{ route('about') }}#who-we-are" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Who We Are</a>
+                                <a href="{{ route('about') }}#how-we-work" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">How We Work</a>
+                                <a href="{{ route('about') }}#industries" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Industries We Serve</a>
+                                <a href="{{ route('about') }}#why-clients" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Why Clients Choose Us</a>
+                                <a href="{{ route('careers') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Careers &amp; Placements</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                {{-- Services mega menu --}}
+                <div @mouseenter="$el._t = setTimeout(() => openMenu = 'services', 175)"
+                     @mouseleave="clearTimeout($el._t); openMenu = null">
+                    <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('services') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}"
+                            aria-haspopup="true"
+                            :aria-expanded="openMenu === 'services'"
+                            @click="openMenu = openMenu === 'services' ? null : 'services'">
+                        Services
+                        <svg class="h-3.5 w-3.5 transition-transform duration-150" :class="openMenu === 'services' ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    {{-- Services mega panel — centered against nav width --}}
+                    <div x-show="openMenu === 'services'"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 translate-y-2"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 translate-y-2"
+                         class="absolute left-1/2 top-full mt-3 w-[960px] -translate-x-1/2 rounded-[28px] border border-[#e7e1d4] bg-white/95 px-10 py-9 shadow-[0_35px_80px_rgba(7,23,47,.18)] backdrop-blur-xl"
+                         style="display:none;">
+                        <div class="grid grid-cols-[320px_1fr_1fr] gap-8">
+
+                            {{-- Column 1: Intro (320px) --}}
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">OUR SERVICES</p>
+                                <h2 class="mt-3 font-serif text-2xl font-bold leading-tight text-[#07172f]">Business, Technology &amp;<br>Professional Support</h2>
+                                <p class="mt-3 text-sm leading-7 text-slate-600">Helping organisations build stronger systems, develop people, improve governance and coordinate practical projects.</p>
+                                <a href="{{ route('services') }}"
+                                   class="mt-6 inline-flex items-center rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#123f8c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
+                                    Explore Services →
+                                </a>
+                            </div>
+
+                            {{-- Column 2: Business & Technology + Training & Recruitment --}}
+                            <div class="space-y-8">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Business &amp; Technology</p>
+                                    <div class="mt-3 space-y-2">
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Business Consultancy</a>
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Software &amp; Systems Development</a>
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Digital Transformation</a>
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Data Solutions</a>
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Cybersecurity Awareness</a>
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Process Improvement</a>
+                                        <a href="{{ route('services') }}#business-technology" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Automation Support</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Training &amp; Recruitment</p>
+                                    <div class="mt-3 space-y-2">
+                                        <a href="{{ route('services') }}#training-recruitment" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Professional Training</a>
+                                        <a href="{{ route('services') }}#training-recruitment" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Leadership Development</a>
+                                        <a href="{{ route('services') }}#training-recruitment" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Recruitment Services</a>
+                                        <a href="{{ route('services') }}#training-recruitment" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Employability Support</a>
+                                        <a href="{{ route('services') }}#training-recruitment" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Tailored Workshops</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Column 3: Compliance + Property + Community --}}
+                            <div class="space-y-8">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Compliance &amp; Governance</p>
+                                    <div class="mt-3 space-y-2">
+                                        <a href="{{ route('services') }}#compliance-governance" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">GDPR Support</a>
+                                        <a href="{{ route('services') }}#compliance-governance" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Policy Development</a>
+                                        <a href="{{ route('services') }}#compliance-governance" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Governance Frameworks</a>
+                                        <a href="{{ route('services') }}#compliance-governance" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Compliance Documentation</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Property &amp; Development</p>
+                                    <div class="mt-3 space-y-2">
+                                        <a href="{{ route('property') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Property Packaging</a>
+                                        <a href="{{ route('property') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Property Facilitation</a>
+                                        <a href="{{ route('property') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Property Management</a>
+                                        <a href="{{ route('property') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Development Support</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Community Projects</p>
+                                    <div class="mt-3 space-y-2">
+                                        <a href="{{ route('community-projects') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Community Programmes</a>
+                                        <a href="{{ route('community-projects') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Project Coordination</a>
+                                        <a href="{{ route('community-projects') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Stakeholder Engagement</a>
+                                        <a href="{{ route('community-projects') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Capacity Building</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <a href="{{ route('case-studies') }}"
-                   class="rounded-full px-4 py-2 text-sm font-semibold hover:bg-[#f7f3ea] hover:text-[#07172f] transition-colors duration-200 {{ request()->routeIs('case-studies') ? 'text-[#07172f] bg-[#f7f3ea]' : 'text-[#172033]' }}">
+                   class="rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('case-studies') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}">
                     Case Studies
                 </a>
 
                 <a href="{{ route('insights') }}"
-                   class="rounded-full px-4 py-2 text-sm font-semibold hover:bg-[#f7f3ea] hover:text-[#07172f] transition-colors duration-200 {{ request()->routeIs('insights') ? 'text-[#07172f] bg-[#f7f3ea]' : 'text-[#172033]' }}">
+                   class="rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('insights') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}">
                     Insights
                 </a>
 
                 <a href="{{ route('contact') }}"
-                   class="rounded-full px-4 py-2 text-sm font-semibold hover:bg-[#f7f3ea] hover:text-[#07172f] transition-colors duration-200 {{ request()->routeIs('contact') ? 'text-[#07172f] bg-[#f7f3ea]' : 'text-[#172033]' }}">
+                   class="rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('contact') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}">
                     Contact
                 </a>
             </nav>
@@ -110,38 +201,62 @@
                     </a>
                 @else
                     <a href="{{ route('login') }}"
-                       class="hidden rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#123f8c] transition-all duration-300 lg:inline-flex">
+                       class="hidden rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-[#123f8c] lg:inline-flex">
                         Client Portal
                     </a>
                 @endauth
 
                 <button type="button" @click="open = !open"
-                        class="inline-flex items-center justify-center rounded-xl border border-[#e6e8ee] p-2 text-[#07172f] lg:hidden" aria-label="Toggle navigation">
+                        class="inline-flex items-center justify-center rounded-xl border border-[#e6e8ee] p-2 text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] lg:hidden"
+                        aria-label="Toggle navigation"
+                        :aria-expanded="open">
                     <svg x-show="!open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/></svg>
                     <svg x-show="open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
         </div>
 
-        {{-- Mobile drawer --}}
+        {{-- Mobile drawer — unchanged --}}
         <div x-show="open" x-transition class="border-t border-[#e6e8ee] bg-white lg:hidden" style="display:none;">
             <div class="mx-auto flex max-w-[1440px] flex-col gap-0.5 px-6 py-4 text-sm font-semibold">
                 <a href="{{ route('home') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Home</a>
-                <a href="{{ route('about') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">About</a>
+
+                {{-- Mobile About accordion --}}
                 <div>
-                    <button @click="mobileServices = !mobileServices" class="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">
+                    <button @click="mobileAbout = !mobileAbout"
+                            class="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">
+                        About
+                        <svg class="h-4 w-4 transition-transform duration-150" :class="mobileAbout ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div x-show="mobileAbout" class="ml-3 mt-0.5 space-y-0.5 border-l border-[#e6e8ee] pl-3" style="display:none;">
+                        <a href="{{ route('about') }}#who-we-are" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Who We Are</a>
+                        <a href="{{ route('about') }}#how-we-work" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">How We Work</a>
+                        <a href="{{ route('about') }}#industries" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Industries</a>
+                        <a href="{{ route('careers') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Careers</a>
+                    </div>
+                </div>
+
+                {{-- Mobile Services accordion --}}
+                <div>
+                    <button @click="mobileServices = !mobileServices"
+                            class="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">
                         Services
-                        <svg class="h-4 w-4 transition-transform duration-150" :class="mobileServices ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="h-4 w-4 transition-transform duration-150" :class="mobileServices ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
                     </button>
                     <div x-show="mobileServices" class="ml-3 mt-0.5 space-y-0.5 border-l border-[#e6e8ee] pl-3" style="display:none;">
                         <a href="{{ route('services') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm font-semibold text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">All Services</a>
                         <a href="{{ route('services') }}#business-technology" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Business &amp; Technology</a>
                         <a href="{{ route('services') }}#training-recruitment" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Training &amp; Recruitment</a>
-                        <a href="{{ route('services') }}#compliance-governance" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Compliance &amp; Governance</a>
-                        <a href="{{ route('property') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Property &amp; Development</a>
-                        <a href="{{ route('community-projects') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Community Projects</a>
+                        <a href="{{ route('services') }}#compliance-governance" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Compliance</a>
+                        <a href="{{ route('property') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Property</a>
+                        <a href="{{ route('community-projects') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Community</a>
                     </div>
                 </div>
+
                 <a href="{{ route('case-studies') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Case Studies</a>
                 <a href="{{ route('insights') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Insights</a>
                 <a href="{{ route('contact') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Contact</a>
@@ -149,7 +264,7 @@
                     @auth
                         <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}" class="block rounded-full bg-[#c9a24d] px-4 py-3 text-center font-bold text-[#07172f]">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="block rounded-full bg-[#07172f] px-4 py-3 text-center font-bold text-white hover:bg-[#123f8c] transition-all duration-300">Client Portal</a>
+                        <a href="{{ route('login') }}" class="block rounded-full bg-[#07172f] px-4 py-3 text-center font-bold text-white transition-all duration-300 hover:bg-[#123f8c]">Client Portal</a>
                     @endauth
                 </div>
             </div>
@@ -186,7 +301,7 @@
                         <a href="{{ route('case-studies') }}" class="block hover:text-white">Case Studies</a>
                         <a href="{{ route('insights') }}" class="block hover:text-white">Insights</a>
                         <a href="{{ route('contact') }}" class="block hover:text-white">Contact</a>
-                        <a href="#" class="block hover:text-white">Careers</a>
+                        <a href="{{ route('careers') }}" class="block hover:text-white">Careers</a>
                     </div>
                 </div>
 
@@ -208,7 +323,7 @@
                     <h4 class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Portal</h4>
                     <div class="mt-4 space-y-3 text-sm text-slate-300">
                         <p>Secure access for registered clients and investors. Contact our team for onboarding support.</p>
-                        <a href="{{ route('login') }}" class="inline-flex rounded-full bg-[#c9a24d] px-5 py-2.5 text-sm font-bold text-[#07172f] hover:bg-[#d8b765] transition-all duration-300">Client Portal</a>
+                        <a href="{{ route('login') }}" class="inline-flex rounded-full bg-[#c9a24d] px-5 py-2.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">Client Portal</a>
                         <div class="pt-1">
                             <a href="{{ route('investment') }}" class="block hover:text-white">Investment Information</a>
                         </div>
@@ -222,11 +337,11 @@
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <p class="text-sm text-slate-400">&copy; {{ date('Y') }} The Lylods Group. All rights reserved.</p>
                     <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-400">
-                        <a href="#" class="hover:text-white">Privacy Notice</a>
-                        <a href="#" class="hover:text-white">Cookie Notice</a>
-                        <a href="#" class="hover:text-white">Accessibility Statement</a>
-                        <a href="#" class="hover:text-white">Complaints Process</a>
-                        <a href="#" class="hover:text-white">Terms of Use</a>
+                        <a href="{{ route('privacy-notice') }}" class="hover:text-white">Privacy Notice</a>
+                        <a href="{{ route('cookie-notice') }}" class="hover:text-white">Cookie Notice</a>
+                        <a href="{{ route('accessibility') }}" class="hover:text-white">Accessibility Statement</a>
+                        <a href="{{ route('complaints') }}" class="hover:text-white">Complaints Process</a>
+                        <a href="{{ route('terms') }}" class="hover:text-white">Terms of Use</a>
                     </div>
                 </div>
                 <p class="mt-3 text-xs text-slate-500">The Lylods Group is a professional services organisation registered in the United Kingdom.</p>

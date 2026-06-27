@@ -60,4 +60,29 @@ class PublicPageController extends Controller
     {
         return view('public.community-projects');
     }
+
+    public function privacyNotice()
+    {
+        return view('public.privacy-notice');
+    }
+
+    public function cookieNotice()
+    {
+        return view('public.cookie-notice');
+    }
+
+    public function accessibility()
+    {
+        return view('public.accessibility');
+    }
+
+    public function complaints()
+    {
+        return view('public.complaints');
+    }
+
+    public function terms()
+    {
+        return view('public.terms');
+    }
 }

@@ -8,10 +8,10 @@
                  alt="" class="h-full w-full object-cover opacity-20">
             <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/90 to-[#07172f]/60"></div>
         </div>
-        <div class="relative mx-auto max-w-7xl px-6 py-28">
+        <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
                 <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Contact The Lylods Group</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-[0.95] tracking-tight md:text-5xl lg:text-[3.5rem] xl:text-[3.85rem]">Get in Touch</h1>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">Get in Touch</h1>
                 <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Whether you have a business enquiry, require information about our services, are interested in investment, or need investor access support — we are here to assist.</p>
             </div>
         </div>
@@ -19,7 +19,7 @@
 
     {{-- Stats band --}}
     <div class="border-t border-white/10 bg-[#07172f]">
-        <div class="mx-auto max-w-7xl px-6 py-8">
+        <div class="mx-auto max-w-[1440px] px-6 py-8">
             <dl class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 text-center">
                 <div class="tlg-reveal tlg-d1">
                     <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Response Target</dt>
@@ -27,8 +27,8 @@
                     <dd class="mt-1 text-xs text-slate-400">For all enquiry types</dd>
                 </div>
                 <div class="tlg-reveal tlg-d2">
-                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Disciplines Available</dt>
-                    <dd class="mt-2 font-serif text-4xl font-bold text-white">8</dd>
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Service Areas</dt>
+                    <dd class="mt-2 font-serif text-4xl font-bold text-white">5</dd>
                 </div>
                 <div class="tlg-reveal tlg-d3">
                     <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Our Base</dt>
@@ -45,7 +45,7 @@
 
     {{-- Contact info + form --}}
     <section class="bg-[#f7f3ea]">
-        <div class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <div class="mx-auto grid max-w-[1440px] gap-12 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
 
             {{-- Contact info panel --}}
             <div class="tlg-reveal">
@@ -87,6 +87,14 @@
                         </div>
                     </div>
 
+                    {{-- Future CMS-managed image --}}
+                    <div class="relative overflow-hidden rounded-2xl shadow-md">
+                        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=900&q=80"
+                             alt="Professional client consultation and support"
+                             class="h-44 w-full object-cover object-center">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/50 to-transparent"></div>
+                    </div>
+
                     <div class="rounded-2xl bg-[#07172f] p-6 text-white">
                         <div class="flex items-start gap-4">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#c9a24d]">
@@ -105,55 +113,72 @@
 
             {{-- Contact form --}}
             <div class="tlg-reveal tlg-d1 rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm"
-                 x-data="{ submitted: false }">
+                 x-data="{ submitted: false, enquiryType: '' }">
 
                 <div x-show="!submitted">
                     <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#123f8c]">Send an Enquiry</p>
-                    <h3 class="mt-2 text-2xl font-bold text-[#07172f]">How can we help?</h3>
-                    <p class="mt-2 text-sm leading-6 text-[#667085]">Complete the form and a member of our team will be in touch.</p>
+                    <h3 class="mt-2 text-2xl font-bold text-[#07172f]">What can we help you with?</h3>
+                    <p class="mt-2 text-sm leading-6 text-[#667085]">Complete the form and a member of our team will be in touch within two business days.</p>
 
                     <form class="mt-8 space-y-5" @submit.prevent="submitted = true">
                         <div class="grid gap-5 sm:grid-cols-2">
                             <div>
                                 <label class="block text-sm font-semibold text-[#07172f]">Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" required placeholder="Your full name"
+                                <input type="text" required
                                        class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-[#07172f]">Email Address <span class="text-red-500">*</span></label>
-                                <input type="email" required placeholder="your@email.com"
+                                <input type="email" required
                                        class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold text-[#07172f]">Enquiry Type <span class="text-red-500">*</span></label>
-                            <select required
+                            <select required x-model="enquiryType"
                                     class="mt-2 w-full rounded-2xl border border-[#d0d5dd] bg-white px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                                <option value="">Select enquiry type</option>
-                                <option value="services">Services Enquiry</option>
-                                <option value="business">Business &amp; Partnerships</option>
-                                <option value="investment">Investment Information</option>
-                                <option value="investor-access">Investor Access Support</option>
-                                <option value="general">General Information</option>
+                                <option value="">Select an option</option>
+                                <option value="business-consultancy">Business consultancy</option>
+                                <option value="technology-digital">Technology or digital solution</option>
+                                <option value="training">Training</option>
+                                <option value="recruitment">Recruitment</option>
+                                <option value="compliance">Compliance</option>
+                                <option value="property-sourcing">Property sourcing</option>
+                                <option value="property-management">Property management</option>
+                                <option value="property-development">Property development</option>
+                                <option value="community-project">Community project</option>
+                                <option value="partnership-investment">Partnership or investment</option>
+                                <option value="other">Other</option>
                             </select>
                         </div>
 
+                        {{-- Careers / placement guidance --}}
+                        <div x-show="enquiryType === 'recruitment' || enquiryType === 'other'"
+                             x-transition
+                             style="display:none;"
+                             class="rounded-2xl border border-[#e6e8ee] bg-[#f7f3ea] px-5 py-4">
+                            <p class="text-sm leading-6 text-[#667085]">
+                                <span class="font-semibold text-[#07172f]">Careers &amp; placements: </span>Tell us about your experience, the role or placement you are interested in, and how your skills could contribute to our work.
+                            </p>
+                        </div>
+
                         <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Organisation <span class="text-[#667085] font-normal">(optional)</span></label>
-                            <input type="text" placeholder="Your company or organisation"
+                            <label class="block text-sm font-semibold text-[#07172f]">Organisation <span class="text-sm font-normal text-[#667085]">(optional)</span></label>
+                            <input type="text"
                                    class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold text-[#07172f]">Message <span class="text-red-500">*</span></label>
-                            <textarea required rows="5" placeholder="Please provide details of your enquiry..."
+                            <textarea required rows="5"
                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]"></textarea>
                         </div>
 
                         <div class="border-t border-[#e6e8ee] pt-5">
+                            <p class="mb-4 text-xs leading-5 text-[#667085]">By submitting this form, you agree that The Lylods Group may use your details to respond to your enquiry. Please read our <a href="{{ route('privacy-notice') }}" class="font-semibold text-[#123f8c] underline underline-offset-2 hover:text-[#07172f]">Privacy Notice</a> to understand how we collect, use, store and protect your personal data.</p>
                             <button type="submit"
-                                    class="w-full rounded-full bg-[#07172f] px-6 py-3.5 text-sm font-bold text-white hover:bg-[#123f8c] sm:w-auto">
+                                    class="w-full rounded-full bg-[#07172f] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-[#123f8c] sm:w-auto">
                                 Send Enquiry
                             </button>
                             <p class="mt-3 text-xs text-[#667085]">We aim to respond within two business days.</p>
@@ -180,10 +205,10 @@
 
     {{-- Enquiry types --}}
     <section class="bg-white">
-        <div class="mx-auto max-w-7xl px-6 py-20">
+        <div class="mx-auto max-w-[1440px] px-6 py-20">
             <div class="tlg-reveal max-w-2xl">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">How We Can Help</p>
-                <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f]">What is your enquiry about?</h2>
+                <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] lg:text-[2.4rem]">What is your enquiry about?</h2>
             </div>
 
             <div class="mt-10 grid gap-6 md:grid-cols-3">
