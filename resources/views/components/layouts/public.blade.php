@@ -63,7 +63,7 @@
                                     Learn about our approach, sectors,<br>experience and commitment to delivering<br>practical outcomes.
                                 </p>
                                 <a href="{{ route('about') }}"
-                                   class="mt-6 inline-flex items-center rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#123f8c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
+                                   class="mt-3 inline-flex items-center rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#123f8c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
                                     About Us →
                                 </a>
                             </div>
@@ -102,12 +102,12 @@
                          x-transition:leave-end="opacity-0 translate-y-2"
                          class="absolute left-1/2 top-full mt-3 w-[960px] -translate-x-1/2 rounded-[28px] border border-[#e7e1d4] bg-white/95 px-10 py-9 shadow-[0_35px_80px_rgba(7,23,47,.18)] backdrop-blur-xl"
                          style="display:none;">
-                        <div class="grid grid-cols-[320px_1fr_1fr] gap-8">
+                        <div class="grid grid-cols-[300px_1fr_1fr] gap-8">
 
                             {{-- Column 1: Intro (320px) --}}
                             <div>
                                 <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">OUR SERVICES</p>
-                                <h2 class="mt-3 font-serif text-2xl font-bold leading-tight text-[#07172f]">Business, Technology &amp;<br>Professional Support</h2>
+                                <h2 class="mt-3 font-serif text-[2.25rem] font-bold leading-tight text-[#07172f]">Business, Technology &amp;<br>Professional Support</h2>
                                 <p class="mt-3 text-sm leading-7 text-slate-600">Helping organisations build stronger systems, develop people, improve governance and coordinate practical projects.</p>
                                 <a href="{{ route('services') }}"
                                    class="mt-6 inline-flex items-center rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#123f8c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
@@ -116,7 +116,7 @@
                             </div>
 
                             {{-- Column 2: Business & Technology + Training & Recruitment --}}
-                            <div class="space-y-8">
+                            <div class="space-y-6">
                                 <div>
                                     <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Business &amp; Technology</p>
                                     <div class="mt-3 space-y-2">
@@ -142,7 +142,7 @@
                             </div>
 
                             {{-- Column 3: Compliance + Property + Community --}}
-                            <div class="space-y-8">
+                            <div class="space-y-6">
                                 <div>
                                     <p class="text-xs uppercase tracking-[0.18em] text-[#c9a24d]">Compliance &amp; Governance</p>
                                     <div class="mt-3 space-y-2">
