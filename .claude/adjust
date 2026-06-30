@@ -1,193 +1,84 @@
-Important Design Requirement
+Read and follow the `.claude` folder instructions.
 
-The public-facing website must feel relatable, contextual and credible.
+# Phase 5 Validation
 
-The website should not rely on text only.
+Before this phase is accepted, perform a complete validation.
 
-Use high-quality contextual images and iconography throughout the website.
+## Database
 
+Verify:
 
-Images should be relevant to each section.
+- all migrations are reversible
+- foreign keys are correct
+- indexes exist where appropriate
+- timestamps are present
+- nullable fields are intentional
 
+## Models
 
-Examples
+Verify:
 
+- fillable properties
+- casts
+- relationships
+- no duplicated logic
 
-Project Management
+## Services
 
-Images of project teams reviewing plans, site meetings, planning sessions
+Verify:
 
+- cache invalidation occurs after create/update/delete
+- no duplicated queries
+- no N+1 queries
+- dependency injection used consistently
 
-Engineering & Infrastructure
+## Admin
 
-Construction sites
-Bridges
-Roads
-Buildings
-Industrial facilities
+Verify:
 
+- validation rules
+- success messages
+- error handling
+- pagination
+- search
+- sorting
 
-Digital Transformation
+## Public Website
 
-Data visualizations
-Networks
-Cloud infrastructure
-Business technology
+Verify:
 
+- footer renders correctly
+- social links render correctly
+- compliance pages render correctly
+- empty state handling
+- missing data fallbacks
 
-Technology & Innovation
+## Security
 
-AI
-Digital interfaces
-Software teams
-Emerging technologies
+Verify:
 
+- authorization
+- CSRF protection
+- mass assignment protection
+- XSS protection
 
-Training & Capacity Development
+## Performance
 
-Workshops
-Professional seminars
-Corporate training
+Verify:
 
+- eager loading
+- cache usage
+- no unnecessary queries
 
-Business Consulting
+## Report
 
-Boardroom discussions
-Business strategy meetings
-Executives collaborating
+Provide:
 
+- issues found
+- issues fixed
+- issues remaining
+- whether Phase 5 is production-ready
 
-Recruitment & Workforce Solutions
+Do not make architectural changes.
 
-Interview sessions
-Diverse professional teams
-Talent acquisition
-
-
-Compliance & Information Security
-
-Cybersecurity imagery
-Security dashboards
-Audit and governance concepts
-
-
-Investor Section
-
-Professional business meetings
-Financial analysis
-Corporate growth visuals
-
-
-Testimonials
-
-Portrait placeholders
-Client logos placeholders
-
-
-Insights
-
-Article thumbnails
-Publication covers
-
-
-Contact
-
-Office environment
-Location imagery
-
-
-
-
-Icons
-
-Icons should supplement content where appropriate.
-
-Preferred icon libraries
-
-Heroicons
-Lucide
-Tabler Icons
-
-
-Avoid emoji icons.
-
-
-Examples
-
-
-Capability cards
-
-Service cards
-
-Statistics section
-
-Mega menu items
-
-Why Choose Us section
-
-Process section
-
-Contact methods
-
-Footer quick links
-
-
-
-
-
-Image Sources
-
-During development use curated placeholder images.
-
-Suggested sources
-
-Unsplash
-
-Pexels
-
-Pixabay
-
-
-Images should later be replaceable from the CMS.
-
-
-CMS readiness
-
-Images should eventually be managed from backend modules.
-
-Do not hardcode image paths permanently.
-
-Prepare the structure so future CMS integration can replace images without changing layouts.
-
-The website should feel closer to
-
-Bechtel
-
-AECOM
-
-WSP
-
-Arup
-
-PwC
-
-Deloitte
-
-Accenture
-
-
-and farther away from
-
-small agency websites
-
-WordPress themes
-
-investment-only firms
-
-crypto landing pages
-
-generic consulting templates
-
-go ahead and implement
-
-use 21st dev and ui ux pro max skill
+Only fix defects discovered during validation.

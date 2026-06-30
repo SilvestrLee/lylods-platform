@@ -1,8 +1,9 @@
-<x-layouts.public title="Contact — The Lylods Group">
+<x-layouts.public
+    :title="$page->meta_title ?? 'Contact — The Lylods Group'"
+    :description="$page->meta_description">
 
     {{-- Hero with background image --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
-        {{-- CMS: replace image with contact->hero_image --}}
         <div class="absolute inset-0">
             <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=80"
                  alt="" class="h-full w-full object-cover opacity-20">
@@ -10,9 +11,9 @@
         </div>
         <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Contact The Lylods Group</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">Get in Touch</h1>
-                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Whether you have a business enquiry, require information about our services, are interested in investment, or need investor access support — we are here to assist.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">{{ $page->hero_subtitle }}</p>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">{{ $page->hero_title }}</h1>
+                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">{{ $page->hero_description }}</p>
             </div>
         </div>
     </section>
@@ -60,7 +61,7 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">General Enquiries</p>
-                            <p class="mt-1 font-semibold text-[#07172f]">enquiries@lylodsgroup.com</p>
+                            <p class="mt-1 font-semibold text-[#07172f]">{{ $siteSetting->primary_email ?? 'enquiries@lylodsgroup.com' }}</p>
                             <p class="mt-1 text-sm text-[#667085]">For business, services, and general company information.</p>
                         </div>
                     </div>
@@ -71,7 +72,7 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">Office</p>
-                            <p class="mt-1 font-semibold text-[#07172f]">United Kingdom</p>
+                            <p class="mt-1 font-semibold text-[#07172f]">{{ $siteSetting->address ?? 'United Kingdom' }}</p>
                             <p class="mt-1 text-sm text-[#667085]">Office address available upon request.</p>
                         </div>
                     </div>
@@ -82,8 +83,7 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#c9a24d]">Business Hours</p>
-                            <p class="mt-1 font-semibold text-[#07172f]">Monday – Friday</p>
-                            <p class="mt-1 text-sm text-[#667085]">9:00am – 5:00pm GMT</p>
+                            <p class="mt-1 font-semibold text-[#07172f]">{{ $siteSetting->office_hours ?? 'Monday – Friday, 9:00am – 5:00pm GMT' }}</p>
                         </div>
                     </div>
 

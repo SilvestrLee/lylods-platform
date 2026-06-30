@@ -1,12 +1,14 @@
-<x-layouts.public title="Privacy Notice — The Lylods Group">
+<x-layouts.public
+    :title="$page->meta_title ?? 'Privacy Notice — The Lylods Group'"
+    :description="$page->meta_description">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
         <div class="relative mx-auto max-w-[1440px] px-6 py-24">
             <div class="tlg-reveal max-w-3xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Legal</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">Privacy Notice</h1>
-                <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-200">How The Lylods Group collects, uses, stores, and protects your personal data.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">{{ $page->hero_subtitle }}</p>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">{{ $page->hero_title }}</h1>
+                <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-200">{{ $page->hero_description }}</p>
             </div>
         </div>
     </section>

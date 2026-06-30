@@ -1,25 +1,70 @@
-<x-layouts.public title="Insights and News — The Lylods Group">
+<x-layouts.public
+    :title="$page->meta_title ?? 'Insights and News — The Lylods Group'"
+    :description="$page->meta_description">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
         <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Knowledge &amp; Perspectives</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">Insights and News</h1>
-                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Practical updates, guidance and perspectives on business growth, technology, compliance, training, property and community development.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">{{ $page->hero_subtitle }}</p>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">{{ $page->hero_title }}</h1>
+                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">{{ $page->hero_description }}</p>
+                @if($page->primary_cta_label || $page->secondary_cta_label)
+                <div class="mt-10 flex flex-wrap gap-4">
+                    @if($page->primary_cta_label && $page->primary_cta_url)
+                    <a href="{{ $page->primary_cta_url }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">{{ $page->primary_cta_label }}</a>
+                    @endif
+                    @if($page->secondary_cta_label && $page->secondary_cta_url)
+                    <a href="{{ $page->secondary_cta_url }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">{{ $page->secondary_cta_label }}</a>
+                    @endif
+                </div>
+                @endif
             </div>
         </div>
     </section>
 
     {{-- Featured Insight --}}
-    {{-- Future CMS-managed insights --}}
+    @php $featured = $insights->firstWhere('featured', true) ?? $insights->first(); @endphp
     <section class="bg-white">
         <div class="mx-auto max-w-[1440px] px-6 pt-20 pb-0">
             <div class="tlg-reveal mb-8">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">Featured</p>
             </div>
+            @if ($featured)
             <div class="tlg-reveal overflow-hidden rounded-[2rem] border border-[#e6e8ee] shadow-sm lg:grid lg:grid-cols-[1fr_1.1fr]">
-                {{-- Future CMS-managed image --}}
+                <div class="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#123f8c] to-[#07172f] lg:min-h-full">
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 70% 30%, #c9a24d 0%, transparent 55%)"></div>
+                    <svg class="h-28 w-28 text-white/15" fill="none" stroke="currentColor" stroke-width="0.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+                    <div class="absolute bottom-5 left-6 flex items-center gap-2">
+                        <div class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></div>
+                        <div class="h-1.5 w-16 rounded-full bg-[#c9a24d]/30"></div>
+                        <div class="h-1.5 w-6 rounded-full bg-[#c9a24d]/15"></div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center bg-[#f7f3ea] px-10 py-12">
+                    <div class="flex items-center gap-3">
+                        @if ($featured->category)
+                            <span class="rounded-full bg-[#07172f] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#c9a24d]">{{ $featured->category }}</span>
+                        @endif
+                        @if ($featured->published_at)
+                            <span class="text-xs text-[#667085]">{{ $featured->published_at->format('F Y') }}</span>
+                        @endif
+                    </div>
+                    <h2 class="mt-5 font-serif text-2xl font-bold leading-snug text-[#07172f] md:text-3xl">{{ $featured->title }}</h2>
+                    @if ($featured->excerpt)
+                        <p class="mt-4 leading-7 text-[#667085]">{{ $featured->excerpt }}</p>
+                    @endif
+                    <div class="mt-8">
+                        <a href="{{ route('insight', $featured->slug) }}"
+                           class="inline-flex items-center gap-2 text-sm font-bold text-[#123f8c] hover:text-[#07172f]">
+                            Read article
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="tlg-reveal overflow-hidden rounded-[2rem] border border-[#e6e8ee] shadow-sm lg:grid lg:grid-cols-[1fr_1.1fr]">
                 <div class="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#123f8c] to-[#07172f] lg:min-h-full">
                     <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 70% 30%, #c9a24d 0%, transparent 55%)"></div>
                     <svg class="h-28 w-28 text-white/15" fill="none" stroke="currentColor" stroke-width="0.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
@@ -44,6 +89,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </section>
 

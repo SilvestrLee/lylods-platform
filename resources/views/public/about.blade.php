@@ -1,20 +1,26 @@
-<x-layouts.public title="About Us — The Lylods Group">
+<x-layouts.public
+    :title="$page->meta_title ?? 'About Us — The Lylods Group'"
+    :description="$page->meta_description">
 
     {{-- Hero --}}
-    {{-- Future CMS-managed content --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
         <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">About Us</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">About The Lylods Group</h1>
-                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">The Lylods Group is a UK-based business, technology, property and community development organisation helping individuals and organisations build practical systems, skilled teams, sustainable assets and lasting opportunities.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">{{ $page->hero_subtitle }}</p>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">{{ $page->hero_title }}</h1>
+                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">{{ $page->hero_description }}</p>
+                @if($page->primary_cta_label || $page->secondary_cta_label)
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="{{ route('contact') }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] shadow-lg transition-all duration-300 hover:bg-[#d8b765]">Discuss Your Project</a>
-                    <a href="{{ route('services') }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">Our Services</a>
+                    @if($page->primary_cta_label && $page->primary_cta_url)
+                    <a href="{{ $page->primary_cta_url }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] shadow-lg transition-all duration-300 hover:bg-[#d8b765]">{{ $page->primary_cta_label }}</a>
+                    @endif
+                    @if($page->secondary_cta_label && $page->secondary_cta_url)
+                    <a href="{{ $page->secondary_cta_url }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">{{ $page->secondary_cta_label }}</a>
+                    @endif
                 </div>
+                @endif
             </div>
         </div>
-        {{-- Future CMS-managed content --}}
         <div class="absolute inset-0 -z-10 opacity-10" style="background-image: radial-gradient(circle at 80% 20%, #c9a24d 0%, transparent 50%), radial-gradient(circle at 20% 80%, #123f8c 0%, transparent 50%)"></div>
     </section>
 
@@ -346,52 +352,74 @@
     </section>
 
     {{-- Team profiles --}}
-    {{-- Future CMS-managed content --}}
     <section class="bg-white">
         <div class="mx-auto max-w-[1440px] px-6 py-20">
             <div class="tlg-reveal max-w-2xl">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">Our People</p>
                 <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] lg:text-[2.4rem]">The team behind the work.</h2>
-                <p class="mt-5 text-lg leading-8 text-[#667085]">Team profiles will be published here as they are prepared and approved for the website. Our people bring experience across business, technology, compliance, property and community development.</p>
+                <p class="mt-5 text-lg leading-8 text-[#667085]">Our people bring experience across business, technology, compliance, property and community development.</p>
             </div>
             <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="tlg-reveal tlg-d1 rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
-                    <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#07172f]">
-                        <svg class="h-10 w-10 text-white/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                @if ($teamMembers->isNotEmpty())
+                    @foreach ($teamMembers as $member)
+                        <div class="tlg-reveal rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
+                            <div class="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-[#07172f]">
+                                @if ($member->photo)
+                                    <img src="{{ $member->photo->url() }}" alt="{{ $member->name }}" class="h-full w-full object-cover">
+                                @else
+                                    <svg class="h-10 w-10 text-white/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                                @endif
+                            </div>
+                            <p class="mt-5 font-bold text-[#07172f]">{{ $member->name }}</p>
+                            @if ($member->role)
+                                <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">{{ $member->role }}</p>
+                            @endif
+                            @if ($member->bio)
+                                <p class="mt-3 text-sm leading-6 text-[#667085]">{{ $member->bio }}</p>
+                            @endif
+                            @if ($member->linkedin)
+                                <a href="{{ $member->linkedin }}" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#123f8c] hover:text-[#07172f]">LinkedIn ↗</a>
+                            @endif
+                        </div>
+                    @endforeach
+                @else
+                    <div class="tlg-reveal tlg-d1 rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
+                        <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#07172f]">
+                            <svg class="h-10 w-10 text-white/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                        </div>
+                        <p class="mt-5 font-bold text-[#07172f]">Team Member</p>
+                        <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">Role / Discipline</p>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">A brief professional profile will appear here, outlining experience, areas of expertise and sector background.</p>
                     </div>
-                    <p class="mt-5 font-bold text-[#07172f]">Team Member</p>
-                    <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">Role / Discipline</p>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">A brief professional profile will appear here, outlining experience, areas of expertise and sector background.</p>
-                </div>
-                <div class="tlg-reveal tlg-d2 rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
-                    <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#123f8c]">
-                        <svg class="h-10 w-10 text-white/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                    <div class="tlg-reveal tlg-d2 rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
+                        <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#123f8c]">
+                            <svg class="h-10 w-10 text-white/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                        </div>
+                        <p class="mt-5 font-bold text-[#07172f]">Team Member</p>
+                        <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">Role / Discipline</p>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">A brief professional profile will appear here, outlining experience, areas of expertise and sector background.</p>
                     </div>
-                    <p class="mt-5 font-bold text-[#07172f]">Team Member</p>
-                    <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">Role / Discipline</p>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">A brief professional profile will appear here, outlining experience, areas of expertise and sector background.</p>
-                </div>
-                <div class="tlg-reveal tlg-d3 rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
-                    <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#c9a24d]">
-                        <svg class="h-10 w-10 text-[#07172f]/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                    <div class="tlg-reveal tlg-d3 rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
+                        <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#c9a24d]">
+                            <svg class="h-10 w-10 text-[#07172f]/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
+                        </div>
+                        <p class="mt-5 font-bold text-[#07172f]">Team Member</p>
+                        <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">Role / Discipline</p>
+                        <p class="mt-3 text-sm leading-6 text-[#667085]">A brief professional profile will appear here, outlining experience, areas of expertise and sector background.</p>
                     </div>
-                    <p class="mt-5 font-bold text-[#07172f]">Team Member</p>
-                    <p class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#c9a24d]">Role / Discipline</p>
-                    <p class="mt-3 text-sm leading-6 text-[#667085]">A brief professional profile will appear here, outlining experience, areas of expertise and sector background.</p>
-                </div>
-                <div class="tlg-reveal tlg-d4 flex flex-col items-center justify-center rounded-[2rem] bg-[#07172f] p-8 text-center">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-full bg-white/10">
-                        <svg class="h-7 w-7 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>
+                    <div class="tlg-reveal tlg-d4 flex flex-col items-center justify-center rounded-[2rem] bg-[#07172f] p-8 text-center">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-white/10">
+                            <svg class="h-7 w-7 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>
+                        </div>
+                        <p class="mt-4 font-bold text-white">Full Team</p>
+                        <p class="mt-2 text-sm leading-6 text-slate-400">Additional profiles will be added as they are prepared for publication.</p>
                     </div>
-                    <p class="mt-4 font-bold text-white">Full Team</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-400">Additional profiles will be added as they are prepared for publication.</p>
-                </div>
+                @endif
             </div>
         </div>
     </section>
 
     {{-- Qualifications and accreditations --}}
-    {{-- Future CMS-managed content --}}
     <section class="border-t border-[#e6e8ee] bg-[#f7f3ea]">
         <div class="mx-auto max-w-[1440px] px-6 py-12">
             <div class="tlg-reveal">
@@ -399,14 +427,30 @@
                     <div>
                         <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#667085]">Professional Standards</p>
                         <h2 class="mt-2 font-serif text-3xl font-bold text-[#07172f]">Qualifications &amp; Accreditations</h2>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">Professional qualifications and accreditations held by our team will be listed here once verified for publication.</p>
+                        @if ($accreditations->isEmpty())
+                            <p class="mt-2 text-sm leading-6 text-[#667085]">Professional qualifications and accreditations held by our team will be listed here once verified for publication.</p>
+                        @endif
                     </div>
                 </div>
                 <div class="mt-6 flex flex-wrap items-center gap-4">
-                    <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
-                    <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
-                    <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
-                    <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
+                    @if ($accreditations->isNotEmpty())
+                        @foreach ($accreditations as $accreditation)
+                            @if ($accreditation->logo)
+                                <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-[#e6e8ee] bg-white shadow-sm px-4">
+                                    <img src="{{ $accreditation->logo->url() }}" alt="{{ $accreditation->name }}" class="max-h-10 max-w-full object-contain">
+                                </div>
+                            @else
+                                <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-[#e6e8ee] bg-white shadow-sm px-3 text-center">
+                                    <span class="text-xs font-semibold text-[#07172f]">{{ $accreditation->name }}</span>
+                                </div>
+                            @endif
+                        @endforeach
+                    @else
+                        <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
+                        <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
+                        <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
+                        <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-white shadow-sm"><span class="text-xs font-semibold text-[#b0b7c3]">Qualification / Badge</span></div>
+                    @endif
                 </div>
             </div>
         </div>

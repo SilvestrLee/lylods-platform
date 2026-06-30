@@ -1,18 +1,29 @@
-<x-layouts.public title="Case Studies — The Lylods Group">
+<x-layouts.public
+    :title="$page->meta_title ?? 'Case Studies — The Lylods Group'"
+    :description="$page->meta_description">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
         <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Our Work</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">Case Studies</h1>
-                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Engagement examples across our professional service disciplines — illustrating how The Lylods Group approaches practical client challenges.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">{{ $page->hero_subtitle }}</p>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">{{ $page->hero_title }}</h1>
+                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">{{ $page->hero_description }}</p>
+                @if($page->primary_cta_label || $page->secondary_cta_label)
+                <div class="mt-10 flex flex-wrap gap-4">
+                    @if($page->primary_cta_label && $page->primary_cta_url)
+                    <a href="{{ $page->primary_cta_url }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">{{ $page->primary_cta_label }}</a>
+                    @endif
+                    @if($page->secondary_cta_label && $page->secondary_cta_url)
+                    <a href="{{ $page->secondary_cta_url }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">{{ $page->secondary_cta_label }}</a>
+                    @endif
+                </div>
+                @endif
             </div>
         </div>
     </section>
 
     {{-- Case Studies Grid --}}
-    {{-- Future CMS-managed case studies --}}
     <section class="bg-white">
         <div class="mx-auto max-w-[1440px] px-6 py-20">
 
@@ -21,6 +32,56 @@
                 <span class="text-xs font-semibold text-[#07172f]">All examples below are illustrative engagement examples. Details have been anonymised.</span>
             </div>
 
+            @if ($caseStudies->isNotEmpty())
+            <div class="mt-8 grid gap-6 lg:grid-cols-2">
+                @foreach ($caseStudies as $cs)
+                <div class="tlg-reveal flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                    <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#123f8c] to-[#07172f]">
+                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 70% 30%, #c9a24d 0%, transparent 60%)"></div>
+                        <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3"/></svg>
+                    </div>
+                    <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
+                        <div class="flex items-center justify-between gap-4">
+                            @if ($cs->industry)
+                                <span class="rounded-full bg-[#07172f] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#c9a24d]">{{ $cs->industry }}</span>
+                            @else
+                                <span></span>
+                            @endif
+                            <span class="text-[10px] font-semibold uppercase tracking-wider text-[#667085]">Illustrative engagement example</span>
+                        </div>
+                        <h2 class="mt-4 font-serif text-xl font-bold text-[#07172f]">{{ $cs->title }}</h2>
+                    </div>
+                    <div class="flex flex-1 flex-col divide-y divide-[#e6e8ee] px-8">
+                        @if ($cs->challenge)
+                        <div class="py-5">
+                            <p class="text-xs font-bold uppercase tracking-wider text-[#c9a24d]">The Challenge</p>
+                            <p class="mt-2 text-sm leading-7 text-[#667085]">{{ $cs->challenge }}</p>
+                        </div>
+                        @endif
+                        @if ($cs->our_role)
+                        <div class="py-5">
+                            <p class="text-xs font-bold uppercase tracking-wider text-[#123f8c]">Our Role</p>
+                            <p class="mt-2 text-sm leading-7 text-[#667085]">{{ $cs->our_role }}</p>
+                        </div>
+                        @endif
+                        @if ($cs->outcome)
+                        <div class="py-5">
+                            <p class="text-xs font-bold uppercase tracking-wider text-[#07172f]">The Outcome</p>
+                            <p class="mt-2 text-sm leading-7 text-[#667085]">{{ $cs->outcome }}</p>
+                        </div>
+                        @endif
+                        <div class="py-4">
+                            <a href="{{ route('case-study', $cs->slug) }}"
+                               class="inline-flex items-center gap-2 text-sm font-bold text-[#123f8c] hover:text-[#07172f]">
+                                Read more
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @else
             <div class="mt-8 grid gap-6 lg:grid-cols-2">
 
                 {{-- Case Study 1: Business Digital Transformation --}}
@@ -234,6 +295,7 @@
                 </div>
 
             </div>
+            @endif
         </div>
     </section>
 

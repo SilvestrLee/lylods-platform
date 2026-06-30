@@ -1,20 +1,24 @@
-<x-layouts.public title="Careers and Placements — The Lylods Group">
+<x-layouts.public
+    :title="$page->meta_title ?? 'Careers and Placements — The Lylods Group'"
+    :description="$page->meta_description">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
         <div class="relative mx-auto max-w-[1440px] px-6 py-28">
             <div class="tlg-reveal max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">Work With Us</p>
-                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">Careers and Placements</h1>
-                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">Explore opportunities to work with us, develop your skills, support projects or connect with suitable placement and recruitment pathways.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">{{ $page->hero_subtitle }}</p>
+                <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">{{ $page->hero_title }}</h1>
+                <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-200">{{ $page->hero_description }}</p>
+                @if($page->primary_cta_label || $page->secondary_cta_label)
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="{{ route('contact') }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] shadow-lg transition-all duration-300 hover:bg-[#d8b765]">
-                        Submit Your Interest
-                    </a>
-                    <a href="{{ route('about') }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">
-                        About The Group
-                    </a>
+                    @if($page->primary_cta_label && $page->primary_cta_url)
+                    <a href="{{ $page->primary_cta_url }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] shadow-lg transition-all duration-300 hover:bg-[#d8b765]">{{ $page->primary_cta_label }}</a>
+                    @endif
+                    @if($page->secondary_cta_label && $page->secondary_cta_url)
+                    <a href="{{ $page->secondary_cta_url }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">{{ $page->secondary_cta_label }}</a>
+                    @endif
                 </div>
+                @endif
             </div>
         </div>
     </section>
