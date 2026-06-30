@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Services\CMS\PageService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminPageController extends Controller
 {
@@ -34,11 +35,15 @@ class AdminPageController extends Controller
             'secondary_cta_url'   => 'nullable|string|max:500',
             'meta_title'          => 'nullable|string|max:255',
             'meta_description'    => 'nullable|string|max:500',
+            'canonical_url'       => 'nullable|url|max:500',
+            'robots'              => ['nullable', Rule::in(['index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow'])],
+            'sitemap_include'     => 'nullable|boolean',
             'is_published'        => 'nullable|boolean',
         ]);
 
-        $data['is_published'] = $request->boolean('is_published');
-        $data['updated_by']   = auth()->id();
+        $data['is_published']    = $request->boolean('is_published');
+        $data['sitemap_include'] = $request->boolean('sitemap_include');
+        $data['updated_by']      = auth()->id();
 
         $this->service->update($page, $data);
 

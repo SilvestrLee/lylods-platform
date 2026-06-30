@@ -1,6 +1,9 @@
 <x-layouts.public
     :title="$page->meta_title ?? 'Our Services — The Lylods Group'"
-    :description="$page->meta_description">
+    :description="$page->meta_description"
+    :canonical="$page?->canonical_url"
+    :robots="$page?->robots"
+    :og-image="$page?->ogMedia?->url()">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">

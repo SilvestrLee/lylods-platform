@@ -1,84 +1,72 @@
 Read and follow the `.claude` folder instructions.
 
-# Phase 5 Validation
+# Phase 6A Final Runtime Verification
 
-Before this phase is accepted, perform a complete validation.
+Do not modify architecture.
 
-## Database
+Do not introduce new features.
 
-Verify:
+Run the development server and perform a runtime verification of the implemented SEO foundation.
 
-- all migrations are reversible
-- foreign keys are correct
-- indexes exist where appropriate
-- timestamps are present
-- nullable fields are intentional
+## Verify these pages
 
-## Models
+- Home
+- About
+- Services
+- Property
+- Community Projects
+- Case Studies
+- Insights
+- Careers
+- Contact
+- Privacy Notice
+- Cookie Notice
+- Accessibility
+- Complaints
+- Terms
 
-Verify:
+## Browser checks
 
-- fillable properties
-- casts
-- relationships
-- no duplicated logic
+For at least these page types:
 
-## Services
+- Standard page (About)
+- Listing page (Services or Insights)
+- Compliance page (Privacy Notice)
 
-Verify:
+Inspect the rendered HTML source.
 
-- cache invalidation occurs after create/update/delete
-- no duplicated queries
-- no N+1 queries
-- dependency injection used consistently
+Confirm:
 
-## Admin
-
-Verify:
-
-- validation rules
-- success messages
-- error handling
-- pagination
-- search
-- sorting
-
-## Public Website
-
-Verify:
-
-- footer renders correctly
-- social links render correctly
-- compliance pages render correctly
-- empty state handling
-- missing data fallbacks
-
-## Security
+- `<title>`
+- `<meta name="description">`
+- `<meta property="og:title">`
+- `<meta property="og:description">`
+- `<meta property="og:image">` (only when available)
+- `<meta property="og:url">`
+- `<link rel="canonical">`
+- `<meta name="robots">`
 
 Verify:
 
-- authorization
-- CSRF protection
-- mass assignment protection
-- XSS protection
+- No duplicate tags
+- No empty tags
+- No malformed URLs
+- No missing canonical
+- No Blade exceptions
+- No console errors
+- No broken public routes
 
-## Performance
+## Deliverable
 
-Verify:
+Report only:
 
-- eager loading
-- cache usage
-- no unnecessary queries
+- Runtime verification status
+- Pages verified
+- Issues found
+- Issues fixed (if any)
+- Remaining issues
+- Production ready: Yes / No
 
-## Report
+Do not make speculative improvements.
 
-Provide:
-
-- issues found
-- issues fixed
-- issues remaining
-- whether Phase 5 is production-ready
-
-Do not make architectural changes.
-
-Only fix defects discovered during validation.
+Do not begin Phase 6B.

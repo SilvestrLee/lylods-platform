@@ -1,6 +1,9 @@
 <x-layouts.public
     :title="$caseStudy->seo_title ?? $caseStudy->title . ' — The Lylods Group'"
-    :description="$caseStudy->seo_description ?? $caseStudy->summary">
+    :description="$caseStudy->seo_description ?? $caseStudy->summary"
+    :canonical="$caseStudy->canonical_url"
+    :robots="$caseStudy->robots"
+    :og-image="$caseStudy->featuredMedia?->url()">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">

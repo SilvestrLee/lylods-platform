@@ -1,6 +1,9 @@
 <x-layouts.public
-    :title="$page->meta_title ?? 'Accessibility Statement — The Lylods Group'"
-    :description="$page->meta_description">
+    :title="$compliancePage?->seo_title ?? $page->meta_title ?? 'Accessibility Statement — The Lylods Group'"
+    :description="$compliancePage?->seo_description ?? $page->meta_description"
+    :canonical="$page?->canonical_url"
+    :robots="$page?->robots"
+    :og-image="$page?->ogMedia?->url()">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">

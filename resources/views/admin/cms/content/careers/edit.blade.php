@@ -43,6 +43,10 @@
                         </button>
                     </form>
                 @endif
+                <a href="{{ url('/careers') }}" target="_blank" rel="noopener noreferrer"
+                   class="rounded-full border border-[#e6e8ee] px-5 py-2 text-xs font-bold text-[#667085] hover:border-[#07172f] hover:text-[#07172f]">
+                    View Live ↗
+                </a>
             </div>
         </div>
 

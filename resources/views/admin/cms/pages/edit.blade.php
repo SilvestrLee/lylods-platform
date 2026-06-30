@@ -5,10 +5,35 @@
                 <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#c9a24d]">Website CMS</p>
                 <h2 class="mt-1 font-serif text-2xl font-bold text-[#07172f]">Edit Page — {{ $page->title }}</h2>
             </div>
-            <a href="{{ route('admin.cms.pages.index') }}"
-               class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:bg-[#f7f3ea]">
-                ← All Pages
-            </a>
+            <div class="flex items-center gap-3">
+                @php
+                    $slugMap = [
+                        'home'              => '/',
+                        'about'             => '/about',
+                        'services'          => '/services',
+                        'property'          => '/property',
+                        'community-projects'=> '/community-projects',
+                        'case-studies'      => '/case-studies',
+                        'insights'          => '/insights',
+                        'careers'           => '/careers',
+                        'contact'           => '/contact',
+                        'privacy-notice'    => '/privacy-notice',
+                        'cookie-notice'     => '/cookie-notice',
+                        'accessibility'     => '/accessibility',
+                        'complaints'        => '/complaints',
+                        'terms'             => '/terms',
+                    ];
+                    $previewUrl = url($slugMap[$page->slug] ?? '/' . $page->slug);
+                @endphp
+                <a href="{{ $previewUrl }}" target="_blank" rel="noopener noreferrer"
+                   class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#667085] hover:border-[#07172f] hover:text-[#07172f]">
+                    View Live ↗
+                </a>
+                <a href="{{ route('admin.cms.pages.index') }}"
+                   class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:bg-[#f7f3ea]">
+                    ← All Pages
+                </a>
+            </div>
         </div>
     </x-slot>
 
@@ -118,12 +143,40 @@
                             <p class="mt-1.5 text-xs text-[#667085]">Recommended 120–160 characters.</p>
                         </div>
 
-                        <div class="flex items-center gap-3">
-                            <input type="hidden" name="is_published" value="0">
-                            <input type="checkbox" id="is_published" name="is_published" value="1"
-                                   {{ old('is_published', $page->is_published) ? 'checked' : '' }}
-                                   class="h-4 w-4 rounded border-gray-300 text-[#123f8c] focus:ring-[#123f8c]">
-                            <label for="is_published" class="text-sm font-semibold text-[#07172f]">Page is published</label>
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Canonical URL <span class="text-xs font-normal text-[#667085]">(leave blank to use current URL)</span></label>
+                                <input type="url" name="canonical_url" value="{{ old('canonical_url', $page->canonical_url) }}"
+                                       placeholder="https://example.com/page"
+                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                @error('canonical_url') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Robots</label>
+                                <select name="robots"
+                                        class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                    @foreach (['index,follow' => 'index, follow (default)', 'noindex,follow' => 'noindex, follow', 'index,nofollow' => 'index, nofollow', 'noindex,nofollow' => 'noindex, nofollow'] as $val => $label)
+                                        <option value="{{ $val }}" {{ old('robots', $page->robots ?? 'index,follow') === $val ? 'selected' : '' }}>{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-6">
+                            <label class="flex items-center gap-3">
+                                <input type="hidden" name="sitemap_include" value="0">
+                                <input type="checkbox" name="sitemap_include" value="1"
+                                       {{ old('sitemap_include', $page->sitemap_include ?? true) ? 'checked' : '' }}
+                                       class="h-4 w-4 rounded border-gray-300 text-[#123f8c] focus:ring-[#123f8c]">
+                                <span class="text-sm font-semibold text-[#07172f]">Include in sitemap</span>
+                            </label>
+                            <label class="flex items-center gap-3">
+                                <input type="hidden" name="is_published" value="0">
+                                <input type="checkbox" id="is_published" name="is_published" value="1"
+                                       {{ old('is_published', $page->is_published) ? 'checked' : '' }}
+                                       class="h-4 w-4 rounded border-gray-300 text-[#123f8c] focus:ring-[#123f8c]">
+                                <label for="is_published" class="text-sm font-semibold text-[#07172f]">Page is published</label>
+                            </label>
                         </div>
                     </div>
 

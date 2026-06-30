@@ -7,6 +7,7 @@ use App\Services\CMS\InsightService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class AdminInsightController extends Controller
 {
@@ -35,6 +36,8 @@ class AdminInsightController extends Controller
             'category'        => ['nullable', 'string', 'max:255'],
             'seo_title'       => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string'],
+            'canonical_url'   => ['nullable', 'url', 'max:500'],
+            'robots'          => ['nullable', Rule::in(['index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow'])],
         ]);
 
         $base  = Str::slug(filled($data['slug']) ? $data['slug'] : $data['title']);
@@ -75,6 +78,8 @@ class AdminInsightController extends Controller
             'category'        => ['nullable', 'string', 'max:255'],
             'seo_title'       => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string'],
+            'canonical_url'   => ['nullable', 'url', 'max:500'],
+            'robots'          => ['nullable', Rule::in(['index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow'])],
         ]);
 
         $oldSlug = $insight->slug;

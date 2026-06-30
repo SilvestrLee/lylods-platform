@@ -1,6 +1,12 @@
 @inject('cmsSettingSvc', 'App\Services\CMS\SiteSettingService')
 @inject('cmsFooterSvc', 'App\Services\CMS\FooterService')
-@props(['title' => null, 'description' => null])
+@props([
+    'title'       => null,
+    'description' => null,
+    'canonical'   => null,
+    'robots'      => null,
+    'ogImage'     => null,
+])
 @php
     try {
         $cmsSite = $cmsSettingSvc->current();
@@ -14,9 +20,16 @@
         $cmsFooterLinks  = collect();
         $cmsSocialLinks  = collect();
     }
-    $siteName      = $cmsSite?->site_name ?? 'The Lylods Group';
-    $htmlTitle     = $title ?? $cmsSite?->default_meta_title ?? 'The Lylods Group';
-    $htmlDesc      = $description ?? $cmsSite?->default_meta_description ?? '';
+
+    // --- Metadata resolution ---
+    $siteName      = $cmsSite?->site_name ?? "The Lylod's Group";
+    $seoTitle      = filled($title) ? $title : (filled($cmsSite?->default_meta_title) ? $cmsSite->default_meta_title : "The Lylod's Group");
+    $seoDesc       = filled($description) ? $description : ($cmsSite?->default_meta_description ?: null);
+    $seoCanonical  = filled($canonical) ? $canonical : request()->url();
+    $seoRobots     = filled($robots) ? $robots : 'index,follow';
+    $seoOgImage    = filled($ogImage) ? $ogImage : ($cmsSite?->defaultOgImage?->url() ?? null);
+    // --- End metadata resolution ---
+
     $footerText    = $cmsSite?->footer_text ?? 'A UK-based business, technology, property and community development organisation helping clients move from ideas to practical results.';
     $footerCopy    = $cmsSite?->copyright ?? '© ' . date('Y') . ' The Lylods Group. All rights reserved.';
 @endphp
@@ -25,9 +38,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $htmlTitle }}</title>
-    @if($htmlDesc)
-    <meta name="description" content="{{ $htmlDesc }}">
+    <title>{{ $seoTitle }}</title>
+    @if($seoDesc)
+    <meta name="description" content="{{ $seoDesc }}">
+    @endif
+    <meta name="robots" content="{{ $seoRobots }}">
+    <link rel="canonical" href="{{ $seoCanonical }}">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $seoCanonical }}">
+    <meta property="og:title" content="{{ $seoTitle }}">
+    @if($seoDesc)
+    <meta property="og:description" content="{{ $seoDesc }}">
+    @endif
+    @if($seoOgImage)
+    <meta property="og:image" content="{{ $seoOgImage }}">
     @endif
 
     <link rel="preconnect" href="https://fonts.bunny.net">

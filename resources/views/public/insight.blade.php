@@ -1,6 +1,9 @@
 <x-layouts.public
     :title="$insight->seo_title ?? $insight->title . ' — The Lylods Group'"
-    :description="$insight->seo_description ?? $insight->excerpt">
+    :description="$insight->seo_description ?? $insight->excerpt"
+    :canonical="$insight->canonical_url"
+    :robots="$insight->robots"
+    :og-image="$insight->featuredMedia?->url()">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">

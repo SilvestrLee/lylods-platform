@@ -122,18 +122,39 @@
                 </div>
 
                 <div class="rounded-2xl border border-[#e6e8ee] p-6 space-y-5">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#07172f]">SEO</h2>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#07172f]">SEO Settings</h2>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-[#667085]">SEO Title</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#667085]">Meta Title</label>
                         <input type="text" name="seo_title" value="{{ old('seo_title', $insight->seo_title) }}"
-                               class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] px-4 py-2.5 text-sm text-[#07172f] focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]">
+                               class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] px-4 py-2.5 text-sm text-[#07172f] focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]"
+                               placeholder="Defaults to insight title">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-[#667085]">SEO Description</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#667085]">Meta Description</label>
                         <textarea name="seo_description" rows="2"
-                                  class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] px-4 py-2.5 text-sm text-[#07172f] focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]">{{ old('seo_description', $insight->seo_description) }}</textarea>
+                                  class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] px-4 py-2.5 text-sm text-[#07172f] focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]"
+                                  placeholder="Defaults to excerpt if left blank">{{ old('seo_description', $insight->seo_description) }}</textarea>
+                    </div>
+
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-[#667085]">Canonical URL <span class="font-normal normal-case text-[#667085]">(blank = current URL)</span></label>
+                            <input type="url" name="canonical_url" value="{{ old('canonical_url', $insight->canonical_url) }}"
+                                   placeholder="https://..."
+                                   class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] px-4 py-2.5 text-sm text-[#07172f] focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]">
+                            @error('canonical_url') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-[#667085]">Robots</label>
+                            <select name="robots"
+                                    class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] px-4 py-2.5 text-sm text-[#07172f] focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]">
+                                @foreach (['index,follow' => 'index, follow (default)', 'noindex,follow' => 'noindex, follow', 'index,nofollow' => 'index, nofollow', 'noindex,nofollow' => 'noindex, nofollow'] as $val => $label)
+                                    <option value="{{ $val }}" {{ old('robots', $insight->robots ?? 'index,follow') === $val ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
 
