@@ -1,105 +1,385 @@
-Read and follow the `.claude` folder instructions.
+# Read and Follow Project Instructions First
 
-# CMS Admin Corrections — Profile Separation and Site Logo Upload
+Before making any changes:
 
-Two issues have been identified.
-
-## Issue 1 — Admin Profile Is Using Investor Treatment
-
-The `/profile` screen currently displays as an Investor Area profile screen.
-
-This is wrong for admin users.
-
-Admin profile and investor profile must not feel like the same experience.
-
-### Required correction
-
-If the authenticated user is an admin, the profile screen should use an admin/CMS-oriented layout.
-
-Admin profile should show:
-
-- Admin / CMS context
-- Website CMS label
-- Profile Information
-- Update Password
-- Delete Account if currently available
-- No Investor Area branding
-- No investor sidebar language
-- No investment navigation
-- No investor account label
-
-Investor users may continue using the investor profile layout.
-
-### Rule
-
-Do not break investor profile.
-
-Use role-based layout selection if needed.
+1. Read and obey everything inside the project's `.claude` folder.
+2. Read `.claude/CLAUDE.md`
+3. Read `.claude/project.md`
+4. Read `.claude/adjust`
+5. Follow every project convention.
+6. Preserve the existing architecture.
+7. Do not introduce drift.
+8. Do not commit until instructed.
 
 ---
 
-## Issue 2 — Site Settings Missing Logo Upload
+# Phase 6B Final Adjustment
 
-The CMS currently has no visible place to change or upload the site logo.
+Phase 6B has been implemented successfully and passed validation.
 
-This is required.
+Before committing, perform one final refinement pass to ensure the sitemap implementation is completely deterministic and production-grade.
 
-### Required correction
+No architectural changes.
 
-Update the CMS Site Settings screen to include upload fields for:
+No redesign.
 
-- Site logo
-- Inverse logo
-- Favicon
-- Default Open Graph image if already part of SiteSetting
+No feature additions.
 
-Each upload field should include:
-
-- current preview
-- file input
-- accepted types: jpg, jpeg, png, webp, svg where appropriate
-- max size validation
-- stored media relationship or current Media model pattern
-
-### Site Settings should also expose
-
-- Site name
-- Tagline
-- Primary email
-- Phone
-- Address
-- Office hours
-- Social links
-- Footer text
-- Copyright
-- Default meta title
-- Default meta description
-
-### Rules
-
-- Do not redesign the public site.
-- Do not touch investor dashboard logic.
-- Do not remove existing CMS fields.
-- Do not bypass the Media model if the CMS already uses it.
-- Do not create duplicate logo systems.
-- Keep this inside the existing custom admin architecture.
+Only the adjustments below.
 
 ---
 
-## Validation
+# 1. Remove Fallback URL Ambiguity
 
-Test:
+Validation identified two published pages that entered the sitemap through the fallback URL strategy.
 
-- Admin user visits `/profile` and sees admin/CMS profile treatment.
-- Investor user still sees investor profile treatment.
-- Admin can access Site Settings.
-- Admin can upload or replace logo.
-- Admin can upload or replace favicon.
-- Public layout uses uploaded logo where available.
-- Fallback site name still works if no logo is uploaded.
+Current pages:
 
-Run:
+```
+investment
+privacy
+```
 
-```bash
-npm run build
-php artisan optimize:clear
+These are currently valid.
+
+However, they should not rely on fallback mapping.
+
+Update the explicit slug mapping.
+
+Add:
+
+```
+investment
+↓
+
+/investment
+```
+
+and
+
+```
+privacy
+↓
+
+/privacy
+```
+
+The sitemap should never rely on fallback URL generation for known CMS pages.
+
+Known pages should always have explicit mappings.
+
+---
+
+# 2. Privacy Canonical Review
+
+Inspect the following pages:
+
+```
+privacy
+privacy-notice
+```
+
+Determine whether both are intended public pages.
+
+Possible outcomes:
+
+### Option A
+
+If both pages serve different purposes:
+
+Keep both.
+
+Both remain in sitemap.
+
+Assign:
+
+```
+priority = 0.3
+
+changefreq = monthly
+```
+
+---
+
+### Option B
+
+If they represent the same content:
+
+Do NOT include both.
+
+Choose the canonical version.
+
+Recommended:
+
+```
+privacy-notice
+```
+
+Then:
+
+- unpublish the duplicate
+
+or
+
+- set
+
+```
+sitemap_include = false
+```
+
+for the duplicate.
+
+Avoid duplicate search indexing.
+
+---
+
+# 3. XML Validation
+
+Open
+
+```
+/sitemap.xml
+```
+
+Verify:
+
+✓ HTTP 200
+
+✓ application/xml response
+
+✓ Proper XML declaration
+
+✓ Correct namespace
+
+✓ Valid XML structure
+
+✓ Browser renders XML correctly
+
+No malformed tags.
+
+No invalid encoding.
+
+---
+
+# 4. URL Verification
+
+Inspect every generated URL.
+
+Verify:
+
+- HTTPS
+- No double slashes
+- No malformed URLs
+- No localhost references
+- No APP_URL mistakes
+- No trailing slash inconsistencies
+
+Every URL must resolve correctly.
+
+---
+
+# 5. Duplicate Detection
+
+Verify:
+
+No duplicate
+
+```
+<loc>
+```
+
+entries exist.
+
+Every public URL should appear exactly once.
+
+---
+
+# 6. Content Validation
+
+Verify inclusion:
+
+✓ Homepage
+
+✓ About
+
+✓ Services
+
+✓ Property
+
+✓ Community Projects
+
+✓ Case Studies listing
+
+✓ Insights listing
+
+✓ Careers
+
+✓ Contact
+
+✓ Compliance pages
+
+✓ Published Case Studies
+
+✓ Published Insights
+
+Verify exclusion:
+
+✗ Draft pages
+
+✗ Archived pages
+
+✗ Draft insights
+
+✗ Archived insights
+
+✗ Draft case studies
+
+✗ Archived case studies
+
+✗ Admin URLs
+
+✗ Authentication routes
+
+✗ Dashboard routes
+
+✗ Investor portal
+
+---
+
+# 7. Metadata Validation
+
+Verify every sitemap entry contains:
+
+```
+loc
+
+lastmod
+
+changefreq
+
+priority
+```
+
+Ensure:
+
+```
+lastmod
+```
+
+comes from
+
+```
+updated_at
+```
+
+formatted as
+
+```
+Y-m-d
+```
+
+---
+
+# 8. robots.txt
+
+Confirm
+
+```
+public/robots.txt
+```
+
+contains:
+
+```
+Sitemap: https://thelylodsgroup.com/sitemap.xml
+```
+
+Do not overwrite existing crawl directives.
+
+Only append if necessary.
+
+---
+
+# 9. Performance Review
+
+Confirm:
+
+- Sitemap is cached
+- Cache duration remains 30 minutes
+- No unnecessary queries
+- No N+1 queries
+- Controllers remain thin
+- All business logic remains inside SitemapService
+
+---
+
+# 10. Production Readiness Review
+
+Perform one final production audit.
+
+Confirm:
+
+✓ XML validates
+
+✓ Browser renders correctly
+
+✓ XML response headers correct
+
+✓ URLs correct
+
+✓ Priorities correct
+
+✓ Change frequencies correct
+
+✓ No duplicate entries
+
+✓ No unpublished content
+
+✓ No duplicate privacy pages
+
+✓ No architecture drift
+
+✓ No performance regressions
+
+✓ No security regressions
+
+---
+
+# Final Deliverable
+
+Provide a final report containing:
+
+## Validation Summary
+
+- XML validation
+- URL validation
+- Duplicate validation
+- Metadata validation
+- robots.txt validation
+
+## Adjustments Made
+
+List every adjustment.
+
+## Files Modified
+
+List every modified file.
+
+## Production Readiness
+
+State whether Phase 6B is fully production-ready.
+
+## Remaining Issues
+
+If none, explicitly state:
+
+```
+Remaining Issues:
+None.
+```
+
+## Recommendation
+
+State whether the implementation is approved for commit.
+
+Do **not** commit until I explicitly approve.
