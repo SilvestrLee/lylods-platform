@@ -1,72 +1,105 @@
 Read and follow the `.claude` folder instructions.
 
-# Phase 6A Final Runtime Verification
+# CMS Admin Corrections — Profile Separation and Site Logo Upload
 
-Do not modify architecture.
+Two issues have been identified.
 
-Do not introduce new features.
+## Issue 1 — Admin Profile Is Using Investor Treatment
 
-Run the development server and perform a runtime verification of the implemented SEO foundation.
+The `/profile` screen currently displays as an Investor Area profile screen.
 
-## Verify these pages
+This is wrong for admin users.
 
-- Home
-- About
-- Services
-- Property
-- Community Projects
-- Case Studies
-- Insights
-- Careers
-- Contact
-- Privacy Notice
-- Cookie Notice
-- Accessibility
-- Complaints
-- Terms
+Admin profile and investor profile must not feel like the same experience.
 
-## Browser checks
+### Required correction
 
-For at least these page types:
+If the authenticated user is an admin, the profile screen should use an admin/CMS-oriented layout.
 
-- Standard page (About)
-- Listing page (Services or Insights)
-- Compliance page (Privacy Notice)
+Admin profile should show:
 
-Inspect the rendered HTML source.
+- Admin / CMS context
+- Website CMS label
+- Profile Information
+- Update Password
+- Delete Account if currently available
+- No Investor Area branding
+- No investor sidebar language
+- No investment navigation
+- No investor account label
 
-Confirm:
+Investor users may continue using the investor profile layout.
 
-- `<title>`
-- `<meta name="description">`
-- `<meta property="og:title">`
-- `<meta property="og:description">`
-- `<meta property="og:image">` (only when available)
-- `<meta property="og:url">`
-- `<link rel="canonical">`
-- `<meta name="robots">`
+### Rule
 
-Verify:
+Do not break investor profile.
 
-- No duplicate tags
-- No empty tags
-- No malformed URLs
-- No missing canonical
-- No Blade exceptions
-- No console errors
-- No broken public routes
+Use role-based layout selection if needed.
 
-## Deliverable
+---
 
-Report only:
+## Issue 2 — Site Settings Missing Logo Upload
 
-- Runtime verification status
-- Pages verified
-- Issues found
-- Issues fixed (if any)
-- Remaining issues
-- Production ready: Yes / No
+The CMS currently has no visible place to change or upload the site logo.
 
-Do not make speculative improvements.
+This is required.
 
-Do not begin Phase 6B.
+### Required correction
+
+Update the CMS Site Settings screen to include upload fields for:
+
+- Site logo
+- Inverse logo
+- Favicon
+- Default Open Graph image if already part of SiteSetting
+
+Each upload field should include:
+
+- current preview
+- file input
+- accepted types: jpg, jpeg, png, webp, svg where appropriate
+- max size validation
+- stored media relationship or current Media model pattern
+
+### Site Settings should also expose
+
+- Site name
+- Tagline
+- Primary email
+- Phone
+- Address
+- Office hours
+- Social links
+- Footer text
+- Copyright
+- Default meta title
+- Default meta description
+
+### Rules
+
+- Do not redesign the public site.
+- Do not touch investor dashboard logic.
+- Do not remove existing CMS fields.
+- Do not bypass the Media model if the CMS already uses it.
+- Do not create duplicate logo systems.
+- Keep this inside the existing custom admin architecture.
+
+---
+
+## Validation
+
+Test:
+
+- Admin user visits `/profile` and sees admin/CMS profile treatment.
+- Investor user still sees investor profile treatment.
+- Admin can access Site Settings.
+- Admin can upload or replace logo.
+- Admin can upload or replace favicon.
+- Public layout uses uploaded logo where available.
+- Fallback site name still works if no logo is uploaded.
+
+Run:
+
+```bash
+npm run build
+php artisan optimize:clear

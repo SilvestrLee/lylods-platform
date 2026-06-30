@@ -1,3 +1,4 @@
+<x-app-layout>
 <x-admin-dashboard-shell>
     <div class="rounded-[2rem] bg-white p-8 shadow-sm">
         <div class="flex items-center justify-between gap-4">
@@ -64,3 +65,4 @@
         </div>
     </div>
 </x-admin-dashboard-shell>
+</x-app-layout>

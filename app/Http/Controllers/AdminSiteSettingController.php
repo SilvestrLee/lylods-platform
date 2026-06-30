@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\SiteSetting;
+use App\Services\CMS\MediaService;
 use App\Services\CMS\SiteSettingService;
 use Illuminate\Http\Request;
 
 class AdminSiteSettingController extends Controller
 {
-    public function __construct(private SiteSettingService $service) {}
+    public function __construct(
+        private SiteSettingService $service,
+        private MediaService $media,
+    ) {}
 
     public function edit()
     {
-        $setting = SiteSetting::firstOrFail();
+        $setting = SiteSetting::with(['logo', 'logoInverse', 'favicon', 'defaultOgImage'])->firstOrFail();
+
         return view('admin.cms.site-settings.edit', compact('setting'));
     }
 
@@ -25,13 +30,35 @@ class AdminSiteSettingController extends Controller
             'phone'                    => 'nullable|string|max:50',
             'address'                  => 'nullable|string|max:500',
             'office_hours'             => 'nullable|string|max:255',
+            'linkedin'                 => 'nullable|url|max:255',
+            'facebook'                 => 'nullable|url|max:255',
+            'instagram'                => 'nullable|url|max:255',
+            'youtube'                  => 'nullable|url|max:255',
             'footer_text'              => 'nullable|string|max:1000',
             'copyright'                => 'nullable|string|max:255',
             'default_meta_title'       => 'nullable|string|max:255',
             'default_meta_description' => 'nullable|string|max:500',
+            'logo_file'                => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'logo_inverse_file'        => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'favicon_file'             => 'nullable|file|mimes:ico,png,svg|max:512',
+            'og_image_file'            => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 
         $setting = SiteSetting::firstOrFail();
+
+        foreach ([
+            'logo_file'         => 'logo_media_id',
+            'logo_inverse_file' => 'logo_inverse_media_id',
+            'favicon_file'      => 'favicon_media_id',
+            'og_image_file'     => 'default_og_media_id',
+        ] as $field => $column) {
+            if ($request->hasFile($field)) {
+                $media = $this->media->store($request->file($field), 'logos', auth()->id());
+                $data[$column] = $media->id;
+            }
+            unset($data[$field]);
+        }
+
         $this->service->update($setting, $data);
 
         return redirect()->route('admin.cms.site-settings.edit')
