@@ -1,11 +1,13 @@
 @inject('cmsSettingSvc', 'App\Services\CMS\SiteSettingService')
 @inject('cmsFooterSvc', 'App\Services\CMS\FooterService')
+@inject('structuredDataSvc', 'App\Services\CMS\StructuredDataService')
 @props([
-    'title'       => null,
-    'description' => null,
-    'canonical'   => null,
-    'robots'      => null,
-    'ogImage'     => null,
+    'title'         => null,
+    'description'   => null,
+    'canonical'     => null,
+    'robots'        => null,
+    'ogImage'       => null,
+    'schemaContext' => [],
 ])
 @php
     try {
@@ -32,6 +34,14 @@
 
     $footerText    = $cmsSite?->footer_text ?? 'A UK-based business, technology, property and community development organisation helping clients move from ideas to practical results.';
     $footerCopy    = $cmsSite?->copyright ?? '© ' . date('Y') . ' The Lylods Group. All rights reserved.';
+
+    // --- Structured Data ---
+    try {
+        $ldJson = $structuredDataSvc->buildJson($cmsSite, $cmsSocialLinks, $seoTitle, $seoDesc, $seoCanonical, $schemaContext);
+    } catch (\Throwable $e) {
+        $ldJson = null;
+    }
+    // --- End Structured Data ---
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +64,10 @@
     @endif
     @if($seoOgImage)
     <meta property="og:image" content="{{ $seoOgImage }}">
+    @endif
+
+    @if($ldJson)
+    <script type="application/ld+json">{!! $ldJson !!}</script>
     @endif
 
     <link rel="preconnect" href="https://fonts.bunny.net">

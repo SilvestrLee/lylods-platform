@@ -3,7 +3,8 @@
     :description="$insight->seo_description ?? $insight->excerpt"
     :canonical="$insight->canonical_url"
     :robots="$insight->robots"
-    :og-image="$insight->featuredMedia?->url()">
+    :og-image="$insight->featuredMedia?->url()"
+    :schema-context="['type' => 'article', 'model' => $insight]">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">

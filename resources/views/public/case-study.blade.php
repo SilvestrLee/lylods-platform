@@ -3,7 +3,8 @@
     :description="$caseStudy->seo_description ?? $caseStudy->summary"
     :canonical="$caseStudy->canonical_url"
     :robots="$caseStudy->robots"
-    :og-image="$caseStudy->featuredMedia?->url()">
+    :og-image="$caseStudy->featuredMedia?->url()"
+    :schema-context="['type' => 'creative_work', 'model' => $caseStudy]">
 
     {{-- Hero --}}
     <section class="relative overflow-hidden bg-[#07172f] text-white">
