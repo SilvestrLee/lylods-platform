@@ -1,57 +1,131 @@
 Read and follow the `.claude` folder instructions.
 
-# Phase 7B — Enterprise Media Library UI Plan
-
-Phase 7A media infrastructure has been implemented and deployed.
+# Phase 7B.5 — Media Library Bulk Actions Design Proposal
 
 Do not implement yet.
+Do not write code.
+Do not create routes.
+Do not modify controllers.
 Do not commit.
-Do not modify migrations.
-Do not redesign public pages.
 
 ## Objective
 
-Prepare the implementation plan for improving the CMS Media Library UI.
+Prepare a detailed implementation design for Media Library bulk actions.
 
-Focus on:
+Bulk actions are higher risk because they affect multiple records, deletion rules, observer behaviour, and media usage protection.
 
-- grid/list toggle
-- search
-- filters
-- sorting
-- pagination
-- metadata editing
-- preview panel
-- replace asset
-- safe delete
-- usage indicators
-- collection/category badges
-- bulk actions
+## Scope
 
-## First Step
+Design the workflow for:
 
-Audit the current Media Library implementation.
+- Bulk delete
+- Bulk category update
+- Bulk visibility update
+- Bulk metadata update if practical
+- Selection UI
+- Confirmation UI
+- Partial success reporting
+- Safe deletion rules
+- Usage protection
+
+## Required Analysis
 
 Review:
 
-- routes
-- controller
-- service
-- views
-- Media model
-- existing upload/replace/delete behaviour
-- existing search/filter behaviour
+- `MediaService`
+- `AdminMediaController`
+- `MediaObserver`
+- `MediaPolicy`
+- `Media` model
+- `resources/views/admin/cms/media/index.blade.php`
+- Existing delete logic
+- Existing usage detection logic
+- Existing filters and pagination
+- Existing grid/list toggle
+- Existing category badge logic
 
-## Deliverable
+## Design Requirements
 
-Return:
+### Selection UX
 
-- current state
-- what already exists
-- what is missing
-- recommended implementation order
-- files likely to change
-- risks
-- validation checklist
+Define:
 
-Do not write code yet.
+- checkbox placement
+- select all on current page
+- clear selection
+- selected count
+- disabled state when nothing is selected
+- behaviour across pagination
+- behaviour when filters change
+- behaviour in grid view
+- behaviour in list view
+
+### Bulk Delete
+
+Define:
+
+- confirmation message
+- how used media is blocked
+- how unused media is deleted
+- how partial success is reported
+- whether deletion is soft delete or permanent
+- whether physical files are removed immediately
+- how `MediaObserver` participates
+- how `MediaService::delete()` is reused
+
+### Bulk Category Update
+
+Define:
+
+- how selected assets are moved to another category
+- whether null/empty category is allowed
+- validation rules
+- success message
+- partial failure handling
+
+### Bulk Visibility Update
+
+Define:
+
+- public/private toggle behaviour
+- validation
+- affected records
+- success message
+
+### Safety Rules
+
+Bulk actions must not:
+
+- bypass existing usage protection
+- bypass `MediaService`
+- delete files before database checks pass
+- delete media used by site settings, pages, insights, case studies, team members, partners, downloads, or any known CMS relation
+- introduce N+1 queries
+- break existing single-item delete
+- break upload
+- break replace
+- break grid/list view
+- break filters
+- break pagination
+
+## Performance Requirements
+
+Explain how the implementation will handle:
+
+- 10 selected items
+- 50 selected items
+- 200 selected items
+- partial failures
+- database transactions
+- chunking if needed
+
+## Proposed Routes
+
+Suggest routes only. Do not create them yet.
+
+Example:
+
+```php
+POST /admin/cms/media/bulk-delete
+POST /admin/cms/media/bulk-category
+POST /admin/cms/media/bulk-visibility

@@ -8,6 +8,7 @@ use App\Rules\NotCorruptImage;
 use App\Rules\SafeSvg;
 use App\Services\CMS\MediaService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class AdminMediaController extends Controller
@@ -114,5 +115,70 @@ class AdminMediaController extends Controller
 
         return redirect()->route('admin.cms.media.index')
             ->with('success', 'File deleted.');
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $data = $request->validate([
+            'ids'   => 'required|array|max:500',
+            'ids.*' => 'integer',
+        ]);
+
+        $result = $this->service->bulkDelete($data['ids']);
+
+        return redirect()->route('admin.cms.media.index')
+            ->with('success', $this->bulkDeleteMessage($result));
+    }
+
+    public function bulkCategory(Request $request)
+    {
+        $data = $request->validate([
+            'ids'      => 'required|array|max:500',
+            'ids.*'    => 'integer',
+            'category' => ['required', 'string', Rule::in(self::CATEGORIES)],
+        ]);
+
+        $result = $this->service->bulkUpdateCategory($data['ids'], $data['category'], auth()->id());
+
+        return redirect()->route('admin.cms.media.index')
+            ->with('success', $this->bulkUpdateMessage($result, "Moved {$result['updated']} " . Str::plural('file', $result['updated']) . " to " . ucfirst(str_replace('-', ' ', $data['category'])) . '.'));
+    }
+
+    public function bulkVisibility(Request $request)
+    {
+        $data = $request->validate([
+            'ids'       => 'required|array|max:500',
+            'ids.*'     => 'integer',
+            'is_public' => 'required|boolean',
+        ]);
+
+        $result = $this->service->bulkUpdateVisibility($data['ids'], $data['is_public'], auth()->id());
+
+        return redirect()->route('admin.cms.media.index')
+            ->with('success', $this->bulkUpdateMessage($result, "Updated visibility for {$result['updated']} " . Str::plural('file', $result['updated']) . '.'));
+    }
+
+    private function bulkDeleteMessage(array $result): string
+    {
+        $message = "Deleted {$result['deleted']} " . Str::plural('file', $result['deleted']) . '.';
+
+        if ($result['skipped_in_use'] > 0) {
+            $message .= " {$result['skipped_in_use']} skipped because " . ($result['skipped_in_use'] === 1 ? 'it is' : 'they are') . ' in use.';
+        }
+
+        if ($result['not_found'] > 0) {
+            $message .= " {$result['not_found']} " . Str::plural('file', $result['not_found']) . ' no longer found.';
+        }
+
+        return $message;
+    }
+
+    private function bulkUpdateMessage(array $result, string $baseMessage): string
+    {
+        if ($result['not_found'] > 0) {
+            $baseMessage .= " {$result['not_found']} " . Str::plural('file', $result['not_found']) . ' no longer found.';
+        }
+
+        return $baseMessage;
     }
 }

@@ -101,6 +101,9 @@ Route::middleware(['auth', 'admin'])
 
             Route::get('/media', [AdminMediaController::class, 'index'])->name('media.index');
             Route::post('/media', [AdminMediaController::class, 'store'])->name('media.store');
+            Route::post('/media/bulk-delete', [AdminMediaController::class, 'bulkDelete'])->name('media.bulk-delete');
+            Route::post('/media/bulk-category', [AdminMediaController::class, 'bulkCategory'])->name('media.bulk-category');
+            Route::post('/media/bulk-visibility', [AdminMediaController::class, 'bulkVisibility'])->name('media.bulk-visibility');
             Route::get('/media/{media}/edit', [AdminMediaController::class, 'edit'])->name('media.edit');
             Route::patch('/media/{media}', [AdminMediaController::class, 'update'])->name('media.update');
             Route::post('/media/{media}/replace', [AdminMediaController::class, 'replace'])->name('media.replace');

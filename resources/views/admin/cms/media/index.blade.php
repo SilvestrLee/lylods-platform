@@ -29,6 +29,15 @@
                 {{ session('error') }}
             </div>
         @endif
+        @if ($errors->any())
+            <div class="rounded-2xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-800 ring-1 ring-red-200">
+                <ul class="list-disc space-y-1 pl-4">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         {{-- Upload panel (hidden by default) --}}
         <div id="upload-panel" class="hidden overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
@@ -156,6 +165,59 @@
                 </div>
             </div>
 
+            <form method="POST" x-data="{ selected: [], bulkCategory: '', bulkVisibility: '' }">
+                @csrf
+                {{-- Bulk action toolbar --}}
+                <div class="flex flex-wrap items-center gap-3 border-b border-[#e6e8ee] bg-[#f8fafc] px-6 py-3">
+                    <label class="inline-flex items-center gap-2 text-xs font-semibold text-[#667085]">
+                        <input type="checkbox"
+                               class="h-4 w-4 rounded border-[#d0d5dd]"
+                               @change="selected = $event.target.checked ? @json($media->pluck('id')) : []">
+                        Select all on page
+                    </label>
+
+                    <span class="text-xs font-bold text-[#07172f]" x-text="selected.length + ' selected'"></span>
+
+                    <button type="button" @click="selected = []"
+                            class="text-xs font-semibold text-[#667085] underline hover:text-[#07172f]">
+                        Clear
+                    </button>
+
+                    <div class="ml-auto flex flex-wrap items-center gap-2">
+                        <select name="category" x-model="bulkCategory"
+                                class="rounded-full border border-[#d0d5dd] px-3 py-1.5 text-xs text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                            <option value="">Move to…</option>
+                            @foreach(['brand','homepage','services','case-studies','insights','partners','downloads','compliance','team','logos','uploads'] as $cat)
+                                <option value="{{ $cat }}">{{ ucfirst(str_replace('-', ' ', $cat)) }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" formaction="{{ route('admin.cms.media.bulk-category') }}" formmethod="POST"
+                                :disabled="selected.length === 0 || bulkCategory === ''"
+                                class="rounded-full bg-[#123f8c] px-4 py-1.5 text-xs font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:enabled:bg-[#0e336f]">
+                            Move
+                        </button>
+
+                        <select name="is_public" x-model="bulkVisibility"
+                                class="rounded-full border border-[#d0d5dd] px-3 py-1.5 text-xs text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                            <option value="">Set visibility…</option>
+                            <option value="1">Public</option>
+                            <option value="0">Private</option>
+                        </select>
+                        <button type="submit" formaction="{{ route('admin.cms.media.bulk-visibility') }}" formmethod="POST"
+                                :disabled="selected.length === 0 || bulkVisibility === ''"
+                                class="rounded-full bg-[#123f8c] px-4 py-1.5 text-xs font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:enabled:bg-[#0e336f]">
+                            Update
+                        </button>
+
+                        <button type="submit" formaction="{{ route('admin.cms.media.bulk-delete') }}" formmethod="POST"
+                                :disabled="selected.length === 0"
+                                @click="if(!confirm('Delete ' + selected.length + ' selected file(s)? Files currently in use will be skipped automatically.')) $event.preventDefault()"
+                                class="rounded-full border border-red-200 px-4 py-1.5 text-xs font-bold text-red-600 transition disabled:cursor-not-allowed disabled:opacity-40 hover:enabled:bg-red-50">
+                            Delete Selected
+                        </button>
+                    </div>
+                </div>
+
             @if($media->isEmpty())
                 <div class="p-10 text-center">
                     <p class="text-sm text-[#667085]">No files found. Use the Upload button to add your first file.</p>
@@ -163,25 +225,28 @@
             @elseif($viewMode === 'list')
                 <div class="divide-y divide-[#e6e8ee]">
                     @foreach ($media as $item)
-                        <a href="{{ route('admin.cms.media.edit', $item) }}"
-                           class="flex items-center gap-4 px-6 py-3 transition hover:bg-[#f7f3ea]">
-                            <div class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#f0ede6]">
-                                @include('admin.cms.media._thumb', ['item' => $item, 'class' => 'h-full w-full object-cover'])
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <p class="truncate text-sm font-semibold text-[#07172f]">{{ $item->title }}</p>
-                                <p class="mt-0.5 text-xs text-[#667085]">
-                                    {{ strtoupper($item->extension) }} · {{ $item->humanFileSize() }}
-                                    @if($item->width && $item->height) · {{ $item->width }}×{{ $item->height }} @endif
-                                </p>
-                            </div>
+                        <div class="flex items-center gap-4 px-6 py-3 transition hover:bg-[#f7f3ea]">
+                            <input type="checkbox" name="ids[]" value="{{ $item->id }}" x-model="selected"
+                                   class="h-4 w-4 shrink-0 rounded border-[#d0d5dd]" aria-label="Select {{ $item->title }}">
+                            <a href="{{ route('admin.cms.media.edit', $item) }}" class="flex min-w-0 flex-1 items-center gap-4">
+                                <div class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#f0ede6]">
+                                    @include('admin.cms.media._thumb', ['item' => $item, 'class' => 'h-full w-full object-cover'])
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate text-sm font-semibold text-[#07172f]">{{ $item->title }}</p>
+                                    <p class="mt-0.5 text-xs text-[#667085]">
+                                        {{ strtoupper($item->extension) }} · {{ $item->humanFileSize() }}
+                                        @if($item->width && $item->height) · {{ $item->width }}×{{ $item->height }} @endif
+                                    </p>
+                                </div>
+                            </a>
                             <span class="shrink-0 rounded-full bg-[#f7f3ea] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#07172f]">
                                 {{ $item->categoryLabel() }}
                             </span>
                             <span class="shrink-0 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide {{ in_array($item->id, $usedIds) ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600' }}">
                                 {{ in_array($item->id, $usedIds) ? 'Used' : 'Unused' }}
                             </span>
-                        </a>
+                        </div>
                     @endforeach
                 </div>
 
@@ -191,26 +256,26 @@
             @else
                 <div class="grid grid-cols-2 gap-4 p-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach ($media as $item)
-                        <a href="{{ route('admin.cms.media.edit', $item) }}"
-                           class="group relative overflow-hidden rounded-2xl border border-[#e6e8ee] bg-[#f8fafc] transition hover:border-[#c9a24d] hover:shadow-md">
-                            <span class="absolute left-2 top-2 z-10 truncate rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#07172f] ring-1 ring-[#e6e8ee]">
-                                {{ $item->categoryLabel() }}
-                            </span>
+                        <div class="group relative overflow-hidden rounded-2xl border border-[#e6e8ee] bg-[#f8fafc] transition hover:border-[#c9a24d] hover:shadow-md">
+                            <input type="checkbox" name="ids[]" value="{{ $item->id }}" x-model="selected"
+                                   class="absolute left-2 top-2 z-20 h-4 w-4 rounded border-[#d0d5dd]" aria-label="Select {{ $item->title }}">
                             <span class="absolute right-2 top-2 z-10 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide {{ in_array($item->id, $usedIds) ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600' }}">
                                 {{ in_array($item->id, $usedIds) ? 'Used' : 'Unused' }}
                             </span>
-                            <div class="relative flex h-32 items-center justify-center overflow-hidden bg-[#f0ede6]">
-                                @include('admin.cms.media._thumb', ['item' => $item, 'class' => 'h-full w-full object-cover transition group-hover:scale-105'])
-                            </div>
+                            <a href="{{ route('admin.cms.media.edit', $item) }}">
+                                <div class="relative flex h-32 items-center justify-center overflow-hidden bg-[#f0ede6]">
+                                    @include('admin.cms.media._thumb', ['item' => $item, 'class' => 'h-full w-full object-cover transition group-hover:scale-105'])
+                                </div>
 
-                            <div class="p-3">
-                                <p class="truncate text-xs font-semibold text-[#07172f]">{{ $item->title }}</p>
-                                <p class="mt-0.5 text-[10px] uppercase text-[#667085]">{{ $item->extension }} · {{ $item->humanFileSize() }}</p>
-                                @if($item->width && $item->height)
-                                    <p class="mt-0.5 text-[10px] text-[#667085]">{{ $item->width }}×{{ $item->height }}</p>
-                                @endif
-                            </div>
-                        </a>
+                                <div class="p-3">
+                                    <p class="truncate text-xs font-semibold text-[#07172f]">{{ $item->title }}</p>
+                                    <p class="mt-0.5 text-[10px] uppercase text-[#667085]">{{ $item->extension }} · {{ $item->humanFileSize() }} · {{ $item->categoryLabel() }}</p>
+                                    @if($item->width && $item->height)
+                                        <p class="mt-0.5 text-[10px] text-[#667085]">{{ $item->width }}×{{ $item->height }}</p>
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
 
@@ -218,6 +283,7 @@
                     {{ $media->links() }}
                 </div>
             @endif
+            </form>
         </div>
     </x-admin-dashboard-shell>
 </x-app-layout>

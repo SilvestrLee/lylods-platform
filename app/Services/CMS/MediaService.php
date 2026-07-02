@@ -109,13 +109,88 @@ class MediaService
         return $media->fresh();
     }
 
-    public function delete(Media $media): void
+    public function delete(Media $media): bool
     {
         if ($media->delete() === false) {
-            return;
+            return false;
         }
 
         $this->deleteFiles($media);
+
+        return true;
+    }
+
+    /**
+     * Deletes every unused item in $ids, skipping used ones. Reuses delete() unmodified per item,
+     * so MediaObserver's usage guard still fires as a safety net even though we pre-filter first.
+     *
+     * @return array{deleted: int, skipped_in_use: int, not_found: int}
+     */
+    public function bulkDelete(array $ids): array
+    {
+        $items = Media::whereIn('id', $ids)->get();
+        $notFound = count($ids) - $items->count();
+
+        $used = $this->usedMediaIds($items->pluck('id')->all());
+
+        $deleted = 0;
+        $skipped = 0;
+
+        DB::transaction(function () use ($items, $used, &$deleted, &$skipped) {
+            foreach ($items as $item) {
+                if (in_array($item->id, $used, true)) {
+                    $skipped++;
+                    continue;
+                }
+
+                if ($this->delete($item)) {
+                    $deleted++;
+                } else {
+                    $skipped++;
+                }
+            }
+        });
+
+        return ['deleted' => $deleted, 'skipped_in_use' => $skipped, 'not_found' => $notFound];
+    }
+
+    /**
+     * @return array{updated: int, not_found: int}
+     */
+    public function bulkUpdateCategory(array $ids, string $category, ?int $updatedBy = null): array
+    {
+        return $this->bulkUpdate($ids, ['category' => $category], $updatedBy);
+    }
+
+    /**
+     * @return array{updated: int, not_found: int}
+     */
+    public function bulkUpdateVisibility(array $ids, bool $isPublic, ?int $updatedBy = null): array
+    {
+        return $this->bulkUpdate($ids, ['is_public' => $isPublic], $updatedBy);
+    }
+
+    /**
+     * Loops per-item through update() rather than a single whereIn()->update() so model events
+     * (and therefore MediaObserver's cache flush) still fire — deliberate trade-off, see 7B.5 design.
+     *
+     * @return array{updated: int, not_found: int}
+     */
+    private function bulkUpdate(array $ids, array $data, ?int $updatedBy): array
+    {
+        $items = Media::whereIn('id', $ids)->get();
+        $notFound = count($ids) - $items->count();
+
+        $updated = 0;
+
+        DB::transaction(function () use ($items, $data, $updatedBy, &$updated) {
+            foreach ($items as $item) {
+                $this->update($item, $data, $updatedBy);
+                $updated++;
+            }
+        });
+
+        return ['updated' => $updated, 'not_found' => $notFound];
     }
 
     /**
@@ -140,9 +215,35 @@ class MediaService
         return self::$columnExistsCache["{$table}.{$column}"] ??= Schema::hasColumn($table, $column);
     }
 
+    /**
+     * Every existing caller only checks truthiness (>0 / ===0), never the exact number,
+     * so this is a cheap exists()-based check (~1 query per table, short-circuits on first
+     * match) rather than delegating to usages(), which does one query per *column* for its
+     * precise per-table breakdown (needed for display, not needed here).
+     */
     public function usageCount(Media $media): int
     {
-        return $this->usages($media)->sum('count');
+        foreach (self::USAGE_CHECKS as $check) {
+            $columns = array_values(array_filter($check['columns'], fn ($col) => $this->columnExists($check['table'], $col)));
+
+            if (empty($columns)) {
+                continue;
+            }
+
+            $exists = DB::table($check['table'])
+                ->where(function ($query) use ($columns, $media) {
+                    foreach ($columns as $col) {
+                        $query->orWhere($col, $media->id);
+                    }
+                })
+                ->exists();
+
+            if ($exists) {
+                return 1;
+            }
+        }
+
+        return 0;
     }
 
     public function usages(Media $media): \Illuminate\Support\Collection
