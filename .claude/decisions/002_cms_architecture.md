@@ -53,3 +53,17 @@ The admin should not see page-builder concepts such as:
 - Edit section 17
 - Move container
 - Page builder canvas
+
+## Structured Component Architecture
+
+Public pages are composed of reusable developer-defined Blade components.
+
+Component content is CMS-managed.
+
+Component composition remains developer-controlled.
+
+Administrators may edit content, media, visibility where supported, and configuration within approved limits, but may not arbitrarily compose or reorder page layouts.
+
+This preserves UX consistency, accessibility, SEO, performance, and long-term maintainability while maximizing editor autonomy.
+
+This confirms that The Lylods Group CMS is a structured enterprise CMS, not a drag-and-drop page builder, Elementor clone, WordPress block editor, or arbitrary visual canvas system.

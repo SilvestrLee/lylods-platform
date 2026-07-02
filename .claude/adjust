@@ -1,131 +1,520 @@
-Read and follow the `.claude` folder instructions.
+# PHASE 7C — Structured Component Migration
+## Slice 2 — Homepage Statistics Component
 
-# Phase 7B.5 — Media Library Bulk Actions Design Proposal
+**Project:** The Lylods Group Laravel Platform
 
-Do not implement yet.
-Do not write code.
-Do not create routes.
-Do not modify controllers.
-Do not commit.
+**Phase:** 7C
 
-## Objective
+**Slice:** 2
 
-Prepare a detailed implementation design for Media Library bulk actions.
+**Status:** Approved for Implementation
 
-Bulk actions are higher risk because they affect multiple records, deletion rules, observer behaviour, and media usage protection.
+**Priority:** High
 
-## Scope
+**Estimated Complexity:** Medium
 
-Design the workflow for:
+**Dependencies:**
 
-- Bulk delete
-- Bulk category update
-- Bulk visibility update
-- Bulk metadata update if practical
-- Selection UI
-- Confirmation UI
-- Partial success reporting
-- Safe deletion rules
-- Usage protection
+- ✅ Phase 1–6 Complete
+- ✅ Phase 7A Complete
+- ✅ Phase 7B Complete
+- ✅ Homepage Hero Component (Slice 1)
 
-## Required Analysis
+---
 
-Review:
+# Objective
 
-- `MediaService`
-- `AdminMediaController`
-- `MediaObserver`
-- `MediaPolicy`
-- `Media` model
-- `resources/views/admin/cms/media/index.blade.php`
-- Existing delete logic
-- Existing usage detection logic
-- Existing filters and pagination
-- Existing grid/list toggle
-- Existing category badge logic
+Continue the Structured Component Architecture introduced in Phase 7C.
 
-## Design Requirements
+This slice focuses exclusively on migrating the Homepage Statistics section into a reusable CMS-aware Blade component while preserving the project's enterprise CMS philosophy.
 
-### Selection UX
+This is **NOT** a visual redesign.
 
-Define:
+This is **NOT** a page-builder implementation.
 
-- checkbox placement
-- select all on current page
-- clear selection
-- selected count
-- disabled state when nothing is selected
-- behaviour across pagination
-- behaviour when filters change
-- behaviour in grid view
-- behaviour in list view
+This is **NOT** a change to the page hierarchy.
 
-### Bulk Delete
+The goal is simply to replace duplicated homepage markup with a reusable structured component that consumes existing CMS-managed content.
 
-Define:
+---
 
-- confirmation message
-- how used media is blocked
-- how unused media is deleted
-- how partial success is reported
-- whether deletion is soft delete or permanent
-- whether physical files are removed immediately
-- how `MediaObserver` participates
-- how `MediaService::delete()` is reused
+# Architectural Principles
 
-### Bulk Category Update
+Read and comply with every instruction contained within the `.claude` directory before making changes.
 
-Define:
+This implementation **must** remain consistent with:
 
-- how selected assets are moved to another category
-- whether null/empty category is allowed
-- validation rules
-- success message
-- partial failure handling
+- CLAUDE.md
+- PROJECT.md
+- Decision 002 — CMS Architecture
+- Decision 005 — AI Guardrails
 
-### Bulk Visibility Update
+The project architecture is now officially defined as:
 
-Define:
+> Public pages are composed of reusable developer-defined Blade components.
+>
+> Component content is CMS-managed.
+>
+> Component composition remains developer-controlled.
+>
+> Administrators may edit content, media, configuration, and visibility only where explicitly supported.
+>
+> Administrators cannot create arbitrary page layouts or drag-and-drop page structures.
 
-- public/private toggle behaviour
-- validation
-- affected records
-- success message
+This architectural decision is locked.
 
-### Safety Rules
+Do not introduce any implementation that conflicts with it.
 
-Bulk actions must not:
+---
 
-- bypass existing usage protection
-- bypass `MediaService`
-- delete files before database checks pass
-- delete media used by site settings, pages, insights, case studies, team members, partners, downloads, or any known CMS relation
-- introduce N+1 queries
-- break existing single-item delete
-- break upload
-- break replace
-- break grid/list view
-- break filters
-- break pagination
+# Scope
 
-## Performance Requirements
+Only implement the Homepage Statistics component.
 
-Explain how the implementation will handle:
+No other homepage section should be migrated during this slice.
 
-- 10 selected items
-- 50 selected items
-- 200 selected items
-- partial failures
-- database transactions
-- chunking if needed
+Specifically:
 
-## Proposed Routes
+```
+Homepage
 
-Suggest routes only. Do not create them yet.
+✓ Hero (already completed)
+
+▶ Statistics (this slice)
+
+Services
+
+Industries
+
+Projects
+
+Partners
+
+Testimonials
+
+Insights
+
+CTA
+```
+
+Everything after Statistics remains untouched.
+
+---
+
+# Expected Deliverables
+
+Implement a reusable component located at:
+
+```
+resources/views/components/sections/statistics.blade.php
+```
+
+Update the homepage to consume this component.
+
+The homepage Blade should become cleaner without changing its visual output.
 
 Example:
 
-```php
-POST /admin/cms/media/bulk-delete
-POST /admin/cms/media/bulk-category
-POST /admin/cms/media/bulk-visibility
+```blade
+<x-sections.statistics :page="$page" />
+```
+
+or
+
+```blade
+<x-sections.statistics
+    :statistics="$statistics"
+/>
+```
+
+Choose whichever produces the cleanest architecture.
+
+---
+
+# Functional Requirements
+
+The Statistics component must support:
+
+## Section Heading
+
+If available:
+
+- Eyebrow
+- Heading
+- Description
+
+If unavailable:
+
+Gracefully omit these elements.
+
+Never throw Blade errors.
+
+---
+
+## Statistics Items
+
+Each statistic should support:
+
+- Value
+- Label
+- Prefix
+- Suffix
+- Optional Icon
+
+Examples
+
+```
+25+
+
+Years Experience
+
+------------
+
+500+
+
+Projects Delivered
+
+------------
+
+98%
+
+Client Satisfaction
+```
+
+---
+
+## Responsive Layout
+
+Maintain existing behaviour.
+
+Desktop
+
+Tablet
+
+Mobile
+
+must continue rendering correctly.
+
+Do not redesign spacing or typography.
+
+---
+
+# CMS Integration
+
+The component must consume existing CMS data only.
+
+Acceptable sources include:
+
+- existing Page model fields
+- existing page JSON content
+- existing structured fields
+- existing relationships
+
+Do not create:
+
+- new CMS resources
+- new admin pages
+- new settings screens
+
+This slice is presentation-layer refactoring only.
+
+---
+
+# Data Mapping
+
+Before writing code:
+
+Audit where the current statistics originate.
+
+Possible scenarios:
+
+### Option A
+
+Statistics are already stored in the CMS.
+
+Simply map them.
+
+---
+
+### Option B
+
+Statistics are currently hardcoded.
+
+Extract them into a reusable component while preserving existing output.
+
+Do not redesign.
+
+---
+
+### Option C
+
+Statistics are stored inside structured JSON.
+
+Use the existing parser.
+
+Do not invent another storage mechanism.
+
+---
+
+# Reusability
+
+The component should be generic enough that it can later be reused by:
+
+- Homepage
+- About
+- Services
+- Solutions
+
+without modification.
+
+However,
+
+the page itself remains responsible for deciding when the component is rendered.
+
+The component does **not** decide page composition.
+
+---
+
+# Visual Behaviour
+
+Must remain identical.
+
+No intentional visual changes.
+
+No CSS rewrites.
+
+No animation changes.
+
+No spacing changes.
+
+No typography changes.
+
+If the rendered HTML changes, it should only be the result of extracting reusable markup.
+
+---
+
+# Accessibility
+
+Maintain:
+
+- semantic headings
+- list semantics where appropriate
+- keyboard accessibility
+- colour contrast
+- ARIA attributes already present
+
+Do not regress accessibility.
+
+---
+
+# Performance
+
+Avoid introducing:
+
+- N+1 queries
+- unnecessary collections
+- duplicate loops
+- repeated data parsing
+
+Prefer eager-loaded or already-resolved data.
+
+---
+
+# Blade Standards
+
+The component should:
+
+- avoid business logic
+- avoid complex conditionals
+- avoid inline PHP
+- avoid duplicated markup
+
+Business logic belongs elsewhere.
+
+---
+
+# Explicitly Forbidden
+
+Do **NOT** implement any of the following:
+
+❌ Page Builder
+
+❌ Drag-and-drop sections
+
+❌ page_sections table
+
+❌ JSON layout configuration
+
+❌ Dynamic runtime section rendering
+
+❌ Generic component resolver
+
+❌ Section ordering UI
+
+❌ Admin page composition interface
+
+❌ Runtime page composition
+
+❌ Arbitrary section injection
+
+---
+
+# Regression Requirements
+
+The following pages must remain unchanged:
+
+```
+/
+
+About
+
+Services
+```
+
+No visual regressions.
+
+No routing regressions.
+
+No SEO regressions.
+
+No structured-data regressions.
+
+---
+
+# Validation
+
+Run every required validation.
+
+```
+php artisan optimize:clear
+
+php artisan test
+
+npm run build
+```
+
+Verify:
+
+- Homepage returns HTTP 200
+- Statistics render correctly
+- Desktop layout unchanged
+- Mobile layout unchanged
+- Blade compiles successfully
+- No undefined variables
+- No database exceptions
+- Existing SEO output preserved
+- Existing JSON-LD preserved
+- Existing Lighthouse score unaffected where practical
+
+---
+
+# Files Expected to Change
+
+Expected:
+
+```
+resources/views/components/sections/statistics.blade.php
+
+resources/views/public/home.blade.php
+```
+
+Possibly:
+
+```
+app/View/Components/
+
+app/Http/Controllers/
+
+app/Models/Page.php
+```
+
+Only if absolutely necessary.
+
+Avoid expanding scope.
+
+---
+
+# Deliverable Report
+
+Upon completion, provide a detailed implementation report containing:
+
+## Overview
+
+- Objective achieved
+- Scope completed
+
+---
+
+## Files Modified
+
+Complete list.
+
+---
+
+## Data Source
+
+Explain where the statistics originate.
+
+---
+
+## Component API
+
+Example:
+
+```blade
+<x-sections.statistics
+    :page="$page"
+/>
+```
+
+or
+
+```blade
+<x-sections.statistics
+    :statistics="$statistics"
+/>
+```
+
+Explain why this interface was chosen.
+
+---
+
+## Validation Results
+
+Include:
+
+- Artisan
+- Build
+- Blade compilation
+- Route verification
+- Manual rendering verification
+
+---
+
+## Issues Found
+
+Document every issue encountered.
+
+---
+
+## Issues Fixed
+
+Document all fixes.
+
+---
+
+## Remaining Issues
+
+If any.
+
+---
+
+## Production Readiness
+
+State whether the implementation is ready for commit.
+
+If yes,
+
+wait for explicit approval before committing.
+
+Do **not** commit automatically.

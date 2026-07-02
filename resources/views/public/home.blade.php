@@ -123,31 +123,12 @@
     </section>
 
     {{-- Stats band --}}
-    <div class="border-t border-white/10 bg-[#07172f]">
-        <div class="mx-auto max-w-[1440px] px-6 py-8">
-            <dl class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 text-center">
-                <div class="tlg-reveal tlg-d1">
-                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Service Areas</dt>
-                    <dd class="mt-2 font-serif text-4xl font-bold text-white">5</dd>
-                </div>
-                <div class="tlg-reveal tlg-d2">
-                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Industry Reach</dt>
-                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">Multi-Sector</dd>
-                    <dd class="mt-1 text-xs text-slate-400">Energy · Infrastructure · Finance · Public</dd>
-                </div>
-                <div class="tlg-reveal tlg-d3">
-                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Delivery Model</dt>
-                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">End-to-End</dd>
-                    <dd class="mt-1 text-xs text-slate-400">Discovery through close-out</dd>
-                </div>
-                <div class="tlg-reveal tlg-d4">
-                    <dt class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Accountability</dt>
-                    <dd class="mt-2 font-serif text-xl font-bold leading-tight text-white">One Partner</dd>
-                    <dd class="mt-1 text-xs text-slate-400">Across all disciplines</dd>
-                </div>
-            </dl>
-        </div>
-    </div>
+    <x-sections.statistics :items="[
+        ['label' => 'Service Areas', 'value' => '5'],
+        ['label' => 'Industry Reach', 'value' => 'Multi-Sector', 'caption' => 'Energy · Infrastructure · Finance · Public'],
+        ['label' => 'Delivery Model', 'value' => 'End-to-End', 'caption' => 'Discovery through close-out'],
+        ['label' => 'Accountability', 'value' => 'One Partner', 'caption' => 'Across all disciplines'],
+    ]" />
 
     {{-- Discipline identity strip --}}
     <div class="bg-[#07172f] py-5">
