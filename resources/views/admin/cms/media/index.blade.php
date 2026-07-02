@@ -1,3 +1,4 @@
+@php $viewMode = request()->query('view') === 'list' ? 'list' : 'grid'; @endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -106,6 +107,25 @@
                         @endforeach
                     </select>
                 </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-[0.18em] text-[#667085]">Sort</label>
+                    <select name="sort" class="mt-1.5 rounded-2xl border border-[#d0d5dd] px-4 py-2.5 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                        <option value="newest" @selected(($filters['sort'] ?? 'newest') === 'newest')>Newest First</option>
+                        <option value="oldest" @selected(($filters['sort'] ?? '') === 'oldest')>Oldest First</option>
+                        <option value="title_asc" @selected(($filters['sort'] ?? '') === 'title_asc')>Title A–Z</option>
+                        <option value="title_desc" @selected(($filters['sort'] ?? '') === 'title_desc')>Title Z–A</option>
+                        <option value="size_desc" @selected(($filters['sort'] ?? '') === 'size_desc')>Largest First</option>
+                        <option value="size_asc" @selected(($filters['sort'] ?? '') === 'size_asc')>Smallest First</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-[0.18em] text-[#667085]">Show</label>
+                    <select name="quick" class="mt-1.5 rounded-2xl border border-[#d0d5dd] px-4 py-2.5 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                        <option value="">All Files</option>
+                        <option value="unused" @selected(($filters['quick'] ?? '') === 'unused')>Unused Only</option>
+                        <option value="recent" @selected(($filters['quick'] ?? '') === 'recent')>Recently Uploaded (7 days)</option>
+                    </select>
+                </div>
                 <div class="flex gap-2">
                     <button type="submit" class="rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#123f8c]">Filter</button>
                     @if(array_filter($filters))
@@ -122,32 +142,66 @@
                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">Library</p>
                     <p class="mt-1 text-sm text-[#667085]">{{ $media->total() }} {{ Str::plural('file', $media->total()) }}</p>
                 </div>
+                <div class="flex gap-1 rounded-full border border-[#e6e8ee] p-1">
+                    <a href="{{ request()->fullUrlWithQuery(['view' => 'grid']) }}"
+                       aria-label="Grid view"
+                       class="inline-flex h-8 w-8 items-center justify-center rounded-full transition {{ $viewMode === 'grid' ? 'bg-[#07172f] text-white' : 'text-[#667085] hover:bg-[#f7f3ea]' }}">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                    </a>
+                    <a href="{{ request()->fullUrlWithQuery(['view' => 'list']) }}"
+                       aria-label="List view"
+                       class="inline-flex h-8 w-8 items-center justify-center rounded-full transition {{ $viewMode === 'list' ? 'bg-[#07172f] text-white' : 'text-[#667085] hover:bg-[#f7f3ea]' }}">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+                    </a>
+                </div>
             </div>
 
             @if($media->isEmpty())
                 <div class="p-10 text-center">
                     <p class="text-sm text-[#667085]">No files found. Use the Upload button to add your first file.</p>
                 </div>
+            @elseif($viewMode === 'list')
+                <div class="divide-y divide-[#e6e8ee]">
+                    @foreach ($media as $item)
+                        <a href="{{ route('admin.cms.media.edit', $item) }}"
+                           class="flex items-center gap-4 px-6 py-3 transition hover:bg-[#f7f3ea]">
+                            <div class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#f0ede6]">
+                                @include('admin.cms.media._thumb', ['item' => $item, 'class' => 'h-full w-full object-cover'])
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-sm font-semibold text-[#07172f]">{{ $item->title }}</p>
+                                <p class="mt-0.5 text-xs text-[#667085]">
+                                    {{ strtoupper($item->extension) }} · {{ $item->humanFileSize() }}
+                                    @if($item->width && $item->height) · {{ $item->width }}×{{ $item->height }} @endif
+                                </p>
+                            </div>
+                            <span class="shrink-0 rounded-full bg-[#f7f3ea] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#07172f]">
+                                {{ $item->categoryLabel() }}
+                            </span>
+                            <span class="shrink-0 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide {{ in_array($item->id, $usedIds) ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600' }}">
+                                {{ in_array($item->id, $usedIds) ? 'Used' : 'Unused' }}
+                            </span>
+                        </a>
+                    @endforeach
+                </div>
+
+                <div class="border-t border-[#e6e8ee] px-6 py-4">
+                    {{ $media->links() }}
+                </div>
             @else
                 <div class="grid grid-cols-2 gap-4 p-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach ($media as $item)
                         <a href="{{ route('admin.cms.media.edit', $item) }}"
                            class="group relative overflow-hidden rounded-2xl border border-[#e6e8ee] bg-[#f8fafc] transition hover:border-[#c9a24d] hover:shadow-md">
-                            @if($item->isImage())
-                                <div class="relative h-32 overflow-hidden bg-[#f0ede6]">
-                                    <img src="{{ $item->url() }}"
-                                         alt="{{ $item->alt_text ?? $item->title }}"
-                                         class="h-full w-full object-cover transition group-hover:scale-105">
-                                </div>
-                            @else
-                                <div class="flex h-32 items-center justify-center bg-[#f7f3ea]">
-                                    @if($item->extension === 'pdf')
-                                        <svg class="h-10 w-10 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
-                                    @else
-                                        <svg class="h-10 w-10 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
-                                    @endif
-                                </div>
-                            @endif
+                            <span class="absolute left-2 top-2 z-10 truncate rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#07172f] ring-1 ring-[#e6e8ee]">
+                                {{ $item->categoryLabel() }}
+                            </span>
+                            <span class="absolute right-2 top-2 z-10 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide {{ in_array($item->id, $usedIds) ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600' }}">
+                                {{ in_array($item->id, $usedIds) ? 'Used' : 'Unused' }}
+                            </span>
+                            <div class="relative flex h-32 items-center justify-center overflow-hidden bg-[#f0ede6]">
+                                @include('admin.cms.media._thumb', ['item' => $item, 'class' => 'h-full w-full object-cover transition group-hover:scale-105'])
+                            </div>
 
                             <div class="p-3">
                                 <p class="truncate text-xs font-semibold text-[#07172f]">{{ $item->title }}</p>

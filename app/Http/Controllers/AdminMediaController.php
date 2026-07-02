@@ -21,10 +21,15 @@ class AdminMediaController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['search', 'type', 'category']);
+        $filters = $request->only(['search', 'type', 'category', 'sort', 'quick']);
         $media   = $this->service->paginated($filters, 40);
+        $usedIds = $this->service->usedMediaIds($media->pluck('id')->all());
 
-        return view('admin.cms.media.index', compact('media', 'filters'));
+        if (($filters['sort'] ?? 'newest') === 'newest') {
+            unset($filters['sort']);
+        }
+
+        return view('admin.cms.media.index', compact('media', 'filters', 'usedIds'));
     }
 
     public function store(Request $request)

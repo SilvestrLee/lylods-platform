@@ -128,7 +128,7 @@
                             'Type'          => $media->mime_type,
                             'Size'          => $media->humanFileSize(),
                             'Dimensions'    => ($media->width && $media->height) ? "{$media->width}×{$media->height}px" : null,
-                            'Category'      => $media->category ? ucfirst(str_replace('-', ' ', $media->category)) : null,
+                            'Category'      => $media->category ? $media->categoryLabel() : null,
                             'Uploaded'      => $media->created_at->format('d M Y'),
                             'Variants'      => $media->variants ? implode(', ', array_keys($media->variants)) : 'None',
                         ]; @endphp

@@ -118,6 +118,28 @@ class MediaService
         $this->deleteFiles($media);
     }
 
+    /**
+     * Single source of truth for every table/column that can reference a Media row.
+     * Shared by usages() (per-item detail), the "unused" bulk filter, and grid usage badges
+     * so all three can never drift out of sync with each other.
+     */
+    private const USAGE_CHECKS = [
+        ['table' => 'site_settings', 'columns' => ['logo_media_id', 'logo_inverse_media_id', 'logo_dark_media_id', 'logo_footer_media_id', 'logo_email_media_id', 'logo_login_media_id', 'favicon_media_id', 'apple_touch_media_id', 'default_og_media_id', 'twitter_card_media_id'], 'label' => 'Site Settings'],
+        ['table' => 'pages',         'columns' => ['hero_media_id', 'og_media_id'],     'label' => 'Pages'],
+        ['table' => 'insights',      'columns' => ['featured_media_id'],                'label' => 'Insights'],
+        ['table' => 'case_studies',  'columns' => ['featured_media_id'],                'label' => 'Case Studies'],
+        ['table' => 'team_members',  'columns' => ['photo_media_id'],                   'label' => 'Team Members'],
+        ['table' => 'partners',      'columns' => ['logo_media_id'],                    'label' => 'Partners'],
+        ['table' => 'downloads',     'columns' => ['media_id'],                         'label' => 'Downloads'],
+    ];
+
+    private static array $columnExistsCache = [];
+
+    private function columnExists(string $table, string $column): bool
+    {
+        return self::$columnExistsCache["{$table}.{$column}"] ??= Schema::hasColumn($table, $column);
+    }
+
     public function usageCount(Media $media): int
     {
         return $this->usages($media)->sum('count');
@@ -128,20 +150,10 @@ class MediaService
         $usages = collect();
         $id     = $media->id;
 
-        $checks = [
-            ['table' => 'site_settings', 'columns' => ['logo_media_id', 'logo_inverse_media_id', 'logo_dark_media_id', 'logo_footer_media_id', 'logo_email_media_id', 'logo_login_media_id', 'favicon_media_id', 'apple_touch_media_id', 'default_og_media_id', 'twitter_card_media_id'], 'label' => 'Site Settings'],
-            ['table' => 'pages',         'columns' => ['hero_media_id', 'og_media_id'],     'label' => 'Pages'],
-            ['table' => 'insights',      'columns' => ['featured_media_id'],                'label' => 'Insights'],
-            ['table' => 'case_studies',  'columns' => ['featured_media_id'],                'label' => 'Case Studies'],
-            ['table' => 'team_members',  'columns' => ['photo_media_id'],                   'label' => 'Team Members'],
-            ['table' => 'partners',      'columns' => ['logo_media_id'],                    'label' => 'Partners'],
-            ['table' => 'downloads',     'columns' => ['media_id'],                         'label' => 'Downloads'],
-        ];
-
-        foreach ($checks as $check) {
+        foreach (self::USAGE_CHECKS as $check) {
             $count = 0;
             foreach ($check['columns'] as $col) {
-                if (Schema::hasColumn($check['table'], $col)) {
+                if ($this->columnExists($check['table'], $col)) {
                     $count += DB::table($check['table'])->where($col, $id)->count();
                 }
             }
@@ -153,9 +165,60 @@ class MediaService
         return $usages;
     }
 
+    /**
+     * Given a set of media IDs (typically one page of results), returns the subset
+     * that is referenced somewhere. Bounded by the number of usage tables (7 queries),
+     * not the number of media items — avoids N+1 when rendering usage badges on a grid.
+     */
+    public function usedMediaIds(array $mediaIds): array
+    {
+        if (empty($mediaIds)) {
+            return [];
+        }
+
+        $used = [];
+
+        foreach (self::USAGE_CHECKS as $check) {
+            foreach ($check['columns'] as $col) {
+                if ($this->columnExists($check['table'], $col)) {
+                    $used = array_merge(
+                        $used,
+                        DB::table($check['table'])->whereIn($col, $mediaIds)->pluck($col)->all()
+                    );
+                }
+            }
+        }
+
+        return array_values(array_unique($used));
+    }
+
+    private function applyUnusedConstraint(\Illuminate\Database\Eloquent\Builder $query): void
+    {
+        foreach (self::USAGE_CHECKS as $check) {
+            foreach ($check['columns'] as $col) {
+                if ($this->columnExists($check['table'], $col)) {
+                    $query->whereNotExists(function ($sub) use ($check, $col) {
+                        $sub->selectRaw('1')
+                            ->from($check['table'])
+                            ->whereColumn("{$check['table']}.{$col}", 'media.id');
+                    });
+                }
+            }
+        }
+    }
+
+    private const SORTS = [
+        'newest'    => ['created_at', 'desc'],
+        'oldest'    => ['created_at', 'asc'],
+        'title_asc' => ['title', 'asc'],
+        'title_desc' => ['title', 'desc'],
+        'size_desc' => ['file_size', 'desc'],
+        'size_asc'  => ['file_size', 'asc'],
+    ];
+
     public function paginated(array $filters = [], int $perPage = 40): LengthAwarePaginator
     {
-        $query = Media::query()->latest();
+        $query = Media::query();
 
         if (! empty($filters['search'])) {
             $search = $filters['search'];
@@ -178,6 +241,15 @@ class MediaService
         if (! empty($filters['category'])) {
             $query->where('category', $filters['category']);
         }
+
+        if (($filters['quick'] ?? null) === 'unused') {
+            $this->applyUnusedConstraint($query);
+        } elseif (($filters['quick'] ?? null) === 'recent') {
+            $query->where('created_at', '>=', now()->subDays(7));
+        }
+
+        [$sortColumn, $sortDirection] = self::SORTS[$filters['sort'] ?? ''] ?? self::SORTS['newest'];
+        $query->orderBy($sortColumn, $sortDirection);
 
         return $query->paginate($perPage)->withQueryString();
     }

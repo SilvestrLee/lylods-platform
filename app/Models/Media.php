@@ -83,6 +83,11 @@ class Media extends Model
         return str_starts_with($this->mime_type ?? '', 'image/');
     }
 
+    public function categoryLabel(): string
+    {
+        return ucfirst(str_replace('-', ' ', $this->category ?: 'uploads'));
+    }
+
     public function humanFileSize(): string
     {
         $bytes = $this->file_size ?? 0;
