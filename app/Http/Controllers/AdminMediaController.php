@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MediaResource;
 use App\Models\Media;
+use App\Rules\NotCorruptImage;
+use App\Rules\SafeSvg;
 use App\Services\CMS\MediaService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -27,7 +30,7 @@ class AdminMediaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file'     => 'required|file|mimes:jpg,jpeg,png,gif,webp,svg,pdf,docx,doc,zip|max:20480',
+            'file'     => ['required', 'file', 'mimes:jpg,jpeg,png,gif,webp,svg,pdf,docx,doc,zip', 'max:20480', new SafeSvg(), new NotCorruptImage()],
             'title'    => 'nullable|string|max:255',
             'alt_text' => 'nullable|string|max:255',
             'category' => ['nullable', 'string', Rule::in(self::CATEGORIES)],
@@ -49,12 +52,7 @@ class AdminMediaController extends Controller
         }
 
         if ($request->expectsJson()) {
-            return response()->json([
-                'id'    => $media->id,
-                'title' => $media->title,
-                'url'   => $media->url(),
-                'mime'  => $media->mime_type,
-            ]);
+            return MediaResource::make($media)->response();
         }
 
         return redirect()->route('admin.cms.media.index')
@@ -91,7 +89,7 @@ class AdminMediaController extends Controller
     public function replace(Request $request, Media $media)
     {
         $request->validate([
-            'file' => 'required|file|mimes:jpg,jpeg,png,gif,webp,svg,pdf,docx,doc,zip|max:20480',
+            'file' => ['required', 'file', 'mimes:jpg,jpeg,png,gif,webp,svg,pdf,docx,doc,zip', 'max:20480', new SafeSvg(), new NotCorruptImage()],
         ]);
 
         $this->service->replace($media, $request->file('file'), auth()->id());

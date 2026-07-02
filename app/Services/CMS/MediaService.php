@@ -111,9 +111,11 @@ class MediaService
 
     public function delete(Media $media): void
     {
+        if ($media->delete() === false) {
+            return;
+        }
+
         $this->deleteFiles($media);
-        $media->delete();
-        $this->flush();
     }
 
     public function usageCount(Media $media): int
