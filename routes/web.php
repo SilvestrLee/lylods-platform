@@ -11,9 +11,11 @@ use App\Http\Controllers\AdminNoticeController;
 use App\Http\Controllers\AdminSocialLinkController;
 use App\Http\Controllers\AdminCareerController;
 use App\Http\Controllers\AdminCaseStudyController;
+use App\Http\Controllers\AdminDownloadController;
 use App\Http\Controllers\AdminInsightController;
 use App\Http\Controllers\AdminOrganisationController;
 use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\AdminPartnerController;
 use App\Http\Controllers\AdminServiceController;
 use App\Http\Controllers\AdminServiceGroupController;
 use App\Http\Controllers\AdminSiteSettingController;
@@ -99,7 +101,24 @@ Route::middleware(['auth', 'admin'])
 
             Route::get('/media', [AdminMediaController::class, 'index'])->name('media.index');
             Route::post('/media', [AdminMediaController::class, 'store'])->name('media.store');
+            Route::get('/media/{media}/edit', [AdminMediaController::class, 'edit'])->name('media.edit');
+            Route::patch('/media/{media}', [AdminMediaController::class, 'update'])->name('media.update');
+            Route::post('/media/{media}/replace', [AdminMediaController::class, 'replace'])->name('media.replace');
             Route::delete('/media/{media}', [AdminMediaController::class, 'destroy'])->name('media.destroy');
+
+            Route::get('/partners', [AdminPartnerController::class, 'index'])->name('partners.index');
+            Route::get('/partners/create', [AdminPartnerController::class, 'create'])->name('partners.create');
+            Route::post('/partners', [AdminPartnerController::class, 'store'])->name('partners.store');
+            Route::get('/partners/{partner}/edit', [AdminPartnerController::class, 'edit'])->name('partners.edit');
+            Route::patch('/partners/{partner}', [AdminPartnerController::class, 'update'])->name('partners.update');
+            Route::delete('/partners/{partner}', [AdminPartnerController::class, 'destroy'])->name('partners.destroy');
+
+            Route::get('/downloads', [AdminDownloadController::class, 'index'])->name('downloads.index');
+            Route::get('/downloads/create', [AdminDownloadController::class, 'create'])->name('downloads.create');
+            Route::post('/downloads', [AdminDownloadController::class, 'store'])->name('downloads.store');
+            Route::get('/downloads/{download}/edit', [AdminDownloadController::class, 'edit'])->name('downloads.edit');
+            Route::patch('/downloads/{download}', [AdminDownloadController::class, 'update'])->name('downloads.update');
+            Route::delete('/downloads/{download}', [AdminDownloadController::class, 'destroy'])->name('downloads.destroy');
 
             Route::get('/services/groups', [AdminServiceGroupController::class, 'index'])->name('services.groups.index');
             Route::get('/services/groups/{serviceGroup}/edit', [AdminServiceGroupController::class, 'edit'])->name('services.groups.edit');

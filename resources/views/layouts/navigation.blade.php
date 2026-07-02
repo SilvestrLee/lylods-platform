@@ -48,7 +48,7 @@
                 </button>
 
                 <a href="{{ $dashboardRoute ?? route('dashboard') }}" class="shrink-0">
-                    <x-application-logo class="block h-9 w-auto fill-current text-[#07172f]" />
+                    <x-site-logo class="block h-9 w-auto" />
                 </a>
             </div>
 

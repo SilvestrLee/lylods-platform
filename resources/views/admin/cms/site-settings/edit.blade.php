@@ -99,6 +99,27 @@
                             <p class="mt-1.5 text-[10px] text-[#667085]">JPG, PNG, WEBP, SVG · max 2 MB</p>
                         </div>
 
+                        {{-- Footer Logo --}}
+                        <div class="rounded-2xl border border-[#e6e8ee] p-5">
+                            <p class="text-sm font-semibold text-[#07172f]">Footer Logo</p>
+                            <p class="mt-0.5 text-xs text-[#667085]">Shown in the site footer. Falls back to the site name if not set.</p>
+                            @if ($setting->logoFooter)
+                                <div class="mt-3 flex h-16 items-center justify-center rounded-xl bg-[#07172f] px-4">
+                                    <img src="{{ $setting->logoFooter->url() }}" alt="Current footer logo" class="max-h-12 max-w-full object-contain">
+                                </div>
+                            @else
+                                <div class="mt-3 flex h-16 items-center justify-center rounded-xl bg-[#07172f]">
+                                    <p class="text-xs text-slate-400">No footer logo uploaded</p>
+                                </div>
+                            @endif
+                            <input type="file" name="logo_footer_file" accept=".jpg,.jpeg,.png,.webp,.svg"
+                                   class="mt-3 block w-full text-xs text-[#667085] file:mr-3 file:rounded-full file:border-0 file:bg-[#07172f] file:px-4 file:py-2 file:text-xs file:font-bold file:text-white hover:file:bg-[#123f8c]">
+                            @error('logo_footer_file')
+                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            @enderror
+                            <p class="mt-1.5 text-[10px] text-[#667085]">JPG, PNG, WEBP, SVG · max 2 MB</p>
+                        </div>
+
                         {{-- Favicon --}}
                         <div class="rounded-2xl border border-[#e6e8ee] p-5">
                             <p class="text-sm font-semibold text-[#07172f]">Favicon</p>

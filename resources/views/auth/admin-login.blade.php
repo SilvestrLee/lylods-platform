@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout dark>
     <div class="mb-6 text-center">
         <h1 class="text-2xl font-bold text-gray-900">
             Admin Login

@@ -1,385 +1,66 @@
-# Read and Follow Project Instructions First
+Read and follow the `.claude` folder instructions.
 
-Before making any changes:
+# Replace Laravel Logos in Auth and Dashboard
 
-1. Read and obey everything inside the project's `.claude` folder.
-2. Read `.claude/CLAUDE.md`
-3. Read `.claude/project.md`
-4. Read `.claude/adjust`
-5. Follow every project convention.
-6. Preserve the existing architecture.
-7. Do not introduce drift.
-8. Do not commit until instructed.
+The public site logo now works from CMS Site Settings.
 
----
+But make it a little bigger: 3rem to be precise
 
-# Phase 6B Final Adjustment
+Next, replace the remaining Laravel logos in:
 
-Phase 6B has been implemented successfully and passed validation.
+1. Login/auth screens
+2. Admin/dashboard header or sidebar
 
-Before committing, perform one final refinement pass to ensure the sitemap implementation is completely deterministic and production-grade.
+## Objective
 
-No architectural changes.
+Use the CMS-managed site logo everywhere instead of the default Laravel logo.
 
-No redesign.
+## Check These Areas
 
-No feature additions.
+- Login page
+- Register page if present
+- Forgot password page
+- Reset password page
+- Email verification page if present
+- Admin dashboard
+- Admin sidebar/header
+- User/investor dashboard if it still shows Laravel logo
 
-Only the adjustments below.
+## Files to Inspect
 
----
+- `resources/views/auth/*`
+- `resources/views/components/application-logo.blade.php`
+- `resources/views/components/authentication-card-logo.blade.php`
+- `resources/views/layouts/*`
+- `resources/views/components/layouts/*`
+- dashboard/admin shell/layout files
+- investor layout files
 
-# 1. Remove Fallback URL Ambiguity
+## Required Behaviour
 
-Validation identified two published pages that entered the sitemap through the fallback URL strategy.
+- If CMS logo exists, show uploaded CMS logo.
+- If CMS logo does not exist, show text fallback: `The Lylods Group`.
+- No Laravel default logo should remain visible.
+- Login screen should use the uploaded logo.
+- Dashboard/sidebar/header should use the uploaded logo.
+- Logo should be appropriately sized in each context.
+- Do not change dashboard layout structure.
+- Do not redesign auth screens.
+- Do not break investor dashboard.
 
-Current pages:
+## Implementation Notes
 
-```
-investment
-privacy
-```
+Use the existing SiteSettingService or SiteSetting model helper.
 
-These are currently valid.
+Do not duplicate logo lookup logic.
 
-However, they should not rely on fallback mapping.
+If needed, create a reusable Blade partial/component:
 
-Update the explicit slug mapping.
+`resources/views/components/site-logo.blade.php`
 
-Add:
+It should accept optional classes/size.
 
-```
-investment
-↓
+Example usage:
 
-/investment
-```
-
-and
-
-```
-privacy
-↓
-
-/privacy
-```
-
-The sitemap should never rely on fallback URL generation for known CMS pages.
-
-Known pages should always have explicit mappings.
-
----
-
-# 2. Privacy Canonical Review
-
-Inspect the following pages:
-
-```
-privacy
-privacy-notice
-```
-
-Determine whether both are intended public pages.
-
-Possible outcomes:
-
-### Option A
-
-If both pages serve different purposes:
-
-Keep both.
-
-Both remain in sitemap.
-
-Assign:
-
-```
-priority = 0.3
-
-changefreq = monthly
-```
-
----
-
-### Option B
-
-If they represent the same content:
-
-Do NOT include both.
-
-Choose the canonical version.
-
-Recommended:
-
-```
-privacy-notice
-```
-
-Then:
-
-- unpublish the duplicate
-
-or
-
-- set
-
-```
-sitemap_include = false
-```
-
-for the duplicate.
-
-Avoid duplicate search indexing.
-
----
-
-# 3. XML Validation
-
-Open
-
-```
-/sitemap.xml
-```
-
-Verify:
-
-✓ HTTP 200
-
-✓ application/xml response
-
-✓ Proper XML declaration
-
-✓ Correct namespace
-
-✓ Valid XML structure
-
-✓ Browser renders XML correctly
-
-No malformed tags.
-
-No invalid encoding.
-
----
-
-# 4. URL Verification
-
-Inspect every generated URL.
-
-Verify:
-
-- HTTPS
-- No double slashes
-- No malformed URLs
-- No localhost references
-- No APP_URL mistakes
-- No trailing slash inconsistencies
-
-Every URL must resolve correctly.
-
----
-
-# 5. Duplicate Detection
-
-Verify:
-
-No duplicate
-
-```
-<loc>
-```
-
-entries exist.
-
-Every public URL should appear exactly once.
-
----
-
-# 6. Content Validation
-
-Verify inclusion:
-
-✓ Homepage
-
-✓ About
-
-✓ Services
-
-✓ Property
-
-✓ Community Projects
-
-✓ Case Studies listing
-
-✓ Insights listing
-
-✓ Careers
-
-✓ Contact
-
-✓ Compliance pages
-
-✓ Published Case Studies
-
-✓ Published Insights
-
-Verify exclusion:
-
-✗ Draft pages
-
-✗ Archived pages
-
-✗ Draft insights
-
-✗ Archived insights
-
-✗ Draft case studies
-
-✗ Archived case studies
-
-✗ Admin URLs
-
-✗ Authentication routes
-
-✗ Dashboard routes
-
-✗ Investor portal
-
----
-
-# 7. Metadata Validation
-
-Verify every sitemap entry contains:
-
-```
-loc
-
-lastmod
-
-changefreq
-
-priority
-```
-
-Ensure:
-
-```
-lastmod
-```
-
-comes from
-
-```
-updated_at
-```
-
-formatted as
-
-```
-Y-m-d
-```
-
----
-
-# 8. robots.txt
-
-Confirm
-
-```
-public/robots.txt
-```
-
-contains:
-
-```
-Sitemap: https://thelylodsgroup.com/sitemap.xml
-```
-
-Do not overwrite existing crawl directives.
-
-Only append if necessary.
-
----
-
-# 9. Performance Review
-
-Confirm:
-
-- Sitemap is cached
-- Cache duration remains 30 minutes
-- No unnecessary queries
-- No N+1 queries
-- Controllers remain thin
-- All business logic remains inside SitemapService
-
----
-
-# 10. Production Readiness Review
-
-Perform one final production audit.
-
-Confirm:
-
-✓ XML validates
-
-✓ Browser renders correctly
-
-✓ XML response headers correct
-
-✓ URLs correct
-
-✓ Priorities correct
-
-✓ Change frequencies correct
-
-✓ No duplicate entries
-
-✓ No unpublished content
-
-✓ No duplicate privacy pages
-
-✓ No architecture drift
-
-✓ No performance regressions
-
-✓ No security regressions
-
----
-
-# Final Deliverable
-
-Provide a final report containing:
-
-## Validation Summary
-
-- XML validation
-- URL validation
-- Duplicate validation
-- Metadata validation
-- robots.txt validation
-
-## Adjustments Made
-
-List every adjustment.
-
-## Files Modified
-
-List every modified file.
-
-## Production Readiness
-
-State whether Phase 6B is fully production-ready.
-
-## Remaining Issues
-
-If none, explicitly state:
-
-```
-Remaining Issues:
-None.
-```
-
-## Recommendation
-
-State whether the implementation is approved for commit.
-
-Do **not** commit until I explicitly approve.
+```blade
+<x-site-logo class="h-10 w-auto" />

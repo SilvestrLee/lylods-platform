@@ -54,6 +54,9 @@
     @endif
     <meta name="robots" content="{{ $seoRobots }}">
     <link rel="canonical" href="{{ $seoCanonical }}">
+    @if($cmsSite?->favicon)
+    <link rel="icon" href="{{ $cmsSite->favicon->url() }}">
+    @endif
 
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
@@ -85,8 +88,12 @@
         <div class="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-4">
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="font-serif text-xl font-extrabold tracking-tight text-[#07172f]">
-                {{ $siteName }}
+            <a href="{{ route('home') }}" class="flex items-center font-serif text-xl font-extrabold tracking-tight text-[#07172f]">
+                @if($cmsSite?->logo)
+                    <img src="{{ $cmsSite->logo->url() }}" alt="{{ $siteName }}" class="h-12 w-auto object-contain">
+                @else
+                    {{ $siteName }}
+                @endif
             </a>
 
             {{-- Desktop navigation — position:relative makes it the containing block for mega panels --}}
@@ -344,7 +351,11 @@
 
                 {{-- Brand column --}}
                 <div>
-                    <span class="font-serif text-xl font-bold text-white">{{ $siteName }}</span>
+                    @if($cmsSite?->logoFooter)
+                        <img src="{{ $cmsSite->logoFooter->url() }}" alt="{{ $siteName }}" class="h-9 w-auto object-contain">
+                    @else
+                        <span class="font-serif text-xl font-bold text-white">{{ $siteName }}</span>
+                    @endif
                     <p class="mt-4 max-w-xs text-sm leading-7 text-slate-300">
                         {{ $footerText }}
                     </p>

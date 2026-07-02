@@ -15,6 +15,7 @@ class SiteSettingService
             return SiteSetting::with([
                 'logo',
                 'logoInverse',
+                'logoFooter',
                 'favicon',
                 'defaultOgImage',
             ])->firstOrFail();
@@ -29,6 +30,7 @@ class SiteSettingService
         return $setting->fresh([
             'logo',
             'logoInverse',
+            'logoFooter',
             'favicon',
             'defaultOgImage',
         ]);
