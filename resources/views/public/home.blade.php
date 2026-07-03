@@ -145,95 +145,56 @@
     </div>
 
     {{-- Service disciplines strip --}}
-    <section class="bg-white">
-        <div class="mx-auto max-w-[1440px] px-6 py-24">
-            <div class="tlg-reveal grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-                <div>
-                    <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">Professional Services</p>
-                    <h2 class="mt-3 font-serif text-4xl font-bold text-[#07172f] md:text-5xl lg:text-[2.4rem]">
-                        A single partner across<br class="hidden lg:block"> multiple disciplines.
-                    </h2>
-                </div>
-                <a href="{{ route('services') }}" class="inline-flex items-center gap-2 rounded-full border border-[#07172f] px-6 py-3 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#07172f] hover:text-white">
-                    View All Disciplines
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                </a>
-            </div>
-
-            <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {{-- CMS: each card image will be service->thumbnail --}}
-                <a href="{{ route('services') }}#business-technology" class="tlg-reveal group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a24d] hover:shadow-lg">
-                    <div class="relative h-44 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Business Technology and Digital Solutions" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/60 to-transparent"></div>
-                        <div class="absolute bottom-3 left-4">
-                            <svg class="h-6 w-6 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-[#07172f]">Business, Technology and Digital Solutions</h3>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">Strategy, digital transformation, technology advisory, and business consulting.</p>
-                    </div>
-                </a>
-
-                <a href="{{ route('services') }}#training-recruitment" class="tlg-reveal group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a24d] hover:shadow-lg">
-                    <div class="relative h-44 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="Training Recruitment and Capacity Building" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/60 to-transparent"></div>
-                        <div class="absolute bottom-3 left-4">
-                            <svg class="h-6 w-6 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-[#07172f]">Training, Recruitment and Capacity Building</h3>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">Professional development, workforce upskilling, and specialist placement.</p>
-                    </div>
-                </a>
-
-                <a href="{{ route('services') }}#compliance-governance" class="tlg-reveal group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a24d] hover:shadow-lg">
-                    <div class="relative h-44 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=600&q=80" alt="Governance Compliance and Data Protection" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/60 to-transparent"></div>
-                        <div class="absolute bottom-3 left-4">
-                            <svg class="h-6 w-6 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-[#07172f]">Governance, Compliance and Data Protection</h3>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">Compliance frameworks, policy, audit readiness, and data governance.</p>
-                    </div>
-                </a>
-
-                <a href="{{ route('services') }}#property-development" class="tlg-reveal group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a24d] hover:shadow-lg">
-                    <div class="relative h-44 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80" alt="Property Packaging Facilitation Management and Development" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/60 to-transparent"></div>
-                        <div class="absolute bottom-3 left-4">
-                            <svg class="h-6 w-6 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21"/></svg>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-[#07172f]">Property Packaging, Facilitation, Management and Development</h3>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">Property opportunity coordination, packaging, and development management.</p>
-                    </div>
-                </a>
-
-                <a href="{{ route('services') }}#community-projects" class="tlg-reveal group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a24d] hover:shadow-lg lg:col-span-1">
-                    <div class="relative h-44 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Community and Project Development" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/60 to-transparent"></div>
-                        <div class="absolute bottom-3 left-4">
-                            <svg class="h-6 w-6 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-[#07172f]">Community and Project Development</h3>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">Social impact delivery, community project coordination and development support.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
+    {{-- CMS: each card image will be service->thumbnail --}}
+    <x-sections.services
+        eyebrow="Professional Services"
+        heading="A single partner across"
+        headingBreak="multiple disciplines."
+        ctaLabel="View All Disciplines"
+        :ctaUrl="route('services')"
+        :services="[
+            [
+                'href' => route('services') . '#business-technology',
+                'image' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+                'alt' => 'Business Technology and Digital Solutions',
+                'icon' => 'M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z',
+                'title' => 'Business, Technology and Digital Solutions',
+                'description' => 'Strategy, digital transformation, technology advisory, and business consulting.',
+            ],
+            [
+                'href' => route('services') . '#training-recruitment',
+                'image' => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80',
+                'alt' => 'Training Recruitment and Capacity Building',
+                'icon' => 'M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5',
+                'title' => 'Training, Recruitment and Capacity Building',
+                'description' => 'Professional development, workforce upskilling, and specialist placement.',
+            ],
+            [
+                'href' => route('services') . '#compliance-governance',
+                'image' => 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=600&q=80',
+                'alt' => 'Governance Compliance and Data Protection',
+                'icon' => 'M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z',
+                'title' => 'Governance, Compliance and Data Protection',
+                'description' => 'Compliance frameworks, policy, audit readiness, and data governance.',
+            ],
+            [
+                'href' => route('services') . '#property-development',
+                'image' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80',
+                'alt' => 'Property Packaging Facilitation Management and Development',
+                'icon' => 'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21',
+                'title' => 'Property Packaging, Facilitation, Management and Development',
+                'description' => 'Property opportunity coordination, packaging, and development management.',
+            ],
+            [
+                'href' => route('services') . '#community-projects',
+                'image' => 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80',
+                'alt' => 'Community and Project Development',
+                'icon' => 'M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z',
+                'title' => 'Community and Project Development',
+                'description' => 'Social impact delivery, community project coordination and development support.',
+            ],
+        ]"
+    />
 
     {{-- How We Engage --}}
     <section class="bg-[#f7f3ea]">
