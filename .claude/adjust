@@ -1,520 +1,349 @@
-# PHASE 7C — Structured Component Migration
-## Slice 2 — Homepage Statistics Component
+# PHASE 7C.4 — Homepage Why Choose Us Component
 
-**Project:** The Lylods Group Laravel Platform
+## Structured Component Migration
 
-**Phase:** 7C
-
-**Slice:** 2
-
-**Status:** Approved for Implementation
-
-**Priority:** High
-
-**Estimated Complexity:** Medium
-
-**Dependencies:**
-
-- ✅ Phase 1–6 Complete
-- ✅ Phase 7A Complete
-- ✅ Phase 7B Complete
-- ✅ Homepage Hero Component (Slice 1)
+**Project:** The Lylods Group Laravel Platform  
+**Phase:** 7C.4  
+**Status:** Planned  
+**Priority:** High  
+**Architecture:** Structured Enterprise CMS, not a page builder
 
 ---
 
 # Objective
 
-Continue the Structured Component Architecture introduced in Phase 7C.
+Extract the homepage **Why Choose Us / Why Clients Choose Us** section into a reusable Blade component while preserving the current public design exactly.
 
-This slice focuses exclusively on migrating the Homepage Statistics section into a reusable CMS-aware Blade component while preserving the project's enterprise CMS philosophy.
+This is a refactor only.
 
-This is **NOT** a visual redesign.
-
-This is **NOT** a page-builder implementation.
-
-This is **NOT** a change to the page hierarchy.
-
-The goal is simply to replace duplicated homepage markup with a reusable structured component that consumes existing CMS-managed content.
+No visual redesign.  
+No CMS restructuring.  
+No page-builder behaviour.  
+No new database work.
 
 ---
 
-# Architectural Principles
+# Current Completed Slices
 
-Read and comply with every instruction contained within the `.claude` directory before making changes.
+Already completed:
 
-This implementation **must** remain consistent with:
+- Hero component
+- Statistics component
+- Services component
 
-- CLAUDE.md
-- PROJECT.md
-- Decision 002 — CMS Architecture
-- Decision 005 — AI Guardrails
+This slice continues the same pattern.
 
-The project architecture is now officially defined as:
+---
 
-> Public pages are composed of reusable developer-defined Blade components.
->
-> Component content is CMS-managed.
->
-> Component composition remains developer-controlled.
->
-> Administrators may edit content, media, configuration, and visibility only where explicitly supported.
->
-> Administrators cannot create arbitrary page layouts or drag-and-drop page structures.
+# Core Rule
 
-This architectural decision is locked.
+The homepage remains developer-composed.
 
-Do not introduce any implementation that conflicts with it.
+The CMS may manage content.
+
+The CMS must not manage page structure.
+
+Do not introduce:
+
+- page sections table
+- drag-and-drop ordering
+- arbitrary page composition
+- generic component resolver
+- page-builder canvas
+- JSON layout builder
+- Elementor-style behaviour
 
 ---
 
 # Scope
 
-Only implement the Homepage Statistics component.
+Only work on the homepage Why Choose Us section.
 
-No other homepage section should be migrated during this slice.
+Do not touch:
 
-Specifically:
-
-```
-Homepage
-
-✓ Hero (already completed)
-
-▶ Statistics (this slice)
-
-Services
-
-Industries
-
-Projects
-
-Partners
-
-Testimonials
-
-Insights
-
-CTA
-```
-
-Everything after Statistics remains untouched.
+- About page
+- Services page
+- Admin dashboard
+- Investor dashboard
+- Auth pages
+- Routes
+- Controllers
+- Models
+- Migrations
+- SEO system
+- Sitemap
+- Structured data
+- Media library logic
 
 ---
 
-# Expected Deliverables
+# Target Component
 
-Implement a reusable component located at:
+Create:
 
+```text
+resources/views/components/sections/why-choose-us.blade.php
 ```
-resources/views/components/sections/statistics.blade.php
+
+If the feature cards repeat heavily, optionally create:
+
+```text
+resources/views/components/cards/feature-card.blade.php
 ```
 
-Update the homepage to consume this component.
+Only create the card component if it reduces duplication without changing the rendered output.
 
-The homepage Blade should become cleaner without changing its visual output.
+---
 
-Example:
+# Expected Usage
+
+Homepage should call the section directly:
 
 ```blade
-<x-sections.statistics :page="$page" />
-```
-
-or
-
-```blade
-<x-sections.statistics
-    :statistics="$statistics"
+<x-sections.why-choose-us
+    :eyebrow="$eyebrow ?? null"
+    :heading="$heading ?? null"
+    :description="$description ?? null"
+    :items="$items ?? []"
 />
 ```
 
-Choose whichever produces the cleanest architecture.
+If the current section is hardcoded, pass the same static data as an array from the homepage Blade.
+
+Do not connect it to CMS data unless it is already connected today.
 
 ---
 
-# Functional Requirements
+# Component Responsibilities
 
-The Statistics component must support:
+The component may render:
 
-## Section Heading
+- section wrapper
+- eyebrow
+- heading
+- description
+- feature grid
+- feature cards
+- icons
+- links if already present
+- responsive layout
+- fallback state
 
-If available:
+The component must not:
 
-- Eyebrow
-- Heading
-- Description
-
-If unavailable:
-
-Gracefully omit these elements.
-
-Never throw Blade errors.
+- query the database
+- decide page order
+- load unrelated content
+- modify data
+- create dynamic section behaviour
 
 ---
 
-## Statistics Items
+# Data Supported
 
-Each statistic should support:
+Each item should support:
 
-- Value
-- Label
-- Prefix
-- Suffix
-- Optional Icon
-
-Examples
-
-```
-25+
-
-Years Experience
-
-------------
-
-500+
-
-Projects Delivered
-
-------------
-
-98%
-
-Client Satisfaction
+```text
+icon
+title
+description
+link label
+link URL
 ```
 
----
-
-## Responsive Layout
-
-Maintain existing behaviour.
-
-Desktop
-
-Tablet
-
-Mobile
-
-must continue rendering correctly.
-
-Do not redesign spacing or typography.
+Only include link fields if links already exist in the current section.
 
 ---
 
-# CMS Integration
+# Visual Preservation
 
-The component must consume existing CMS data only.
+The output must remain visually identical.
 
-Acceptable sources include:
+Preserve:
 
-- existing Page model fields
-- existing page JSON content
-- existing structured fields
-- existing relationships
+- Tailwind classes
+- spacing
+- typography
+- colours
+- grid structure
+- card layout
+- icon treatment
+- hover behaviour
+- responsive behaviour
+- section background
+- CTA placement if present
 
-Do not create:
-
-- new CMS resources
-- new admin pages
-- new settings screens
-
-This slice is presentation-layer refactoring only.
-
----
-
-# Data Mapping
-
-Before writing code:
-
-Audit where the current statistics originate.
-
-Possible scenarios:
-
-### Option A
-
-Statistics are already stored in the CMS.
-
-Simply map them.
+Do not improve the design in this slice.
 
 ---
 
-### Option B
+# Fallback Behaviour
 
-Statistics are currently hardcoded.
+If there are no items:
 
-Extract them into a reusable component while preserving existing output.
+- do not crash
+- hide the grid or section gracefully
+- avoid empty broken markup
 
-Do not redesign.
+If heading or description is missing:
 
----
-
-### Option C
-
-Statistics are stored inside structured JSON.
-
-Use the existing parser.
-
-Do not invent another storage mechanism.
+- omit only that element
+- keep layout stable
 
 ---
 
-# Reusability
-
-The component should be generic enough that it can later be reused by:
-
-- Homepage
-- About
-- Services
-- Solutions
-
-without modification.
-
-However,
-
-the page itself remains responsible for deciding when the component is rendered.
-
-The component does **not** decide page composition.
-
----
-
-# Visual Behaviour
-
-Must remain identical.
-
-No intentional visual changes.
-
-No CSS rewrites.
-
-No animation changes.
-
-No spacing changes.
-
-No typography changes.
-
-If the rendered HTML changes, it should only be the result of extracting reusable markup.
-
----
-
-# Accessibility
+# Accessibility Requirements
 
 Maintain:
 
-- semantic headings
-- list semantics where appropriate
-- keyboard accessibility
-- colour contrast
-- ARIA attributes already present
+- heading hierarchy
+- semantic section structure
+- accessible links
+- icon treatment
+- keyboard focus states
+- readable text contrast
 
-Do not regress accessibility.
+Decorative icons should not create screen-reader noise.
 
 ---
 
-# Performance
+# Performance Requirements
 
-Avoid introducing:
+Do not introduce:
 
+- new database queries
 - N+1 queries
-- unnecessary collections
-- duplicate loops
-- repeated data parsing
+- repeated heavy parsing
+- additional services
 
-Prefer eager-loaded or already-resolved data.
-
----
-
-# Blade Standards
-
-The component should:
-
-- avoid business logic
-- avoid complex conditionals
-- avoid inline PHP
-- avoid duplicated markup
-
-Business logic belongs elsewhere.
-
----
-
-# Explicitly Forbidden
-
-Do **NOT** implement any of the following:
-
-❌ Page Builder
-
-❌ Drag-and-drop sections
-
-❌ page_sections table
-
-❌ JSON layout configuration
-
-❌ Dynamic runtime section rendering
-
-❌ Generic component resolver
-
-❌ Section ordering UI
-
-❌ Admin page composition interface
-
-❌ Runtime page composition
-
-❌ Arbitrary section injection
-
----
-
-# Regression Requirements
-
-The following pages must remain unchanged:
-
-```
-/
-
-About
-
-Services
-```
-
-No visual regressions.
-
-No routing regressions.
-
-No SEO regressions.
-
-No structured-data regressions.
-
----
-
-# Validation
-
-Run every required validation.
-
-```
-php artisan optimize:clear
-
-php artisan test
-
-npm run build
-```
-
-Verify:
-
-- Homepage returns HTTP 200
-- Statistics render correctly
-- Desktop layout unchanged
-- Mobile layout unchanged
-- Blade compiles successfully
-- No undefined variables
-- No database exceptions
-- Existing SEO output preserved
-- Existing JSON-LD preserved
-- Existing Lighthouse score unaffected where practical
+This should be a Blade extraction only.
 
 ---
 
 # Files Expected to Change
 
-Expected:
+Expected new file:
 
+```text
+resources/views/components/sections/why-choose-us.blade.php
 ```
-resources/views/components/sections/statistics.blade.php
 
+Optional new file:
+
+```text
+resources/views/components/cards/feature-card.blade.php
+```
+
+Expected modified file:
+
+```text
 resources/views/public/home.blade.php
 ```
 
-Possibly:
+No other files should change unless there is a clear reason.
 
+---
+
+# Validation
+
+Run:
+
+```bash
+php artisan optimize:clear
+npm run build
 ```
-app/View/Components/
 
-app/Http/Controllers/
+If tests are normally run locally, run:
 
-app/Models/Page.php
+```bash
+php artisan test
 ```
 
-Only if absolutely necessary.
+Verify:
 
-Avoid expanding scope.
+```text
+/
+ /about
+ /services
+```
+
+Expected:
+
+- homepage returns 200
+- Why Choose Us section appears
+- desktop layout unchanged
+- tablet layout unchanged
+- mobile layout unchanged
+- links still work
+- icons still render
+- no Blade errors
+- no undefined variables
+- no database errors
+- SEO tags remain present
+- JSON-LD remains present
+
+---
+
+# Manual Visual Checks
+
+Compare before and after:
+
+- section spacing
+- heading line breaks
+- card count
+- card order
+- icon size
+- card height
+- text wrapping
+- CTA/link alignment
+- mobile stacking
+
+The rendered section should be visually identical.
 
 ---
 
 # Deliverable Report
 
-Upon completion, provide a detailed implementation report containing:
+Return a report with:
 
-## Overview
+## Summary
 
-- Objective achieved
-- Scope completed
+What was extracted.
 
----
+## Files Changed
 
-## Files Modified
-
-Complete list.
-
----
-
-## Data Source
-
-Explain where the statistics originate.
-
----
+List every file.
 
 ## Component API
 
-Example:
+Show how the homepage calls the component.
 
-```blade
-<x-sections.statistics
-    :page="$page"
-/>
-```
+## Data Source
 
-or
-
-```blade
-<x-sections.statistics
-    :statistics="$statistics"
-/>
-```
-
-Explain why this interface was chosen.
-
----
+State clearly whether the data remains hardcoded or already comes from CMS.
 
 ## Validation Results
 
-Include:
-
-- Artisan
-- Build
-- Blade compilation
-- Route verification
-- Manual rendering verification
-
----
+List commands run and results.
 
 ## Issues Found
 
-Document every issue encountered.
-
----
+List any issues.
 
 ## Issues Fixed
 
-Document all fixes.
-
----
+List any fixes.
 
 ## Remaining Issues
 
-If any.
+If none:
 
----
+```text
+None.
+```
 
 ## Production Readiness
 
-State whether the implementation is ready for commit.
+State whether it is ready for commit.
 
-If yes,
-
-wait for explicit approval before committing.
-
-Do **not** commit automatically.
+Do not commit until explicitly approved.
