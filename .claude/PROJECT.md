@@ -1,5 +1,16 @@
 # The Lylod's Group
 
+# Documentation Authority
+
+If any architectural conflict exists between documents, precedence is:
+
+1. .claude/decisions/*
+2. CLAUDE.md
+3. .claude/adjust
+4. PROJECT.md
+
+PROJECT.md is a planning document and may contain superseded ideas that have been replaced by accepted architectural decisions.
+
 Mission
 
 Deliver multidisciplinary engineering, consulting, digital transformation, workforce and project delivery solutions.

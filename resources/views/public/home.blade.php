@@ -6,121 +6,34 @@
     :og-image="$page?->ogMedia?->url()">
 
     {{-- Hero --}}
-    <section class="relative min-h-[88vh] overflow-hidden bg-[#07172f] text-white">
-        {{-- Background image --}}
-        {{-- CMS: replace image src with dynamic hero image field --}}
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80"
-                 alt=""
-                 class="h-full w-full object-cover opacity-25">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/85 to-[#07172f]/50"></div>
-        </div>
-
-        <div class="relative mx-auto grid max-w-[1440px] gap-14 px-6 py-28 lg:grid-cols-[0.82fr_1fr] lg:items-center lg:py-36">
-            <div class="tlg-reveal">
-                <p class="text-sm font-bold uppercase tracking-[0.28em] text-[#c9a24d]">
-                    {{ $page->hero_subtitle }}
-                </p>
-                <h1 class="mt-6 max-w-3xl font-serif text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.2rem]">
-                    {{ $page->hero_title }}
-                </h1>
-                <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-200">
-                    {{ $page->hero_description }}
-                </p>
-                @if($page->primary_cta_label || $page->secondary_cta_label)
-                <div class="mt-10 flex flex-wrap gap-4">
-                    @if($page->primary_cta_label && $page->primary_cta_url)
-                    <a href="{{ $page->primary_cta_url }}" class="rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] shadow-lg transition-all duration-300 hover:bg-[#d8b765]">
-                        {{ $page->primary_cta_label }}
-                    </a>
-                    @endif
-                    @if($page->secondary_cta_label && $page->secondary_cta_url)
-                    <a href="{{ $page->secondary_cta_url }}" class="rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">
-                        {{ $page->secondary_cta_label }}
-                    </a>
-                    @endif
-                </div>
-                @endif
-            </div>
-
-            {{-- Hero right column — two staggered portrait cards with floating UI panels --}}
-            {{-- CMS: hero->card_01_image, hero->card_02_image --}}
-            <div class="tlg-reveal tlg-d1 hidden lg:flex items-start gap-3 py-4">
-
-                {{-- Card One — left, higher --}}
-                <div class="relative flex-1">
-                    <div class="relative overflow-hidden rounded-[28px] border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,.18)]" style="height:440px;">
-                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80"
-                             alt="Business advisory"
-                             class="h-full w-full object-cover object-center">
-                        <div class="absolute inset-0 bg-gradient-to-b from-[#07172f]/55 via-transparent to-[#07172f]/40"></div>
-                        {{-- Glass overlay — top, full card width --}}
-                        <div class="absolute inset-x-4 top-4 rounded-[22px] border border-white/20 bg-white/12 p-5 text-white shadow-[0_20px_45px_rgba(0,0,0,.22)] backdrop-blur-xl">
-                            <p class="text-[9px] font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Business Advisory</p>
-                            <div class="mt-3 space-y-2.5">
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="flex items-center gap-2">
-                                        <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                                            <svg class="h-3.5 w-3.5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
-                                        </div>
-                                        <span class="text-[11px] font-semibold text-white">Business growth</span>
-                                    </div>
-                                    <span class="shrink-0 text-[10px] font-semibold text-[#c9a24d]">Strategy</span>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="flex items-center gap-2">
-                                        <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                                            <svg class="h-3.5 w-3.5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg>
-                                        </div>
-                                        <span class="text-[11px] font-semibold text-white">Digital solutions</span>
-                                    </div>
-                                    <span class="shrink-0 text-[10px] font-semibold text-[#c9a24d]">Tech</span>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="flex items-center gap-2">
-                                        <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                                            <svg class="h-3.5 w-3.5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                                        </div>
-                                        <span class="text-[11px] font-semibold text-white">Operational support</span>
-                                    </div>
-                                    <span class="shrink-0 text-[10px] font-semibold text-[#c9a24d]">Advisory</span>
-                                </div>
-                            </div>
-                            <div class="mt-3 border-t border-white/20 pt-3">
-                                <a href="{{ route('services') }}#business-technology" class="inline-flex items-center gap-1 text-[11px] font-bold text-white transition-colors hover:text-[#c9a24d]">
-                                    Learn More
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Card Two — right, lower (staggered ~80px down) --}}
-                <div class="relative mt-20 flex-1">
-                    <div class="relative overflow-hidden rounded-[28px] border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,.18)]" style="height:440px;">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
-                             alt="Training and community development"
-                             class="h-full w-full object-cover object-center">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/65 via-[#07172f]/20 to-transparent"></div>
-                        {{-- Glass overlay — bottom, full card width --}}
-                        <div class="absolute inset-x-4 bottom-4 rounded-[22px] border border-white/20 bg-white/12 p-5 text-white shadow-[0_20px_45px_rgba(0,0,0,.22)] backdrop-blur-xl">
-                            <p class="text-[9px] font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Community Projects</p>
-                            <p class="mt-2 text-sm font-bold leading-snug text-white">Capacity Building</p>
-                            <p class="mt-1.5 text-[11px] leading-5 text-white/70">Training programmes, project coordination and community initiatives delivered end to end.</p>
-                            <div class="mt-3 border-t border-white/20 pt-3">
-                                <a href="{{ route('services') }}#community-projects" class="inline-flex items-center gap-1 text-[11px] font-bold text-white transition-colors hover:text-[#c9a24d]">
-                                    Explore
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    {{-- CMS: replace image src with dynamic hero image field; hero->card_01_image, hero->card_02_image --}}
+    <x-sections.hero
+        :eyebrow="$page->hero_subtitle"
+        :heading="$page->hero_title"
+        :description="$page->hero_description"
+        background-image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80"
+        :primary-cta-label="$page->primary_cta_label"
+        :primary-cta-url="$page->primary_cta_url"
+        :secondary-cta-label="$page->secondary_cta_label"
+        :secondary-cta-url="$page->secondary_cta_url"
+        card-one-image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80"
+        card-one-alt="Business advisory"
+        card-one-label="Business Advisory"
+        :card-one-rows="[
+            ['icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z', 'label' => 'Business growth', 'tag' => 'Strategy'],
+            ['icon' => 'M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z', 'label' => 'Digital solutions', 'tag' => 'Tech'],
+            ['icon' => 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z', 'label' => 'Operational support', 'tag' => 'Advisory'],
+        ]"
+        card-one-cta-label="Learn More"
+        :card-one-cta-url="route('services') . '#business-technology'"
+        card-two-image="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
+        card-two-alt="Training and community development"
+        card-two-label="Community Projects"
+        card-two-title="Capacity Building"
+        card-two-description="Training programmes, project coordination and community initiatives delivered end to end."
+        card-two-cta-label="Explore"
+        :card-two-cta-url="route('services') . '#community-projects'"
+    />
 
     {{-- Stats band --}}
     <x-sections.statistics :items="[
@@ -131,18 +44,16 @@
     ]" />
 
     {{-- Discipline identity strip --}}
-    <div class="bg-[#07172f] py-5">
-        <div class="mx-auto max-w-[1440px] px-6">
-            <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-center">
-                <span class="shrink-0 text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a24d]">Our Services</span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-white"><span class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></span>Business, Technology &amp; Digital</span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-white"><span class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></span>Training, Recruitment &amp; Capacity</span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-white"><span class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></span>Governance, Compliance &amp; Data Protection</span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-white"><span class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></span>Property &amp; Development</span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-white"><span class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></span>Community &amp; Project Development</span>
-            </div>
-        </div>
-    </div>
+    <x-sections.discipline-strip
+        eyebrow="Our Services"
+        :items="[
+            'Business, Technology & Digital',
+            'Training, Recruitment & Capacity',
+            'Governance, Compliance & Data Protection',
+            'Property & Development',
+            'Community & Project Development',
+        ]"
+    />
 
     {{-- Service disciplines strip --}}
     {{-- CMS: each card image will be service->thumbnail --}}
@@ -197,101 +108,35 @@
     />
 
     {{-- How We Engage --}}
-    <section class="bg-[#f7f3ea]">
-        <div class="mx-auto max-w-[1440px] px-6 py-24">
-            <div class="tlg-reveal max-w-2xl">
-                <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">Our Approach</p>
-                <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] md:text-5xl lg:text-[2.4rem]">How we engage with clients.</h2>
-                <p class="mt-5 text-lg leading-8 text-[#667085]">Every engagement is structured from first conversation to final deliverable — ensuring clarity, accountability, and measurable progress at every stage.</p>
-            </div>
-
-            <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="tlg-reveal tlg-d1 rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-[#e6e8ee]">
-                    <span class="inline-block rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-bold text-[#07172f]">01</span>
-                    <h3 class="mt-5 text-lg font-bold text-[#07172f]">Discovery</h3>
-                    <p class="mt-3 text-sm leading-7 text-[#667085]">We invest time upfront understanding your context, objectives, and constraints — ensuring our engagement is grounded in what actually matters to you.</p>
-                </div>
-                <div class="tlg-reveal tlg-d2 rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-[#e6e8ee]">
-                    <span class="inline-block rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-bold text-[#07172f]">02</span>
-                    <h3 class="mt-5 text-lg font-bold text-[#07172f]">Scoping</h3>
-                    <p class="mt-3 text-sm leading-7 text-[#667085]">We define a clear, structured scope of work with measurable milestones, agreed deliverables, and defined lines of accountability before any work begins.</p>
-                </div>
-                <div class="tlg-reveal tlg-d3 rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-[#e6e8ee]">
-                    <span class="inline-block rounded-full bg-[#f7f3ea] px-3 py-1 text-xs font-bold text-[#07172f]">03</span>
-                    <h3 class="mt-5 text-lg font-bold text-[#07172f]">Delivery</h3>
-                    <p class="mt-3 text-sm leading-7 text-[#667085]">We execute with discipline, keeping clients informed at every stage. Our teams are empowered to make decisions without creating unnecessary escalation or delay.</p>
-                </div>
-                <div class="tlg-reveal tlg-d4 rounded-[2rem] bg-[#07172f] p-8 shadow-sm text-white">
-                    <span class="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-[#c9a24d]">04</span>
-                    <h3 class="mt-5 text-lg font-bold text-white">Review</h3>
-                    <p class="mt-3 text-sm leading-7 text-slate-300">We close every engagement with structured review, capturing outcomes against objectives — ensuring continuous improvement and a foundation for future work.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <x-sections.how-we-engage
+        eyebrow="Our Approach"
+        heading="How we engage with clients."
+        description="Every engagement is structured from first conversation to final deliverable — ensuring clarity, accountability, and measurable progress at every stage."
+        :steps="[
+            ['number' => '01', 'title' => 'Discovery', 'description' => 'We invest time upfront understanding your context, objectives, and constraints — ensuring our engagement is grounded in what actually matters to you.'],
+            ['number' => '02', 'title' => 'Scoping', 'description' => 'We define a clear, structured scope of work with measurable milestones, agreed deliverables, and defined lines of accountability before any work begins.'],
+            ['number' => '03', 'title' => 'Delivery', 'description' => 'We execute with discipline, keeping clients informed at every stage. Our teams are empowered to make decisions without creating unnecessary escalation or delay.'],
+            ['number' => '04', 'title' => 'Review', 'description' => 'We close every engagement with structured review, capturing outcomes against objectives — ensuring continuous improvement and a foundation for future work.', 'dark' => true],
+        ]"
+    />
 
     {{-- Industries served --}}
-    <section class="border-b border-[#e6e8ee] bg-white">
-        <div class="mx-auto max-w-[1440px] px-6 py-14">
-            <div class="tlg-reveal flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#667085]">Sectors of Practice</p>
-                    <h2 class="mt-2 font-serif text-2xl font-bold text-[#07172f]">Industries We Serve</h2>
-                </div>
-                <a href="{{ route('services') }}" class="shrink-0 text-sm font-semibold text-[#123f8c] hover:underline">Explore our disciplines →</a>
-            </div>
-            <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                <div class="tlg-reveal tlg-d1 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">01</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Energy &amp; Utilities</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d1 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">02</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Infrastructure &amp; Civil</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d2 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">03</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Financial Services</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d2 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">04</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Government &amp; Public Sector</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d3 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">05</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Technology &amp; Digital</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d3 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">06</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Oil &amp; Gas / Industrial</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d4 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">07</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Professional Services</p>
-                    </div>
-                </div>
-                <div class="tlg-reveal tlg-d4 flex items-start gap-2 border-l-2 border-[#c9a24d] py-1 pl-3">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#c9a24d]">08</p>
-                        <p class="mt-1 text-xs font-semibold leading-snug text-[#07172f]">Education &amp; Training</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <x-sections.industries
+        eyebrow="Sectors of Practice"
+        heading="Industries We Serve"
+        ctaLabel="Explore our disciplines →"
+        :ctaUrl="route('services')"
+        :items="[
+            ['number' => '01', 'title' => 'Energy & Utilities'],
+            ['number' => '02', 'title' => 'Infrastructure & Civil'],
+            ['number' => '03', 'title' => 'Financial Services'],
+            ['number' => '04', 'title' => 'Government & Public Sector'],
+            ['number' => '05', 'title' => 'Technology & Digital'],
+            ['number' => '06', 'title' => 'Oil & Gas / Industrial'],
+            ['number' => '07', 'title' => 'Professional Services'],
+            ['number' => '08', 'title' => 'Education & Training'],
+        ]"
+    />
 
     {{-- About / values -- split with image --}}
     <section class="bg-[#f7f3ea]">

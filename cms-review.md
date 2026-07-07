@@ -147,7 +147,7 @@ Cache invalidation is handled automatically within each service method when cont
 
 Centralised, reusable media asset store. Image references on models use FK to this table wherever practical.
 
-| Field | Type |
+| Field | Type |                          
 |---|---|
 | `id` | bigint |
 | `title` | string |
