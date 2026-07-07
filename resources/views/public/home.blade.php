@@ -139,55 +139,22 @@
     />
 
     {{-- About / values -- split with image --}}
-    <section class="bg-[#f7f3ea]">
-        <div class="mx-auto max-w-[1440px] px-6 py-24">
-            <div class="grid gap-16 lg:grid-cols-2 lg:items-center">
-                {{-- Image --}}
-                {{-- CMS: replace with about->image --}}
-                <div class="tlg-reveal relative overflow-hidden rounded-[2rem] shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=900&q=80"
-                         alt="The Lylods Group — professionals collaborating"
-                         class="h-full w-full object-cover" style="min-height: 480px;">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/30 to-transparent"></div>
-                </div>
-
-                {{-- Content --}}
-                <div class="tlg-reveal tlg-d1">
-                    <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#123f8c]">About The Lylods Group</p>
-                    <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] md:text-5xl lg:text-[2.4rem]">
-                        Professional services built on expertise and integrity.
-                    </h2>
-                    <p class="mt-6 text-lg leading-8 text-[#667085]">
-                        The Lylods Group is a multidisciplinary professional services organisation working across business, technology, training, compliance, property and community development. We work with clients who need a capable, accountable partner across multiple disciplines.
-                    </p>
-
-                    <div class="mt-8 grid grid-cols-2 gap-4">
-                        <div class="flex items-start gap-3 rounded-2xl border border-[#e6e8ee] bg-white p-5">
-                            <svg class="mt-0.5 h-5 w-5 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                            <div><p class="font-bold text-[#07172f]">Integrity</p><p class="mt-1 text-xs text-[#667085]">Transparent, ethical conduct in every engagement.</p></div>
-                        </div>
-                        <div class="flex items-start gap-3 rounded-2xl border border-[#e6e8ee] bg-white p-5">
-                            <svg class="mt-0.5 h-5 w-5 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg>
-                            <div><p class="font-bold text-[#07172f]">Excellence</p><p class="mt-1 text-xs text-[#667085]">Rigorous professional standards on every deliverable.</p></div>
-                        </div>
-                        <div class="flex items-start gap-3 rounded-2xl border border-[#e6e8ee] bg-white p-5">
-                            <svg class="mt-0.5 h-5 w-5 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
-                            <div><p class="font-bold text-[#07172f]">Delivery</p><p class="mt-1 text-xs text-[#667085]">Measurable results and sustainable client outcomes.</p></div>
-                        </div>
-                        <div class="flex items-start gap-3 rounded-2xl border border-[#e6e8ee] bg-white p-5">
-                            <svg class="mt-0.5 h-5 w-5 shrink-0 text-[#c9a24d]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>
-                            <div><p class="font-bold text-[#07172f]">Partnership</p><p class="mt-1 text-xs text-[#667085]">Long-term relationships built on shared objectives.</p></div>
-                        </div>
-                    </div>
-
-                    <a href="{{ route('about') }}" class="mt-8 inline-flex items-center gap-2 rounded-full bg-[#07172f] px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#123f8c]">
-                        About The Group
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{-- CMS: replace with about->image --}}
+    <x-sections.about-values
+        eyebrow="About The Lylods Group"
+        heading="Professional services built on expertise and integrity."
+        description="The Lylods Group is a multidisciplinary professional services organisation working across business, technology, training, compliance, property and community development. We work with clients who need a capable, accountable partner across multiple disciplines."
+        image="https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=900&q=80"
+        image-alt="The Lylods Group — professionals collaborating"
+        :values="[
+            ['icon' => 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z', 'title' => 'Integrity', 'description' => 'Transparent, ethical conduct in every engagement.'],
+            ['icon' => 'M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z', 'title' => 'Excellence', 'description' => 'Rigorous professional standards on every deliverable.'],
+            ['icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z', 'title' => 'Delivery', 'description' => 'Measurable results and sustainable client outcomes.'],
+            ['icon' => 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z', 'title' => 'Partnership', 'description' => 'Long-term relationships built on shared objectives.'],
+        ]"
+        ctaLabel="About The Group"
+        :ctaUrl="route('about')"
+    />
 
     {{-- Why Clients Work With Us --}}
     <x-sections.why-choose-us

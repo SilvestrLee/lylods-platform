@@ -1,1 +1,469 @@
-Treat the architecture decisions inside .claude/decisions as the authoritative source whenever they conflict with earlier planning documents. Consider PROJECT.md an aspirational planning document that may contain superseded ideas. Proceed with Phase 7C.8 using the locked component architecture, and add the stale PageSection references in PROJECT.md to the documentation cleanup list for a later documentation pass. Do not modify PROJECT.md during this implementation.
+# Phase 7C.9 — Extract Homepage About / Values Section into Reusable Blade Components
+
+## Objective
+
+Continue the structured homepage componentization initiative by extracting the **About / Values** section from the homepage into reusable Blade components while preserving **100% visual parity**, maintaining the locked CMS architecture, and introducing **zero behavioural changes**.
+
+This phase is a **pure structural refactor**.
+
+No redesign.
+
+No CMS integration.
+
+No dynamic content.
+
+No controller changes.
+
+No database changes.
+
+No page-builder behaviour.
+
+---
+
+# Mandatory First Step
+
+Before touching any code:
+
+1. Read **every instruction** inside the `.claude` directory.
+2. Read `CLAUDE.md`.
+3. Read `PROJECT.md`.
+4. Read `.claude/adjust`.
+5. Treat `.claude/decisions/*` as the authoritative architectural source if conflicts exist.
+6. If any conflict affects this phase:
+
+STOP.
+
+Explain the conflict.
+
+Do not guess.
+
+Do not silently resolve it.
+
+---
+
+# Phase Goal
+
+Locate the **About / Values** section currently rendered inline inside:
+
+```
+resources/views/public/home.blade.php
+```
+
+Extract it into reusable Blade components while keeping the rendered output byte-for-byte identical.
+
+This phase should follow exactly the same implementation philosophy used successfully in:
+
+- Hero
+- Statistics
+- Services
+- Industries
+- Why Choose Us
+- How We Engage
+- Discipline Identity Strip
+
+---
+
+# Scope
+
+This phase covers only:
+
+```
+Homepage About / Values section
+```
+
+Do NOT continue into:
+
+- Testimonials
+- Partners & Accreditations
+- Work With Us CTA
+
+One section only.
+
+---
+
+# Required Audit
+
+Before creating any component:
+
+Audit the section completely.
+
+Determine:
+
+- Does it contain repeated cards?
+- Does it contain repeated value blocks?
+- Does it contain image panels?
+- Does it contain icon rows?
+- Does it contain CTA buttons?
+- Does it contain decorative backgrounds?
+- Does it contain staggered layouts?
+
+Only after understanding the real structure should component boundaries be chosen.
+
+Do not force abstraction.
+
+---
+
+# Required Component Structure
+
+Expected wrapper:
+
+```
+resources/views/components/sections/about-values.blade.php
+```
+
+Create additional components only if repetition genuinely exists.
+
+Examples:
+
+```
+resources/views/components/about/value-card.blade.php
+```
+
+or
+
+```
+resources/views/components/about/value-item.blade.php
+```
+
+only when justified by the markup.
+
+Do not over-componentize.
+
+---
+
+# Component Responsibilities
+
+Wrapper component should own:
+
+- section wrapper
+- layout
+- spacing
+- image placement
+- heading
+- description
+- CTA
+- rendering of repeated values
+
+Child component(s) should own:
+
+- individual value card
+- icon
+- title
+- description
+
+if repetition actually exists.
+
+---
+
+# Data Source
+
+Maintain exactly the current data source.
+
+If today's homepage uses:
+
+- inline arrays
+- inline strings
+- inline SVGs
+- inline images
+
+leave them exactly as they are.
+
+Pass them into the component.
+
+Do NOT introduce:
+
+- controllers
+- services
+- models
+- database
+- CMS queries
+- configuration
+- enums
+
+This remains a structural refactor only.
+
+---
+
+# Architecture Rules
+
+The homepage continues to follow the locked architecture:
+
+Developer controls:
+
+- page composition
+- section ordering
+- section existence
+
+CMS (later phase) controls:
+
+- content
+- media
+- CTA labels
+- URLs
+- visibility (where supported)
+
+No arbitrary page composition.
+
+No drag-and-drop.
+
+No PageSection model.
+
+No JSON-driven layout.
+
+No runtime component resolver.
+
+---
+
+# Pixel Identity Requirement
+
+The rendered output must remain identical.
+
+Preserve:
+
+- spacing
+- typography
+- margins
+- paddings
+- flex/grid layout
+- image sizing
+- gradients
+- overlays
+- icon sizes
+- responsive behaviour
+- CTA styling
+- hover effects
+- DOM hierarchy
+
+If pixel identity cannot be maintained:
+
+STOP.
+
+Explain why.
+
+Do not silently redesign.
+
+---
+
+# Accessibility
+
+Maintain semantic structure.
+
+Decorative SVGs should include:
+
+```
+aria-hidden="true"
+```
+
+if appropriate.
+
+Maintain heading hierarchy.
+
+Maintain accessible CTA links.
+
+---
+
+# CSS Rules
+
+Reuse existing Tailwind classes exactly.
+
+Do NOT:
+
+- rename classes
+- consolidate classes
+- optimise utilities
+- remove "duplicate-looking" utilities
+- modernise spacing
+
+This phase is not a design cleanup.
+
+---
+
+# Validation Requirements
+
+Run:
+
+```
+php artisan optimize:clear
+```
+
+```
+npm run build
+```
+
+```
+php artisan test
+```
+
+If the known ExampleTest failure still exists:
+
+Document it.
+
+Do not attempt to fix unrelated issues.
+
+---
+
+# Manual Verification
+
+Verify:
+
+Desktop
+
+Tablet
+
+Mobile
+
+Specifically confirm:
+
+- image placement unchanged
+- typography unchanged
+- value cards unchanged
+- CTA unchanged
+- responsive layout unchanged
+- spacing unchanged
+
+---
+
+# Expected Git Scope
+
+Expected new files:
+
+```
+resources/views/components/sections/about-values.blade.php
+```
+
+Optional:
+
+```
+resources/views/components/about/value-card.blade.php
+```
+
+or
+
+```
+resources/views/components/about/value-item.blade.php
+```
+
+Modified:
+
+```
+resources/views/public/home.blade.php
+```
+
+Rebuilt:
+
+```
+public/build/*
+```
+
+Nothing else.
+
+---
+
+# Files That Must NOT Change
+
+Do NOT modify:
+
+Controllers
+
+Models
+
+Services
+
+Policies
+
+Routes
+
+Middleware
+
+Database
+
+CMS
+
+Filament
+
+Admin
+
+API
+
+Other homepage sections
+
+Any other public page
+
+---
+
+# Validation Report
+
+Provide a complete implementation report including:
+
+## Files Created
+
+## Files Modified
+
+## Validation Results
+
+- optimize:clear
+- npm build
+- artisan test
+
+## Manual Verification
+
+Desktop
+
+Tablet
+
+Mobile
+
+## Issues Found
+
+## Issues Fixed
+
+## Remaining Issues
+
+## Production Readiness
+
+---
+
+# Commit Policy
+
+Do NOT:
+
+- commit
+- merge
+- push
+
+Wait for explicit approval.
+
+---
+
+# Success Criteria
+
+This phase is complete only when:
+
+- About / Values section has been fully extracted into reusable Blade component(s).
+- Rendered homepage remains visually and structurally identical.
+- No new architecture has been introduced.
+- No CMS integration has been added.
+- No page-builder concepts exist.
+- Existing controllers, routes, services, and models remain untouched.
+- Validation completes successfully.
+- A full production-readiness report is provided before any commit.
+
+---
+
+# Current Homepage Componentization Progress
+
+After successful completion of this phase, homepage progress should be:
+
+- ✅ Hero
+- ✅ Statistics
+- ✅ Services
+- ✅ Industries
+- ✅ Why Choose Us
+- ✅ How We Engage
+- ✅ Discipline Identity Strip
+- ✅ About / Values
+- ⏳ Testimonials
+- ⏳ Partners & Accreditations
+- ⏳ Work With Us CTA
+
+At that point, only **three homepage sections** will remain before the entire homepage has been successfully componentized and prepared for the later CMS content-binding phase.
