@@ -199,136 +199,32 @@
     />
 
     {{-- Testimonials --}}
-    <section class="bg-[#f7f3ea]">
-        <div class="mx-auto max-w-[1440px] px-6 py-20">
-            <div class="tlg-reveal max-w-2xl">
-                <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">Client Testimonials</p>
-                <h2 class="mt-4 font-serif text-4xl font-bold text-[#07172f] lg:text-[2.4rem]">What our clients say.</h2>
-                @if ($testimonials->isEmpty())
-                    <p class="mt-5 text-lg leading-8 text-[#667085]">Client feedback will be added here as testimonials are collected and approved.</p>
-                @endif
-            </div>
-            <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                @if ($testimonials->isNotEmpty())
-                    @foreach ($testimonials->take(3) as $testimonial)
-                        <div class="tlg-reveal flex flex-col justify-between rounded-[2rem] {{ $loop->last && $loop->index % 3 === 2 ? 'bg-[#07172f]' : 'border border-[#e6e8ee] bg-white' }} p-8 shadow-sm">
-                            <div>
-                                <div class="flex gap-1">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        <svg class="h-4 w-4 text-[#c9a24d]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"/></svg>
-                                    @endfor
-                                </div>
-                                <p class="mt-5 leading-7 {{ $loop->last && $loop->index % 3 === 2 ? 'text-slate-300' : 'text-[#667085]' }}">"{{ $testimonial->quote }}"</p>
-                            </div>
-                            <div class="mt-6 border-t {{ $loop->last && $loop->index % 3 === 2 ? 'border-white/10' : 'border-[#e6e8ee]' }} pt-5">
-                                <p class="font-semibold {{ $loop->last && $loop->index % 3 === 2 ? 'text-white' : 'text-[#07172f]' }}">{{ $testimonial->client_name }}</p>
-                                @if ($testimonial->organisation || $testimonial->role)
-                                    <p class="mt-0.5 text-sm {{ $loop->last && $loop->index % 3 === 2 ? 'text-slate-400' : 'text-[#667085]' }}">{{ collect([$testimonial->organisation, $testimonial->role])->filter()->implode(' · ') }}</p>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <div class="tlg-reveal tlg-d1 flex flex-col justify-between rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm">
-                        <div>
-                            <div class="flex gap-1">
-                                @for ($i = 0; $i < 5; $i++)<svg class="h-4 w-4 text-[#c9a24d]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"/></svg>@endfor
-                            </div>
-                            <p class="mt-5 leading-7 text-[#667085]">"Feedback from business consulting, technology, training, and compliance engagements will appear here once collected and approved."</p>
-                        </div>
-                        <div class="mt-6 border-t border-[#e6e8ee] pt-5">
-                            <p class="font-semibold text-[#07172f]">Client Name</p>
-                            <p class="mt-0.5 text-sm text-[#667085]">Organisation · Business &amp; Technology</p>
-                        </div>
-                    </div>
-                    <div class="tlg-reveal tlg-d2 flex flex-col justify-between rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm">
-                        <div>
-                            <div class="flex gap-1">
-                                @for ($i = 0; $i < 5; $i++)<svg class="h-4 w-4 text-[#c9a24d]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"/></svg>@endfor
-                            </div>
-                            <p class="mt-5 leading-7 text-[#667085]">"Testimonials from property, compliance, and community project engagements will be published here when available."</p>
-                        </div>
-                        <div class="mt-6 border-t border-[#e6e8ee] pt-5">
-                            <p class="font-semibold text-[#07172f]">Client Name</p>
-                            <p class="mt-0.5 text-sm text-[#667085]">Organisation · Property &amp; Development</p>
-                        </div>
-                    </div>
-                    <div class="tlg-reveal tlg-d3 flex flex-col justify-between rounded-[2rem] bg-[#07172f] p-8 shadow-sm">
-                        <div>
-                            <div class="flex gap-1">
-                                @for ($i = 0; $i < 5; $i++)<svg class="h-4 w-4 text-[#c9a24d]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"/></svg>@endfor
-                            </div>
-                            <p class="mt-5 leading-7 text-slate-300">"We welcome feedback from all clients. If you have worked with The Lylods Group and would like to share your experience, please contact us."</p>
-                        </div>
-                        <div class="mt-6 border-t border-white/10 pt-5">
-                            <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">
-                                Share Your Feedback
-                            </a>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </section>
+    <x-sections.testimonials
+        eyebrow="Client Testimonials"
+        heading="What our clients say."
+        empty-description="Client feedback will be added here as testimonials are collected and approved."
+        :testimonials="$testimonials"
+    />
 
     {{-- Partners and accreditations --}}
-    <section class="border-t border-[#e6e8ee] bg-white">
-        <div class="mx-auto max-w-[1440px] px-6 py-12">
-            <div class="tlg-reveal text-center">
-                <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#667085]">Partners, Clients &amp; Accreditations</p>
-                <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
-                    @if ($organisations->isNotEmpty())
-                        @foreach ($organisations as $org)
-                            @if ($org->logo)
-                                <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-[#e6e8ee] bg-[#f7f3ea] px-3">
-                                    <img src="{{ $org->logo->url() }}" alt="{{ $org->name }}" class="max-h-9 max-w-full object-contain">
-                                </div>
-                            @else
-                                <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-[#e6e8ee] bg-[#f7f3ea] px-2 text-center">
-                                    <span class="text-xs font-semibold text-[#07172f]">{{ $org->name }}</span>
-                                </div>
-                            @endif
-                        @endforeach
-                    @else
-                        <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-[#f7f3ea]"><span class="text-xs font-semibold text-[#b0b7c3]">Logo / Badge</span></div>
-                        <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-[#f7f3ea]"><span class="text-xs font-semibold text-[#b0b7c3]">Logo / Badge</span></div>
-                        <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-[#f7f3ea]"><span class="text-xs font-semibold text-[#b0b7c3]">Logo / Badge</span></div>
-                        <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-[#f7f3ea]"><span class="text-xs font-semibold text-[#b0b7c3]">Logo / Badge</span></div>
-                        <div class="flex h-14 w-36 items-center justify-center rounded-2xl border border-dashed border-[#d0d5dd] bg-[#f7f3ea]"><span class="text-xs font-semibold text-[#b0b7c3]">Logo / Badge</span></div>
-                    @endif
-                </div>
-                @if ($organisations->isEmpty())
-                    <p class="mt-5 text-xs text-[#667085]">Partner logos and professional accreditations will be displayed here once approved for publication.</p>
-                @endif
-            </div>
-        </div>
-    </section>
+    <x-sections.partners
+        eyebrow="Partners, Clients & Accreditations"
+        :organisations="$organisations"
+        empty-description="Partner logos and professional accreditations will be displayed here once approved for publication."
+    />
 
     {{-- Work With Us CTA --}}
-    <section class="bg-[#f7f3ea]">
-        <div class="mx-auto max-w-[1440px] px-6 py-20">
-            <div class="relative overflow-hidden rounded-[2rem] bg-[#07172f] px-8 py-14 text-white md:px-14">
-                <div class="relative tlg-reveal">
-                    <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#c9a24d]">Work With Us</p>
-                    <h2 class="mt-4 font-serif text-4xl font-bold lg:text-[2.4rem]">Ready to discuss a requirement?</h2>
-                    <p class="mt-5 max-w-2xl leading-7 text-slate-300">
-                        Whether you need specialist advisory, engineering delivery, technology support, compliance guidance, or workforce solutions — we welcome your enquiry. Our team will respond within two business days.
-                    </p>
-                    <div class="mt-8 flex flex-wrap items-center gap-4">
-                        <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 rounded-full bg-[#c9a24d] px-7 py-3.5 text-sm font-bold text-[#07172f] transition-all duration-300 hover:bg-[#d8b765]">
-                            Discuss a Requirement
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                        </a>
-                        <a href="{{ route('services') }}" class="inline-flex rounded-full border border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10">
-                            View Our Services
-                        </a>
-                    </div>
-                    <p class="mt-6 text-xs text-slate-400">
-                        For investor access, please use the <a href="{{ route('login') }}" class="text-[#c9a24d] underline-offset-2 hover:underline">investor portal login</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <x-sections.work-with-us
+        eyebrow="Work With Us"
+        heading="Ready to discuss a requirement?"
+        description="Whether you need specialist advisory, engineering delivery, technology support, compliance guidance, or workforce solutions — we welcome your enquiry. Our team will respond within two business days."
+        primary-cta-label="Discuss a Requirement"
+        :primary-cta-url="route('contact')"
+        secondary-cta-label="View Our Services"
+        :secondary-cta-url="route('services')"
+        investor-note="For investor access, please use the"
+        investor-cta-label="investor portal login"
+        :investor-cta-url="route('login')"
+    />
 
 </x-layouts.public>

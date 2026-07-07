@@ -1,469 +1,168 @@
-# Phase 7C.9 — Extract Homepage About / Values Section into Reusable Blade Components
+# Phase 7.13 — Resolve PHPUnit Homepage Fixture Using a Dedicated PageFactory
 
 ## Objective
 
-Continue the structured homepage componentization initiative by extracting the **About / Values** section from the homepage into reusable Blade components while preserving **100% visual parity**, maintaining the locked CMS architecture, and introducing **zero behavioural changes**.
+Eliminate the final PHPUnit failure (24/25 → 25/25) by introducing a proper `PageFactory` for the `Page` model instead of coupling tests to the full `DatabaseSeeder`.
 
-This phase is a **pure structural refactor**.
+This is a **test-only infrastructure improvement**.
 
-No redesign.
-
-No CMS integration.
-
-No dynamic content.
-
-No controller changes.
-
-No database changes.
-
-No page-builder behaviour.
+No application behaviour, controllers, services, routes, Blade templates, or CMS logic may change.
 
 ---
 
-# Mandatory First Step
+## Background
 
-Before touching any code:
+Investigation confirmed that the failing ExampleTest is unrelated to the homepage componentization work.
 
-1. Read **every instruction** inside the `.claude` directory.
-2. Read `CLAUDE.md`.
-3. Read `PROJECT.md`.
-4. Read `.claude/adjust`.
-5. Treat `.claude/decisions/*` as the authoritative architectural source if conflicts exist.
-6. If any conflict affects this phase:
+Current behaviour:
 
-STOP.
+- Production homepage returns HTTP 200.
+- Local development homepage returns HTTP 200.
+- PHPUnit uses a fresh in-memory SQLite database.
+- RefreshDatabase migrates the schema but does not execute DatabaseSeeder.
+- The PageService attempts to retrieve the homepage by slug (`home`).
+- Because no Page exists, `firstOrFail()` throws a ModelNotFoundException.
+- Laravel converts this into an HTTP 404.
 
-Explain the conflict.
-
-Do not guess.
-
-Do not silently resolve it.
+This is a missing fixture, not an application defect.
 
 ---
 
-# Phase Goal
+## Architecture
 
-Locate the **About / Values** section currently rendered inline inside:
+Preferred solution:
 
-```
-resources/views/public/home.blade.php
-```
+Introduce a dedicated `PageFactory`.
 
-Extract it into reusable Blade components while keeping the rendered output byte-for-byte identical.
+Tests should create only the records they require.
 
-This phase should follow exactly the same implementation philosophy used successfully in:
-
-- Hero
-- Statistics
-- Services
-- Industries
-- Why Choose Us
-- How We Engage
-- Discipline Identity Strip
+Avoid seeding the full database unless explicitly required.
 
 ---
 
-# Scope
+## Required Work
 
-This phase covers only:
+### 1. Create PageFactory
 
-```
-Homepage About / Values section
-```
-
-Do NOT continue into:
-
-- Testimonials
-- Partners & Accreditations
-- Work With Us CTA
-
-One section only.
-
----
-
-# Required Audit
-
-Before creating any component:
-
-Audit the section completely.
-
-Determine:
-
-- Does it contain repeated cards?
-- Does it contain repeated value blocks?
-- Does it contain image panels?
-- Does it contain icon rows?
-- Does it contain CTA buttons?
-- Does it contain decorative backgrounds?
-- Does it contain staggered layouts?
-
-Only after understanding the real structure should component boundaries be chosen.
-
-Do not force abstraction.
-
----
-
-# Required Component Structure
-
-Expected wrapper:
+Create:
 
 ```
-resources/views/components/sections/about-values.blade.php
+database/factories/PageFactory.php
 ```
 
-Create additional components only if repetition genuinely exists.
+Use Laravel's standard factory implementation.
 
-Examples:
+Include realistic defaults matching the production Page schema.
 
-```
-resources/views/components/about/value-card.blade.php
-```
+Generate sensible placeholder values for:
 
-or
-
-```
-resources/views/components/about/value-item.blade.php
-```
-
-only when justified by the markup.
-
-Do not over-componentize.
-
----
-
-# Component Responsibilities
-
-Wrapper component should own:
-
-- section wrapper
-- layout
-- spacing
-- image placement
-- heading
-- description
-- CTA
-- rendering of repeated values
-
-Child component(s) should own:
-
-- individual value card
-- icon
 - title
-- description
+- slug
+- meta title
+- meta description
+- hero fields
+- CTA fields
+- status
+- visibility
+- timestamps
 
-if repetition actually exists.
+Do not guess fields.
 
----
+Inspect the Page model and migration.
 
-# Data Source
-
-Maintain exactly the current data source.
-
-If today's homepage uses:
-
-- inline arrays
-- inline strings
-- inline SVGs
-- inline images
-
-leave them exactly as they are.
-
-Pass them into the component.
-
-Do NOT introduce:
-
-- controllers
-- services
-- models
-- database
-- CMS queries
-- configuration
-- enums
-
-This remains a structural refactor only.
+Mirror the actual schema exactly.
 
 ---
 
-# Architecture Rules
+### 2. Update ExampleTest
 
-The homepage continues to follow the locked architecture:
+Replace implicit dependency on seeded Pages.
 
-Developer controls:
+Instead:
 
-- page composition
-- section ordering
-- section existence
-
-CMS (later phase) controls:
-
-- content
-- media
-- CTA labels
-- URLs
-- visibility (where supported)
-
-No arbitrary page composition.
-
-No drag-and-drop.
-
-No PageSection model.
-
-No JSON-driven layout.
-
-No runtime component resolver.
-
----
-
-# Pixel Identity Requirement
-
-The rendered output must remain identical.
-
-Preserve:
-
-- spacing
-- typography
-- margins
-- paddings
-- flex/grid layout
-- image sizing
-- gradients
-- overlays
-- icon sizes
-- responsive behaviour
-- CTA styling
-- hover effects
-- DOM hierarchy
-
-If pixel identity cannot be maintained:
-
-STOP.
-
-Explain why.
-
-Do not silently redesign.
-
----
-
-# Accessibility
-
-Maintain semantic structure.
-
-Decorative SVGs should include:
-
-```
-aria-hidden="true"
+```php
+Page::factory()->create([
+    'slug' => 'home',
+]);
 ```
 
-if appropriate.
+Only create what the test needs.
 
-Maintain heading hierarchy.
-
-Maintain accessible CTA links.
+Do not create unrelated CMS records.
 
 ---
 
-# CSS Rules
+### 3. Keep Test Isolation
 
-Reuse existing Tailwind classes exactly.
+Do not modify:
 
-Do NOT:
+- RefreshDatabase behaviour
+- Tests\TestCase
+- DatabaseSeeder
+- AppServiceProvider
+- PageService
+- PublicPageController
 
-- rename classes
-- consolidate classes
-- optimise utilities
-- remove "duplicate-looking" utilities
-- modernise spacing
-
-This phase is not a design cleanup.
+No production code should change.
 
 ---
 
-# Validation Requirements
+### 4. Validation
 
 Run:
 
-```
-php artisan optimize:clear
-```
-
-```
-npm run build
-```
-
-```
+```bash
 php artisan test
 ```
 
-If the known ExampleTest failure still exists:
+Expected:
 
-Document it.
-
-Do not attempt to fix unrelated issues.
-
----
-
-# Manual Verification
+```
+25 / 25 passing
+```
 
 Verify:
 
-Desktop
-
-Tablet
-
-Mobile
-
-Specifically confirm:
-
-- image placement unchanged
-- typography unchanged
-- value cards unchanged
-- CTA unchanged
-- responsive layout unchanged
-- spacing unchanged
+- homepage returns 200
+- about page unaffected
+- services page unaffected
+- contact page unaffected
 
 ---
 
-# Expected Git Scope
+## Acceptance Criteria
 
-Expected new files:
+✓ New PageFactory exists.
 
-```
-resources/views/components/sections/about-values.blade.php
-```
+✓ ExampleTest no longer depends on DatabaseSeeder.
 
-Optional:
+✓ PHPUnit passes 25/25.
 
-```
-resources/views/components/about/value-card.blade.php
-```
+✓ No production files modified.
 
-or
+✓ No CMS functionality changed.
 
-```
-resources/views/components/about/value-item.blade.php
-```
+✓ No routes changed.
 
-Modified:
+✓ No controllers changed.
 
-```
-resources/views/public/home.blade.php
-```
+✓ No services changed.
 
-Rebuilt:
+✓ No migrations changed.
 
-```
-public/build/*
-```
-
-Nothing else.
+✓ Test execution remains deterministic.
 
 ---
 
-# Files That Must NOT Change
+## Deliverables
 
-Do NOT modify:
+Provide:
 
-Controllers
+1. Files created
+2. Files modified
+3. Root cause summary
+4. Validation output
+5. Final PHPUnit result
+6. Confirmation that production code remains untouched
 
-Models
-
-Services
-
-Policies
-
-Routes
-
-Middleware
-
-Database
-
-CMS
-
-Filament
-
-Admin
-
-API
-
-Other homepage sections
-
-Any other public page
-
----
-
-# Validation Report
-
-Provide a complete implementation report including:
-
-## Files Created
-
-## Files Modified
-
-## Validation Results
-
-- optimize:clear
-- npm build
-- artisan test
-
-## Manual Verification
-
-Desktop
-
-Tablet
-
-Mobile
-
-## Issues Found
-
-## Issues Fixed
-
-## Remaining Issues
-
-## Production Readiness
-
----
-
-# Commit Policy
-
-Do NOT:
-
-- commit
-- merge
-- push
-
-Wait for explicit approval.
-
----
-
-# Success Criteria
-
-This phase is complete only when:
-
-- About / Values section has been fully extracted into reusable Blade component(s).
-- Rendered homepage remains visually and structurally identical.
-- No new architecture has been introduced.
-- No CMS integration has been added.
-- No page-builder concepts exist.
-- Existing controllers, routes, services, and models remain untouched.
-- Validation completes successfully.
-- A full production-readiness report is provided before any commit.
-
----
-
-# Current Homepage Componentization Progress
-
-After successful completion of this phase, homepage progress should be:
-
-- ✅ Hero
-- ✅ Statistics
-- ✅ Services
-- ✅ Industries
-- ✅ Why Choose Us
-- ✅ How We Engage
-- ✅ Discipline Identity Strip
-- ✅ About / Values
-- ⏳ Testimonials
-- ⏳ Partners & Accreditations
-- ⏳ Work With Us CTA
-
-At that point, only **three homepage sections** will remain before the entire homepage has been successfully componentized and prepared for the later CMS content-binding phase.
+Wait for approval before committing.
