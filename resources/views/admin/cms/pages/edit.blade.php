@@ -48,147 +48,142 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('admin.cms.pages.update', $page) }}">
+        <form method="POST" action="{{ route('admin.cms.pages.update', $page) }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
 
-            <div class="space-y-6">
-
-                {{-- Hero Content --}}
-                <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
-                    <div class="border-b border-[#e6e8ee] p-6">
-                        <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">/{{ $page->slug }}</p>
-                        <h1 class="mt-2 text-2xl font-bold text-[#07172f]">Hero Content</h1>
-                        <p class="mt-2 text-sm leading-6 text-[#667085]">The content displayed in the hero section at the top of this page.</p>
-                    </div>
-
-                    <div class="space-y-6 p-6">
-
-                        <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Page Title <span class="text-red-500">*</span></label>
+            @if ($page->slug === 'home')
+                {{-- Enterprise structured editor: independently collapsible panels, one per homepage section. --}}
+                <div class="space-y-6">
+                    <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee] p-6">
+                        <x-admin.field label="Page Title" required helper="Internal reference name for this page.">
                             <input type="text" name="title" value="{{ old('title', $page->title) }}" required
-                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('title') border-red-400 @enderror">
-                            <p class="mt-1.5 text-xs text-[#667085]">Internal reference name for this page.</p>
-                            @error('title')
-                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Hero Subtitle <span class="text-xs font-normal text-[#667085]">(gold label above the heading)</span></label>
-                            <input type="text" name="hero_subtitle" value="{{ old('hero_subtitle', $page->hero_subtitle) }}"
-                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Hero Heading</label>
-                            <textarea name="hero_title" rows="2"
-                                      class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('hero_title', $page->hero_title) }}</textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Hero Description</label>
-                            <textarea name="hero_description" rows="4"
-                                      class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('hero_description', $page->hero_description) }}</textarea>
-                        </div>
-
-                        <div class="grid gap-6 sm:grid-cols-2">
-                            <div>
-                                <label class="block text-sm font-semibold text-[#07172f]">Primary CTA Label</label>
-                                <input type="text" name="primary_cta_label" value="{{ old('primary_cta_label', $page->primary_cta_label) }}"
-                                       placeholder="e.g. Discuss Your Project"
-                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#07172f]">Primary CTA URL</label>
-                                <input type="text" name="primary_cta_url" value="{{ old('primary_cta_url', $page->primary_cta_url) }}"
-                                       placeholder="e.g. /contact or #anchor"
-                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                            </div>
-                        </div>
-
-                        <div class="grid gap-6 sm:grid-cols-2">
-                            <div>
-                                <label class="block text-sm font-semibold text-[#07172f]">Secondary CTA Label</label>
-                                <input type="text" name="secondary_cta_label" value="{{ old('secondary_cta_label', $page->secondary_cta_label) }}"
-                                       placeholder="e.g. Explore Our Services"
-                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#07172f]">Secondary CTA URL</label>
-                                <input type="text" name="secondary_cta_url" value="{{ old('secondary_cta_url', $page->secondary_cta_url) }}"
-                                       placeholder="e.g. /services"
-                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- SEO --}}
-                <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
-                    <div class="border-b border-[#e6e8ee] p-6">
-                        <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">SEO</p>
-                        <h2 class="mt-2 text-xl font-bold text-[#07172f]">Search Engine Metadata</h2>
-                    </div>
-                    <div class="space-y-6 p-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Meta Title <span class="text-xs font-normal text-[#667085]">(overrides page title in search results)</span></label>
-                            <input type="text" name="meta_title" value="{{ old('meta_title', $page->meta_title) }}"
-                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-[#07172f]">Meta Description</label>
-                            <textarea name="meta_description" rows="3"
-                                      class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('meta_description', $page->meta_description) }}</textarea>
-                            <p class="mt-1.5 text-xs text-[#667085]">Recommended 120–160 characters.</p>
-                        </div>
-
-                        <div class="grid gap-6 sm:grid-cols-2">
-                            <div>
-                                <label class="block text-sm font-semibold text-[#07172f]">Canonical URL <span class="text-xs font-normal text-[#667085]">(leave blank to use current URL)</span></label>
-                                <input type="url" name="canonical_url" value="{{ old('canonical_url', $page->canonical_url) }}"
-                                       placeholder="https://example.com/page"
-                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                                @error('canonical_url') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#07172f]">Robots</label>
-                                <select name="robots"
-                                        class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
-                                    @foreach (['index,follow' => 'index, follow (default)', 'noindex,follow' => 'noindex, follow', 'index,nofollow' => 'index, nofollow', 'noindex,nofollow' => 'noindex, nofollow'] as $val => $label)
-                                        <option value="{{ $val }}" {{ old('robots', $page->robots ?? 'index,follow') === $val ? 'selected' : '' }}>{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap items-center gap-6">
-                            <label class="flex items-center gap-3">
-                                <input type="hidden" name="sitemap_include" value="0">
-                                <input type="checkbox" name="sitemap_include" value="1"
-                                       {{ old('sitemap_include', $page->sitemap_include ?? true) ? 'checked' : '' }}
-                                       class="h-4 w-4 rounded border-gray-300 text-[#123f8c] focus:ring-[#123f8c]">
-                                <span class="text-sm font-semibold text-[#07172f]">Include in sitemap</span>
-                            </label>
-                            <label class="flex items-center gap-3">
-                                <input type="hidden" name="is_published" value="0">
-                                <input type="checkbox" id="is_published" name="is_published" value="1"
-                                       {{ old('is_published', $page->is_published) ? 'checked' : '' }}
-                                       class="h-4 w-4 rounded border-gray-300 text-[#123f8c] focus:ring-[#123f8c]">
-                                <label for="is_published" class="text-sm font-semibold text-[#07172f]">Page is published</label>
-                            </label>
-                        </div>
+                                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('title') border-red-400 @enderror">
+                            @error('title') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </x-admin.field>
                     </div>
 
-                    <div class="border-t border-[#e6e8ee] bg-[#f8fafc] px-6 py-5">
+                    @include('admin.cms.pages.partials.home.hero')
+                    @include('admin.cms.pages.partials.home.statistics')
+                    @include('admin.cms.pages.partials.home.services')
+                    @include('admin.cms.pages.partials.home.industries')
+                    @include('admin.cms.pages.partials.home.why-choose-us')
+                    @include('admin.cms.pages.partials.home.engagement')
+                    @include('admin.cms.pages.partials.home.discipline-strip')
+                    @include('admin.cms.pages.partials.home.about-values')
+                    @include('admin.cms.pages.partials.home.testimonials')
+                    @include('admin.cms.pages.partials.home.partners')
+                    @include('admin.cms.pages.partials.home.work-with-us')
+
+                    <x-admin.panel subtitle="SEO" title="Search Engine Metadata">
+                        @include('admin.cms.pages.partials.seo-fields')
+                    </x-admin.panel>
+
+                    <div class="flex justify-end">
                         <button type="submit"
                                 class="inline-flex rounded-full bg-[#07172f] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#123f8c]">
                             Save Changes
                         </button>
                     </div>
                 </div>
+            @else
+                {{-- Existing flat editing interface — unchanged for every non-homepage page. --}}
+                <div class="space-y-6">
 
-            </div>
+                    {{-- Hero Content --}}
+                    <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
+                        <div class="border-b border-[#e6e8ee] p-6">
+                            <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">/{{ $page->slug }}</p>
+                            <h1 class="mt-2 text-2xl font-bold text-[#07172f]">Hero Content</h1>
+                            <p class="mt-2 text-sm leading-6 text-[#667085]">The content displayed in the hero section at the top of this page.</p>
+                        </div>
+
+                        <div class="space-y-6 p-6">
+
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Page Title <span class="text-red-500">*</span></label>
+                                <input type="text" name="title" value="{{ old('title', $page->title) }}" required
+                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('title') border-red-400 @enderror">
+                                <p class="mt-1.5 text-xs text-[#667085]">Internal reference name for this page.</p>
+                                @error('title')
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Hero Subtitle <span class="text-xs font-normal text-[#667085]">(gold label above the heading)</span></label>
+                                <input type="text" name="hero_subtitle" value="{{ old('hero_subtitle', $page->hero_subtitle) }}"
+                                       class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Hero Heading</label>
+                                <textarea name="hero_title" rows="2"
+                                          class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('hero_title', $page->hero_title) }}</textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Hero Description</label>
+                                <textarea name="hero_description" rows="4"
+                                          class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('hero_description', $page->hero_description) }}</textarea>
+                            </div>
+
+                            <div class="grid gap-6 sm:grid-cols-2">
+                                <div>
+                                    <label class="block text-sm font-semibold text-[#07172f]">Primary CTA Label</label>
+                                    <input type="text" name="primary_cta_label" value="{{ old('primary_cta_label', $page->primary_cta_label) }}"
+                                           placeholder="e.g. Discuss Your Project"
+                                           class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-[#07172f]">Primary CTA URL</label>
+                                    <input type="text" name="primary_cta_url" value="{{ old('primary_cta_url', $page->primary_cta_url) }}"
+                                           placeholder="e.g. /contact or #anchor"
+                                           class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                </div>
+                            </div>
+
+                            <div class="grid gap-6 sm:grid-cols-2">
+                                <div>
+                                    <label class="block text-sm font-semibold text-[#07172f]">Secondary CTA Label</label>
+                                    <input type="text" name="secondary_cta_label" value="{{ old('secondary_cta_label', $page->secondary_cta_label) }}"
+                                           placeholder="e.g. Explore Our Services"
+                                           class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-[#07172f]">Secondary CTA URL</label>
+                                    <input type="text" name="secondary_cta_url" value="{{ old('secondary_cta_url', $page->secondary_cta_url) }}"
+                                           placeholder="e.g. /services"
+                                           class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-[#07172f]">Hero Background Image</label>
+                                @if ($page->heroMedia)
+                                    <div class="mt-2 mb-3 inline-flex items-center gap-3 rounded-2xl border border-[#e6e8ee] bg-[#f7f3ea] p-3">
+                                        <img src="{{ $page->heroMedia->url() }}" alt="" class="h-14 w-24 rounded-lg object-cover">
+                                        <span class="text-xs text-[#667085]">Current background image</span>
+                                        <label class="flex items-center gap-2 text-xs font-semibold text-red-600">
+                                            <input type="checkbox" name="remove_hero_image" value="1" class="rounded">
+                                            Remove
+                                        </label>
+                                    </div>
+                                @else
+                                    <p class="mt-2 mb-3 text-xs text-[#667085]">No hero image uploaded — the design's default background is used.</p>
+                                @endif
+                                <input type="file" name="hero_image_file" accept="image/*"
+                                       class="mt-2 w-full text-sm text-[#07172f] file:mr-4 file:rounded-full file:border-0 file:bg-[#07172f] file:px-4 file:py-2 file:text-xs file:font-bold file:text-white hover:file:bg-[#123f8c]">
+                                <p class="mt-1.5 text-xs text-[#667085]">Upload a new file to replace the current background image.</p>
+                                @error('hero_image_file') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    @include('admin.cms.pages.partials.seo')
+
+                </div>
+            @endif
         </form>
     </x-admin-dashboard-shell>
 </x-app-layout>

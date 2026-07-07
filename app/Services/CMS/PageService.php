@@ -12,7 +12,19 @@ class PageService
     public function forSlug(string $slug): Page
     {
         return Cache::remember("cms.page.{$slug}", self::TTL, function () use ($slug) {
-            return Page::with(['heroMedia', 'ogMedia'])
+            return Page::with([
+                    'heroMedia',
+                    'ogMedia',
+                    'aboutMedia',
+                    'heroCards.image',
+                    'heroCards.icons',
+                    'statistics',
+                    'serviceCards.image',
+                    'industries',
+                    'whyChooseUsCards',
+                    'engagementSteps',
+                    'aboutValues',
+                ])
                 ->where('slug', $slug)
                 ->firstOrFail();
         });

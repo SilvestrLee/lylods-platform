@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
@@ -32,11 +33,48 @@ class Page extends Model
         'is_published',
         'created_by',
         'updated_by',
+        'discipline_eyebrow',
+        'discipline_items',
+        'services_eyebrow',
+        'services_heading',
+        'services_heading_break',
+        'services_cta_label',
+        'services_cta_url',
+        'industries_eyebrow',
+        'industries_heading',
+        'industries_cta_label',
+        'industries_cta_url',
+        'why_choose_us_eyebrow',
+        'why_choose_us_heading',
+        'why_choose_us_description',
+        'why_choose_us_cta_label',
+        'why_choose_us_cta_url',
+        'engagement_eyebrow',
+        'engagement_heading',
+        'engagement_description',
+        'about_eyebrow',
+        'about_heading',
+        'about_description',
+        'about_media_id',
+        'about_media_alt',
+        'about_cta_label',
+        'about_cta_url',
+        'wwu_eyebrow',
+        'wwu_heading',
+        'wwu_description',
+        'wwu_primary_cta_label',
+        'wwu_primary_cta_url',
+        'wwu_secondary_cta_label',
+        'wwu_secondary_cta_url',
+        'wwu_investor_note',
+        'wwu_investor_cta_label',
+        'wwu_investor_cta_url',
     ];
 
     protected $casts = [
         'section_visibility' => 'array',
         'structured_data' => 'array',
+        'discipline_items' => 'array',
         'sitemap_include' => 'boolean',
         'is_published' => 'boolean',
     ];
@@ -49,6 +87,46 @@ class Page extends Model
     public function ogMedia(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'og_media_id');
+    }
+
+    public function aboutMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'about_media_id');
+    }
+
+    public function heroCards(): HasMany
+    {
+        return $this->hasMany(HeroCard::class)->orderBy('order');
+    }
+
+    public function statistics(): HasMany
+    {
+        return $this->hasMany(PageStatistic::class)->orderBy('order');
+    }
+
+    public function serviceCards(): HasMany
+    {
+        return $this->hasMany(PageServiceCard::class)->orderBy('order');
+    }
+
+    public function industries(): HasMany
+    {
+        return $this->hasMany(PageIndustry::class)->orderBy('order');
+    }
+
+    public function whyChooseUsCards(): HasMany
+    {
+        return $this->hasMany(PageWhyChooseUsCard::class)->orderBy('order');
+    }
+
+    public function engagementSteps(): HasMany
+    {
+        return $this->hasMany(PageEngagementStep::class)->orderBy('order');
+    }
+
+    public function aboutValues(): HasMany
+    {
+        return $this->hasMany(PageAboutValue::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo

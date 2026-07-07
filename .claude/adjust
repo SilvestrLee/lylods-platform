@@ -1,168 +1,565 @@
-# Phase 7.13 — Resolve PHPUnit Homepage Fixture Using a Dedicated PageFactory
+# Phase 9.1 — Homepage CMS Completion Sprint 1 (Statistics Section)
 
 ## Objective
 
-Eliminate the final PHPUnit failure (24/25 → 25/25) by introducing a proper `PageFactory` for the `Page` model instead of coupling tests to the full `DatabaseSeeder`.
+The homepage architecture is now complete.
 
-This is a **test-only infrastructure improvement**.
+Every homepage section has been extracted into reusable Blade components while maintaining the project's architectural guardrails.
 
-No application behaviour, controllers, services, routes, Blade templates, or CMS logic may change.
+However, only a subset of homepage content is currently backed by the CMS.
 
----
+This phase begins the **Homepage CMS Completion Initiative**, where each remaining hardcoded homepage section is migrated into CMS-managed content **one section at a time**.
 
-## Background
+This phase focuses **only on the Statistics section**.
 
-Investigation confirmed that the failing ExampleTest is unrelated to the homepage componentization work.
-
-Current behaviour:
-
-- Production homepage returns HTTP 200.
-- Local development homepage returns HTTP 200.
-- PHPUnit uses a fresh in-memory SQLite database.
-- RefreshDatabase migrates the schema but does not execute DatabaseSeeder.
-- The PageService attempts to retrieve the homepage by slug (`home`).
-- Because no Page exists, `firstOrFail()` throws a ModelNotFoundException.
-- Laravel converts this into an HTTP 404.
-
-This is a missing fixture, not an application defect.
+Nothing else.
 
 ---
 
-## Architecture
+# Why This Phase Exists
 
-Preferred solution:
+After auditing the codebase against the project architecture, we confirmed that several homepage sections remain completely hardcoded.
 
-Introduce a dedicated `PageFactory`.
+These sections have:
 
-Tests should create only the records they require.
+- no database schema
+- no models
+- no admin fields
+- no CMS bindings
 
-Avoid seeding the full database unless explicitly required.
+Attempting to build the full homepage editor now would result in an editor for data that does not yet exist.
+
+Instead, we will complete the CMS one section at a time.
+
+This minimizes risk and maintains clean architecture.
 
 ---
 
-## Required Work
+# Current Homepage CMS Status
 
-### 1. Create PageFactory
+## Fully CMS-backed
+
+- Hero
+- Hero Cards
+- Hero Background
+- SEO
+- Testimonials
+- Partners / Organisations
+
+---
+
+## Still Hardcoded
+
+- Statistics
+- Services
+- Industries
+- How We Engage
+- Discipline Identity Strip
+- About & Values
+- Why Choose Us
+- Work With Us CTA
+
+This phase addresses only:
+
+**Statistics**
+
+---
+
+# Scope
+
+Only implement CMS support for the Statistics section.
+
+Do NOT touch:
+
+- Services
+- Industries
+- Hero
+- Testimonials
+- Partners
+- About
+- Any other homepage section
+
+---
+
+# Existing Architecture
+
+Continue following every locked architectural decision.
+
+Absolutely DO NOT introduce:
+
+- PageBuilder
+- PageSection model
+- page_sections table
+- Generic section registry
+- JSON layouts
+- Runtime composition
+- Dynamic Blade resolution
+- Drag-and-drop ordering
+
+Developer controls page structure.
+
+CMS controls content.
+
+---
+
+# Existing Statistics Section
+
+Audit the current homepage implementation.
+
+Identify every statistic currently rendered.
+
+Preserve:
+
+- number
+- title
+- supporting description
+- icon (if applicable)
+- ordering
+
+The rendered frontend must remain identical.
+
+---
+
+# Data Model
+
+Create the minimum schema required.
+
+Avoid generic structures.
+
+Preferred approach:
+
+```
+HomepageStatistic
+```
+
+Each record should represent exactly one homepage statistic.
+
+Recommended columns:
+
+```text
+id
+
+page_id
+
+order
+
+number
+
+title
+
+description
+
+is_visible
+
+created_at
+
+updated_at
+```
+
+No JSON blobs.
+
+No polymorphic storage.
+
+No generic "content" field.
+
+Every field should have clear meaning.
+
+---
+
+# Relationship
+
+Page
+
+↓
+
+hasMany
+
+↓
+
+HomepageStatistic
+
+Ordered by:
+
+```
+order
+```
+
+---
+
+# Model
 
 Create:
 
 ```
-database/factories/PageFactory.php
+HomepageStatistic
 ```
 
-Use Laravel's standard factory implementation.
+Responsibilities:
 
-Include realistic defaults matching the production Page schema.
+- Fillable fields
+- Ordering
+- Visibility
+- Page relationship
 
-Generate sensible placeholder values for:
+No rendering logic.
 
-- title
-- slug
-- meta title
-- meta description
-- hero fields
-- CTA fields
-- status
-- visibility
-- timestamps
-
-Do not guess fields.
-
-Inspect the Page model and migration.
-
-Mirror the actual schema exactly.
+No homepage logic.
 
 ---
 
-### 2. Update ExampleTest
+# Page Model
 
-Replace implicit dependency on seeded Pages.
+Add relationship:
+
+```php
+statistics()
+```
+
+Ordered by:
+
+```
+order
+```
+
+Nothing else.
+
+---
+
+# Controller
+
+Update only the existing homepage query.
+
+Eager load:
+
+```
+statistics
+```
+
+Do NOT introduce additional queries.
+
+No runtime lookups.
+
+---
+
+# Blade
+
+Replace the hardcoded statistics array.
 
 Instead:
 
-```php
-Page::factory()->create([
-    'slug' => 'home',
-]);
+Pass
+
+```
+$page->statistics
 ```
 
-Only create what the test needs.
+into:
 
-Do not create unrelated CMS records.
+```
+<x-sections.statistics />
+```
+
+The component should already exist.
+
+Do not redesign it.
 
 ---
 
-### 3. Keep Test Isolation
+# Fallback Protection
 
-Do not modify:
+If no statistics exist:
 
-- RefreshDatabase behaviour
-- Tests\TestCase
-- DatabaseSeeder
-- AppServiceProvider
-- PageService
-- PublicPageController
+Render the current hardcoded values.
 
-No production code should change.
+This guarantees:
+
+- local development remains stable
+- production remains stable
+- migrations are safe
+- deployment order becomes flexible
+
+Example:
+
+```
+CMS Records?
+
+YES
+
+↓
+
+Render CMS
+
+NO
+
+↓
+
+Render existing defaults
+```
+
+No blank homepage.
 
 ---
 
-### 4. Validation
+# Admin UI
 
-Run:
+Extend the existing Page editor.
 
-```bash
-php artisan test
-```
-
-Expected:
+Only when:
 
 ```
-25 / 25 passing
+slug === home
 ```
 
-Verify:
+Display:
 
-- homepage returns 200
-- about page unaffected
-- services page unaffected
-- contact page unaffected
+```
+Homepage Statistics
+```
+
+Each statistic should expose:
+
+Number
+
+Title
+
+Description
+
+Visibility
+
+Order
 
 ---
 
-## Acceptance Criteria
+Do NOT create:
 
-✓ New PageFactory exists.
+HomepageStatisticsResource
 
-✓ ExampleTest no longer depends on DatabaseSeeder.
+New admin pages
 
-✓ PHPUnit passes 25/25.
+Separate CRUD
 
-✓ No production files modified.
-
-✓ No CMS functionality changed.
-
-✓ No routes changed.
-
-✓ No controllers changed.
-
-✓ No services changed.
-
-✓ No migrations changed.
-
-✓ Test execution remains deterministic.
+Remain inside the Page editing workflow.
 
 ---
 
-## Deliverables
+# Ordering
+
+Editors should be able to reorder statistics.
+
+Persist using:
+
+```
+order
+```
+
+No drag-and-drop page building.
+
+Only statistic ordering.
+
+---
+
+# Validation
+
+Number
+
+```
+required|string|max:100
+```
+
+Title
+
+```
+required|string|max:255
+```
+
+Description
+
+```
+nullable|string
+```
+
+Order
+
+```
+integer|min:1
+```
+
+Visibility
+
+```
+boolean
+```
+
+---
+
+# Seeder
+
+Create sensible default records matching the existing homepage.
+
+The seeded content should reproduce the current homepage exactly.
+
+No placeholder content.
+
+No lorem ipsum.
+
+---
+
+# Tests
+
+Add coverage for:
+
+- relationship
+- ordering
+- visibility
+- fallback behaviour
+- homepage rendering
+- page editor save
+
+---
+
+# Performance
+
+Continue eager loading.
+
+Homepage query count must not increase unnecessarily.
+
+No N+1 queries.
+
+---
+
+# Accessibility
+
+Rendering must remain unchanged.
+
+Any decorative icons should continue using:
+
+```
+aria-hidden="true"
+```
+
+No regression.
+
+---
+
+# Documentation
+
+Update project documentation.
+
+Include:
+
+- Homepage Statistics schema
+- Relationships
+- Admin workflow
+- Rendering flow
+
+---
+
+# Validation Checklist
+
+Claude must verify:
+
+✓ Migration applies
+
+✓ Rollback works
+
+✓ Statistics relationship loads correctly
+
+✓ Existing homepage visually unchanged
+
+✓ Statistics component renders CMS records
+
+✓ Fallback renders correctly
+
+✓ Admin editing works
+
+✓ Ordering works
+
+✓ Visibility works
+
+✓ Tests pass
+
+✓ Vite builds
+
+✓ No PageBuilder introduced
+
+✓ No JSON layouts introduced
+
+✓ No runtime composition introduced
+
+✓ Existing homepage architecture preserved
+
+---
+
+# Deliverables
+
+Expected new files:
+
+```
+app/Models/HomepageStatistic.php
+
+database/migrations/create_homepage_statistics_table.php
+
+database/seeders/HomepageStatisticSeeder.php
+```
+
+Modified:
+
+```
+Page.php
+
+PublicPageController.php
+
+Admin Page editor
+
+Statistics component
+
+Homepage Blade
+```
+
+Tests.
+
+Documentation.
+
+---
+
+# Commit Policy
+
+Do NOT commit.
+
+Do NOT merge.
+
+Do NOT push.
+
+Wait for approval.
 
 Provide:
 
-1. Files created
-2. Files modified
-3. Root cause summary
-4. Validation output
-5. Final PHPUnit result
-6. Confirmation that production code remains untouched
+1. Files modified
 
-Wait for approval before committing.
+2. Database schema
+
+3. Validation results
+
+4. Test results
+
+5. Performance impact
+
+6. Risks
+
+7. Rollback plan
+
+before requesting approval.
+
+---
+
+# Success Criteria
+
+This phase is complete when:
+
+- Statistics become fully CMS-managed.
+- The frontend remains pixel-identical.
+- The homepage architecture remains developer-composed.
+- Editors can manage statistics without touching code.
+- The implementation establishes the architectural template that will be reused for Services, Industries, How We Engage, About & Values, Why Choose Us, and Work With Us CTA.
+
+This becomes the reference implementation for every remaining homepage CMS migration.

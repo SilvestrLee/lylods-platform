@@ -201,6 +201,7 @@ class MediaService
     private const USAGE_CHECKS = [
         ['table' => 'site_settings', 'columns' => ['logo_media_id', 'logo_inverse_media_id', 'logo_dark_media_id', 'logo_footer_media_id', 'logo_email_media_id', 'logo_login_media_id', 'favicon_media_id', 'apple_touch_media_id', 'default_og_media_id', 'twitter_card_media_id'], 'label' => 'Site Settings'],
         ['table' => 'pages',         'columns' => ['hero_media_id', 'og_media_id'],     'label' => 'Pages'],
+        ['table' => 'hero_cards',    'columns' => ['image_media_id'],                  'label' => 'Hero Cards'],
         ['table' => 'insights',      'columns' => ['featured_media_id'],                'label' => 'Insights'],
         ['table' => 'case_studies',  'columns' => ['featured_media_id'],                'label' => 'Case Studies'],
         ['table' => 'team_members',  'columns' => ['photo_media_id'],                   'label' => 'Team Members'],
