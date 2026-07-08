@@ -88,3 +88,13 @@ Minimum required:
 - No MissingVariableException
 
 Every new enterprise CMS page must add these tests before requesting approval.
+---
+
+## Enterprise CMS Checklist Requirement
+
+Every future Enterprise CMS migration MUST satisfy:
+
+`.claude/ENTERPRISE_CMS_CHECKLIST.md`
+
+No page migration should be approved unless the checklist is reviewed and explicitly passed.
+
