@@ -24,6 +24,12 @@ class PageService
                     'whyChooseUsCards',
                     'engagementSteps',
                     'aboutValues',
+                    'aboutPageIntroMedia',
+                    'aboutHowWeWorkSteps',
+                    'aboutFocusAreas',
+                    'aboutPrinciples',
+                    'aboutAudienceTags',
+                    'aboutDifferentiators',
                 ])
                 ->where('slug', $slug)
                 ->firstOrFail();

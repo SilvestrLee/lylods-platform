@@ -69,6 +69,17 @@ class Page extends Model
         'wwu_investor_note',
         'wwu_investor_cta_label',
         'wwu_investor_cta_url',
+        'about_page_intro_heading',
+        'about_page_intro_body',
+        'about_page_intro_media_id',
+        'about_page_intro_cta_label',
+        'about_page_intro_cta_url',
+        'about_page_cta_heading',
+        'about_page_cta_description',
+        'about_page_cta_primary_label',
+        'about_page_cta_primary_url',
+        'about_page_cta_secondary_label',
+        'about_page_cta_secondary_url',
     ];
 
     protected $casts = [
@@ -92,6 +103,11 @@ class Page extends Model
     public function aboutMedia(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'about_media_id');
+    }
+
+    public function aboutPageIntroMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'about_page_intro_media_id');
     }
 
     public function heroCards(): HasMany
@@ -127,6 +143,31 @@ class Page extends Model
     public function aboutValues(): HasMany
     {
         return $this->hasMany(PageAboutValue::class)->orderBy('order');
+    }
+
+    public function aboutHowWeWorkSteps(): HasMany
+    {
+        return $this->hasMany(PageAboutHowWeWorkStep::class)->orderBy('order');
+    }
+
+    public function aboutFocusAreas(): HasMany
+    {
+        return $this->hasMany(PageAboutFocusArea::class)->orderBy('order');
+    }
+
+    public function aboutPrinciples(): HasMany
+    {
+        return $this->hasMany(PageAboutPrinciple::class)->orderBy('order');
+    }
+
+    public function aboutAudienceTags(): HasMany
+    {
+        return $this->hasMany(PageAboutAudienceTag::class)->orderBy('order');
+    }
+
+    public function aboutDifferentiators(): HasMany
+    {
+        return $this->hasMany(PageAboutDifferentiator::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo
