@@ -114,8 +114,8 @@
                         <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">Managed Elsewhere</p>
                         <p class="mt-2 text-sm leading-6 text-[#667085]">Our People and Qualifications &amp; Accreditations are edited from their own CMS modules — content is shared with other pages, so it is not duplicated here.</p>
                         <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="{{ route('admin.people.team.index') }}" class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:border-[#07172f]">Manage Team ↗</a>
-                            <a href="{{ route('admin.trust.index') }}" class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:border-[#07172f]">Manage Accreditations ↗</a>
+                            <a href="{{ route('admin.cms.people.team.index') }}" class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:border-[#07172f]">Manage Team ↗</a>
+                            <a href="{{ route('admin.cms.trust.index') }}" class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:border-[#07172f]">Manage Accreditations ↗</a>
                         </div>
                     </div>
 

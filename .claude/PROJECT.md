@@ -334,7 +334,47 @@ CMS must not allow arbitrary section creation.
 CMS should provide safe content updates while preserving the intended design system.
 ---
 
-# About Page CMS Status (Implemented, Pending Approval)
+# Homepage CMS Status (Completed)
+
+## Current Architecture
+
+The homepage architecture is now considered complete.
+
+Implemented principles:
+
+- Developer-controlled Blade composition
+- Reusable section components
+- CMS-managed content
+- Enterprise admin editing
+- No runtime composition
+- No PageBuilder
+- No PageSection model
+- No JSON page layouts
+- No drag-and-drop architecture
+
+Homepage sections:
+
+- Hero
+- Statistics
+- Services
+- Industries
+- Why Choose Us
+- How We Engage
+- Discipline Identity Strip
+- About & Values
+- Testimonials
+- Partners & Accreditations
+- Work With Us CTA
+
+All sections follow the same architectural pattern.
+
+Developers own page composition.
+
+Editors own content.
+
+---
+
+# About Page CMS Status (Completed)
 
 The About page now follows the same enterprise CMS architecture as the Homepage. See `.claude/decisions/006_about_page_cms_architecture.md` for the full architecture note.
 
@@ -351,4 +391,4 @@ Real About page sections (audited from the live page, not the planning list abov
 - Qualifications & Accreditations (existing `Organisation` CMS, componentized)
 - Closing CTA
 
-Not yet committed — implemented on a review branch pending explicit approval.
+Merged into main. All sections follow the same architectural pattern established by the Homepage.

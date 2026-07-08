@@ -47,3 +47,26 @@ After editing files:
 - Explain what changed
 - Explain what was not changed
 - Provide verification commands
+
+---
+
+# Locked Architectural Principle
+
+The public website SHALL remain developer-composed.
+
+Pages are assembled using reusable Blade components.
+
+Administrators may edit content.
+
+Administrators may not:
+
+- reorder sections
+- create sections
+- delete sections
+- compose layouts
+- build arbitrary pages
+
+No PageBuilder shall be introduced.
+
+No runtime section composition shall be introduced.
+
