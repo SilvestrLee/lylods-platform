@@ -332,3 +332,23 @@ CMS must not become WordPress.
 CMS must not allow arbitrary section creation.
 
 CMS should provide safe content updates while preserving the intended design system.
+---
+
+# About Page CMS Status (Implemented, Pending Approval)
+
+The About page now follows the same enterprise CMS architecture as the Homepage. See `.claude/decisions/006_about_page_cms_architecture.md` for the full architecture note.
+
+Real About page sections (audited from the live page, not the planning list above):
+
+- Hero (existing `Page` fields, componentized)
+- Who We Are / Introduction
+- How We Work (4 steps)
+- Areas of Focus (5 cards)
+- Operating Principles (5 cards)
+- Who We Support (8 tags)
+- Why Clients Choose Us (6 cards)
+- Our People (existing `TeamMember` CMS, componentized)
+- Qualifications & Accreditations (existing `Organisation` CMS, componentized)
+- Closing CTA
+
+Not yet committed — implemented on a review branch pending explicit approval.

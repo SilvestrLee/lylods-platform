@@ -6,6 +6,11 @@ use App\Models\HeroCard;
 use App\Models\HeroCardIcon;
 use App\Models\Organisation;
 use App\Models\Page;
+use App\Models\PageAboutAudienceTag;
+use App\Models\PageAboutDifferentiator;
+use App\Models\PageAboutFocusArea;
+use App\Models\PageAboutHowWeWorkStep;
+use App\Models\PageAboutPrinciple;
 use App\Models\PageAboutValue;
 use App\Models\PageEngagementStep;
 use App\Models\PageIndustry;
@@ -36,6 +41,11 @@ class AdminPageController extends Controller
     private const ENGAGEMENT_STEP_COUNT = 4;
     private const ABOUT_VALUE_COUNT = 4;
     private const DISCIPLINE_ITEM_COUNT = 5;
+    private const HOW_WE_WORK_COUNT = 4;
+    private const FOCUS_AREA_COUNT = 5;
+    private const PRINCIPLE_COUNT = 5;
+    private const AUDIENCE_TAG_COUNT = 8;
+    private const DIFFERENTIATOR_COUNT = 6;
 
     public function __construct(
         private PageService $service,
@@ -63,6 +73,12 @@ class AdminPageController extends Controller
             'whyChooseUsCards',
             'engagementSteps',
             'aboutValues',
+            'aboutPageIntroMedia',
+            'aboutHowWeWorkSteps',
+            'aboutFocusAreas',
+            'aboutPrinciples',
+            'aboutAudienceTags',
+            'aboutDifferentiators',
         );
 
         $testimonials = null;
@@ -103,6 +119,15 @@ class AdminPageController extends Controller
             }
         }
 
+        if ($page->slug === 'about') {
+            if ($request->hasFile('about_page_intro_media_file')) {
+                $introImage = $this->media->store($request->file('about_page_intro_media_file'), 'pages', auth()->id());
+                $data['about_page_intro_media_id'] = $introImage->id;
+            } elseif ($request->boolean('remove_about_page_intro_media')) {
+                $data['about_page_intro_media_id'] = null;
+            }
+        }
+
         $heroCardsInput = $data['hero_cards'] ?? [];
         $statisticsInput = $data['statistics'] ?? [];
         $serviceCardsInput = $data['service_cards'] ?? [];
@@ -113,13 +138,21 @@ class AdminPageController extends Controller
         $disciplineItemsInput = $data['discipline_items'] ?? [];
         $testimonialsInput = $data['testimonials'] ?? [];
         $partnersInput = $data['partners'] ?? [];
+        $howWeWorkStepsInput = $data['how_we_work_steps'] ?? [];
+        $focusAreasInput = $data['focus_areas'] ?? [];
+        $principlesInput = $data['principles'] ?? [];
+        $audienceTagsInput = $data['audience_tags'] ?? [];
+        $differentiatorsInput = $data['differentiators'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
             $data['about_media_file'], $data['remove_about_media'],
+            $data['about_page_intro_media_file'], $data['remove_about_page_intro_media'],
             $data['hero_cards'], $data['statistics'], $data['service_cards'],
             $data['industries'], $data['why_choose_us'], $data['engagement_steps'],
             $data['about_values'], $data['discipline_items'], $data['testimonials'], $data['partners'],
+            $data['how_we_work_steps'], $data['focus_areas'], $data['principles'],
+            $data['audience_tags'], $data['differentiators'],
         );
 
         if ($page->slug === 'home') {
@@ -151,6 +184,14 @@ class AdminPageController extends Controller
             $this->organisationService->flush();
         }
 
+        if ($page->slug === 'about') {
+            $this->syncRows($page, PageAboutHowWeWorkStep::class, $howWeWorkStepsInput, self::HOW_WE_WORK_COUNT, ['title', 'description', 'visibility']);
+            $this->syncRows($page, PageAboutFocusArea::class, $focusAreasInput, self::FOCUS_AREA_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageAboutPrinciple::class, $principlesInput, self::PRINCIPLE_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageAboutAudienceTag::class, $audienceTagsInput, self::AUDIENCE_TAG_COUNT, ['label', 'visibility']);
+            $this->syncRows($page, PageAboutDifferentiator::class, $differentiatorsInput, self::DIFFERENTIATOR_COUNT, ['icon', 'title', 'description', 'visibility']);
+        }
+
         return redirect()->route('admin.cms.pages.edit', $page)
             ->with('success', 'Page content updated.');
     }
@@ -175,6 +216,51 @@ class AdminPageController extends Controller
             'sitemap_include'     => 'nullable|boolean',
             'is_published'        => 'nullable|boolean',
         ];
+
+        if ($page->slug === 'about') {
+            return array_merge($rules, [
+                'about_page_intro_heading'          => 'nullable|string|max:255',
+                'about_page_intro_body'              => 'nullable|string',
+                'about_page_intro_media_file'         => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'remove_about_page_intro_media'       => 'nullable|boolean',
+                'about_page_intro_cta_label'          => 'nullable|string|max:100',
+                'about_page_intro_cta_url'            => 'nullable|string|max:500',
+
+                'how_we_work_steps'                    => 'nullable|array',
+                'how_we_work_steps.*.title'            => 'nullable|string|max:255',
+                'how_we_work_steps.*.description'      => 'nullable|string|max:2000',
+                'how_we_work_steps.*.visibility'       => 'nullable|boolean',
+
+                'focus_areas'                           => 'nullable|array',
+                'focus_areas.*.icon'                    => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'focus_areas.*.title'                   => 'nullable|string|max:255',
+                'focus_areas.*.description'             => 'nullable|string|max:2000',
+                'focus_areas.*.visibility'              => 'nullable|boolean',
+
+                'principles'                             => 'nullable|array',
+                'principles.*.icon'                      => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'principles.*.title'                     => 'nullable|string|max:255',
+                'principles.*.description'               => 'nullable|string|max:2000',
+                'principles.*.visibility'                => 'nullable|boolean',
+
+                'audience_tags'                          => 'nullable|array',
+                'audience_tags.*.label'                  => 'nullable|string|max:255',
+                'audience_tags.*.visibility'             => 'nullable|boolean',
+
+                'differentiators'                        => 'nullable|array',
+                'differentiators.*.icon'                 => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'differentiators.*.title'                => 'nullable|string|max:255',
+                'differentiators.*.description'          => 'nullable|string|max:2000',
+                'differentiators.*.visibility'           => 'nullable|boolean',
+
+                'about_page_cta_heading'                 => 'nullable|string|max:255',
+                'about_page_cta_description'             => 'nullable|string|max:2000',
+                'about_page_cta_primary_label'           => 'nullable|string|max:100',
+                'about_page_cta_primary_url'             => 'nullable|string|max:500',
+                'about_page_cta_secondary_label'         => 'nullable|string|max:100',
+                'about_page_cta_secondary_url'           => 'nullable|string|max:500',
+            ]);
+        }
 
         if ($page->slug !== 'home') {
             return $rules;
@@ -334,10 +420,12 @@ class AdminPageController extends Controller
     }
 
     /**
-     * Shared writer for the bounded, image-free homepage collections
-     * (statistics, industries, why-choose-us cards, engagement steps,
-     * about values). Each fixed slot is written by position (page_id +
-     * order), mirroring the Hero Card precedent above.
+     * Shared writer for bounded, image-free repeatable collections
+     * (homepage statistics, industries, why-choose-us cards, engagement
+     * steps, about values; About page how-we-work steps, focus areas,
+     * principles, audience tags, differentiators). Each fixed slot is
+     * written by position (page_id + order), mirroring the Hero Card
+     * precedent above.
      */
     private function syncRows(Page $page, string $modelClass, array $rows, int $count, array $fields): void
     {
@@ -349,8 +437,8 @@ class AdminPageController extends Controller
             $row = $modelClass::firstOrNew(['page_id' => $page->id, 'order' => $order]);
 
             foreach ($fields as $field) {
-                if ($field === 'is_dark') {
-                    $row->is_dark = ! empty($input['is_dark']);
+                if ($field === 'is_dark' || $field === 'visibility') {
+                    $row->{$field} = ! empty($input[$field]);
                     continue;
                 }
 
