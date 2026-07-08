@@ -376,7 +376,7 @@ Editors own content.
 
 # About Page CMS Status (Completed)
 
-The About page now follows the same enterprise CMS architecture as the Homepage. See `.claude/decisions/006_about_page_cms_architecture.md` for the full architecture note.
+The About page now follows the same enterprise CMS architecture as the Homepage. See `.claude/decisions/008_about_page_cms_architecture.md` for the full architecture note.
 
 Real About page sections (audited from the live page, not the planning list above):
 
@@ -395,7 +395,7 @@ Merged into main. All sections follow the same architectural pattern established
 
 ---
 
-# Services Page CMS Status (Implemented, Pending Approval)
+# Services Page CMS Status (Completed)
 
 The Services page now follows the same enterprise CMS architecture as the Homepage and About page. See `.claude/decisions/007_services_page_cms_architecture.md` for the full architecture note.
 
@@ -409,4 +409,37 @@ Real Services page sections (audited from the live page, not a planning list):
 - How We Work (4 steps)
 - Closing CTA
 
-Not yet committed — implemented on a review branch pending explicit approval.
+Merged into main. All sections follow the same architectural pattern established by the Homepage and About page.
+
+---
+
+## Enterprise CMS Current Baseline
+
+Completed enterprise CMS pages:
+
+- Homepage
+- About
+- Services
+
+Current regression baseline:
+
+- 43 tests
+- 153 assertions
+- Vite build passing
+
+Current architecture:
+
+- Developer-controlled Blade page composition
+- CMS-managed content
+- Purpose-built child tables for repeatable sections
+- Dedicated Blade components per section
+- Dedicated admin partials per page section
+- No PageBuilder
+- No PageSection model
+- No JSON page layouts
+- No runtime composition
+
+Next enterprise CMS page:
+
+- Industries
+

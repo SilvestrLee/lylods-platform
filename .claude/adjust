@@ -1,50 +1,52 @@
-Fix the RouteNotFoundException on the About page editor.
+Read .claude/adjust and follow it exactly.
 
-Problem:
-The About admin editor references a route named:
+Phase 11.2 — Documentation & Test Completion
 
-admin.people.team.index
+Implement the two remaining architecture gaps discovered during the documentation sync.
 
-but that route does not exist.
+### Part 1 — Recover Architecture Decision Records
 
-Do not create a new route just to satisfy this link.
+Recover the missing decision documents for:
 
-First audit existing routes:
+- About Enterprise CMS
+- Services Enterprise CMS
 
-php artisan route:list | grep -i team
-php artisan route:list | grep -i people
-php artisan route:list | grep -i accreditation
-php artisan route:list | grep -i organisation
+Requirements:
 
-Then update:
+- Do not duplicate existing decision numbers.
+- If numbering conflicts, renumber appropriately and update all references.
+- Preserve historical implementation details.
+- Ensure PROJECT.md, ROADMAP.md, ARCHITECTURE.md and any documentation references point to the correct decision files.
+- No application code changes.
 
-resources/views/admin/cms/pages/edit.blade.php
+### Part 2 — Homepage Admin Smoke Tests
 
-or the relevant About admin partial.
+Implement permanent authenticated GET render smoke tests for the Homepage CMS editor equivalent to those already protecting About and Services.
 
-Replace the invalid route name with the real existing route for Team Members.
+The tests must verify:
 
-Also check the accreditation/organisation link beside it and confirm it uses a real route.
+- GET edit page returns HTTP 200
+- expected admin sections render
+- expected forms render
+- expected "Manage Elsewhere" links render (when applicable)
+- no RouteNotFoundException
+- no ViewException
+- no MissingVariableException
 
-If no team management route exists, remove the button/link for now and show plain helper text instead:
-
-"Team members are managed from the existing Team Members CMS area."
-
-Rules:
-- Do not create new routes.
-- Do not create a new controller.
-- Do not create a new resource.
-- Do not touch public frontend.
-- This is an admin-link fix only.
+These tests should permanently protect the Home, About and Services Enterprise CMS editors against future admin rendering regressions.
 
 Validation:
-php artisan route:list
-php artisan optimize:clear
-php artisan test
-npm run build
 
-Then open:
-http://lylods.test/admin/cms/pages/2/edit
+- php artisan test
+- npm run build
 
-Expected:
-The About page editor loads without RouteNotFoundException.
+Report:
+
+- files created
+- files modified
+- validation results
+- documentation updates
+- rollback plan
+
+Do not commit, merge or push.
+Wait for approval.

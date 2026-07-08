@@ -70,3 +70,21 @@ No PageBuilder shall be introduced.
 
 No runtime section composition shall be introduced.
 
+
+## Mandatory Admin Render Tests
+
+Every CMS implementation MUST include authenticated GET render tests for every admin edit screen.
+
+PATCH tests alone are insufficient.
+
+Minimum required:
+
+- GET edit page returns 200
+- Expected admin sections render
+- Expected "Manage Elsewhere" links render
+- Expected forms render
+- No RouteNotFoundException
+- No ViewException
+- No MissingVariableException
+
+Every new enterprise CMS page must add these tests before requesting approval.
