@@ -80,6 +80,14 @@ class Page extends Model
         'about_page_cta_primary_url',
         'about_page_cta_secondary_label',
         'about_page_cta_secondary_url',
+        'services_page_intro_heading',
+        'services_page_intro_body',
+        'services_page_cta_heading',
+        'services_page_cta_description',
+        'services_page_cta_primary_label',
+        'services_page_cta_primary_url',
+        'services_page_cta_secondary_label',
+        'services_page_cta_secondary_url',
     ];
 
     protected $casts = [
@@ -168,6 +176,16 @@ class Page extends Model
     public function aboutDifferentiators(): HasMany
     {
         return $this->hasMany(PageAboutDifferentiator::class)->orderBy('order');
+    }
+
+    public function servicesWhyUsCards(): HasMany
+    {
+        return $this->hasMany(PageServicesWhyUsCard::class)->orderBy('order');
+    }
+
+    public function servicesHowWorkSteps(): HasMany
+    {
+        return $this->hasMany(PageServicesHowWorkStep::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo
