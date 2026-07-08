@@ -392,3 +392,21 @@ Real About page sections (audited from the live page, not the planning list abov
 - Closing CTA
 
 Merged into main. All sections follow the same architectural pattern established by the Homepage.
+
+---
+
+# Services Page CMS Status (Implemented, Pending Approval)
+
+The Services page now follows the same enterprise CMS architecture as the Homepage and About page. See `.claude/decisions/007_services_page_cms_architecture.md` for the full architecture note.
+
+Real Services page sections (audited from the live page, not a planning list):
+
+- Hero (existing `Page` fields, componentized)
+- Sticky Service Nav (existing `ServiceGroup`, componentized, no new schema)
+- Service Catalogue Intro
+- Service Area Panels (existing `ServiceGroup`/`Service`, componentized, no new schema, no duplicated CRUD)
+- Why Clients Work With Us (6 cards)
+- How We Work (4 steps)
+- Closing CTA
+
+Not yet committed — implemented on a review branch pending explicit approval.

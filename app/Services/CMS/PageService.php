@@ -30,6 +30,8 @@ class PageService
                     'aboutPrinciples',
                     'aboutAudienceTags',
                     'aboutDifferentiators',
+                    'servicesWhyUsCards',
+                    'servicesHowWorkSteps',
                 ])
                 ->where('slug', $slug)
                 ->firstOrFail();

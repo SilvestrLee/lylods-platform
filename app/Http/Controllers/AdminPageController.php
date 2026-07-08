@@ -15,6 +15,8 @@ use App\Models\PageAboutValue;
 use App\Models\PageEngagementStep;
 use App\Models\PageIndustry;
 use App\Models\PageServiceCard;
+use App\Models\PageServicesHowWorkStep;
+use App\Models\PageServicesWhyUsCard;
 use App\Models\PageStatistic;
 use App\Models\PageWhyChooseUsCard;
 use App\Models\Testimonial;
@@ -46,6 +48,8 @@ class AdminPageController extends Controller
     private const PRINCIPLE_COUNT = 5;
     private const AUDIENCE_TAG_COUNT = 8;
     private const DIFFERENTIATOR_COUNT = 6;
+    private const SERVICES_WHY_US_COUNT = 6;
+    private const SERVICES_HOW_WORK_COUNT = 4;
 
     public function __construct(
         private PageService $service,
@@ -79,6 +83,8 @@ class AdminPageController extends Controller
             'aboutPrinciples',
             'aboutAudienceTags',
             'aboutDifferentiators',
+            'servicesWhyUsCards',
+            'servicesHowWorkSteps',
         );
 
         $testimonials = null;
@@ -143,6 +149,8 @@ class AdminPageController extends Controller
         $principlesInput = $data['principles'] ?? [];
         $audienceTagsInput = $data['audience_tags'] ?? [];
         $differentiatorsInput = $data['differentiators'] ?? [];
+        $servicesWhyUsInput = $data['services_why_us'] ?? [];
+        $servicesHowWorkInput = $data['services_how_work_steps'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
@@ -153,6 +161,7 @@ class AdminPageController extends Controller
             $data['about_values'], $data['discipline_items'], $data['testimonials'], $data['partners'],
             $data['how_we_work_steps'], $data['focus_areas'], $data['principles'],
             $data['audience_tags'], $data['differentiators'],
+            $data['services_why_us'], $data['services_how_work_steps'],
         );
 
         if ($page->slug === 'home') {
@@ -190,6 +199,11 @@ class AdminPageController extends Controller
             $this->syncRows($page, PageAboutPrinciple::class, $principlesInput, self::PRINCIPLE_COUNT, ['icon', 'title', 'description', 'visibility']);
             $this->syncRows($page, PageAboutAudienceTag::class, $audienceTagsInput, self::AUDIENCE_TAG_COUNT, ['label', 'visibility']);
             $this->syncRows($page, PageAboutDifferentiator::class, $differentiatorsInput, self::DIFFERENTIATOR_COUNT, ['icon', 'title', 'description', 'visibility']);
+        }
+
+        if ($page->slug === 'services') {
+            $this->syncRows($page, PageServicesWhyUsCard::class, $servicesWhyUsInput, self::SERVICES_WHY_US_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageServicesHowWorkStep::class, $servicesHowWorkInput, self::SERVICES_HOW_WORK_COUNT, ['title', 'description', 'visibility']);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -259,6 +273,31 @@ class AdminPageController extends Controller
                 'about_page_cta_primary_url'             => 'nullable|string|max:500',
                 'about_page_cta_secondary_label'         => 'nullable|string|max:100',
                 'about_page_cta_secondary_url'           => 'nullable|string|max:500',
+            ]);
+        }
+
+        if ($page->slug === 'services') {
+            return array_merge($rules, [
+                'services_page_intro_heading'          => 'nullable|string|max:255',
+                'services_page_intro_body'              => 'nullable|string',
+
+                'services_why_us'                        => 'nullable|array',
+                'services_why_us.*.icon'                  => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'services_why_us.*.title'                 => 'nullable|string|max:255',
+                'services_why_us.*.description'           => 'nullable|string|max:2000',
+                'services_why_us.*.visibility'             => 'nullable|boolean',
+
+                'services_how_work_steps'                  => 'nullable|array',
+                'services_how_work_steps.*.title'          => 'nullable|string|max:255',
+                'services_how_work_steps.*.description'    => 'nullable|string|max:2000',
+                'services_how_work_steps.*.visibility'     => 'nullable|boolean',
+
+                'services_page_cta_heading'              => 'nullable|string|max:255',
+                'services_page_cta_description'          => 'nullable|string|max:2000',
+                'services_page_cta_primary_label'        => 'nullable|string|max:100',
+                'services_page_cta_primary_url'          => 'nullable|string|max:500',
+                'services_page_cta_secondary_label'      => 'nullable|string|max:100',
+                'services_page_cta_secondary_url'        => 'nullable|string|max:500',
             ]);
         }
 
