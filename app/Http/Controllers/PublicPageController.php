@@ -51,6 +51,14 @@ class PublicPageController extends Controller
         return view('public.services', compact('page', 'serviceGroups'));
     }
 
+    public function industries()
+    {
+        $page        = $this->pageService->forSlug('industries');
+        $caseStudies = $this->caseStudyService->published()->take(3);
+        $insights    = $this->insightService->published()->take(3);
+        return view('public.industries', compact('page', 'caseStudies', 'insights'));
+    }
+
     public function investment()
     {
         $page = $this->pageService->forSlug('investment');

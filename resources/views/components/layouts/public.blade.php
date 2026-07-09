@@ -143,7 +143,6 @@
                             <div class="space-y-3">
                                 <a href="{{ route('about') }}#who-we-are" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Who We Are</a>
                                 <a href="{{ route('about') }}#how-we-work" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">How We Work</a>
-                                <a href="{{ route('about') }}#industries" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Industries We Serve</a>
                                 <a href="{{ route('about') }}#why-clients" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Why Clients Choose Us</a>
                                 <a href="{{ route('careers') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Careers &amp; Placements</a>
                             </div>
@@ -184,6 +183,10 @@
                                 <a href="{{ route('services') }}"
                                    class="mt-6 inline-flex items-center rounded-full bg-[#07172f] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#123f8c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
                                     Explore Services →
+                                </a>
+                                <a href="{{ route('industries') }}"
+                                   class="mt-3 block text-sm font-semibold text-[#123f8c] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">
+                                    Browse by industry →
                                 </a>
                             </div>
 
@@ -248,6 +251,11 @@
                     </div>
                 </div>
 
+                <a href="{{ route('industries') }}"
+                   class="rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('industries') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}">
+                    Industries
+                </a>
+
                 <a href="{{ route('case-studies') }}"
                    class="rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('case-studies') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}">
                     Case Studies
@@ -305,7 +313,6 @@
                     <div x-show="mobileAbout" class="ml-3 mt-0.5 space-y-0.5 border-l border-[#e6e8ee] pl-3" style="display:none;">
                         <a href="{{ route('about') }}#who-we-are" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Who We Are</a>
                         <a href="{{ route('about') }}#how-we-work" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">How We Work</a>
-                        <a href="{{ route('about') }}#industries" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Industries</a>
                         <a href="{{ route('careers') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Careers</a>
                     </div>
                 </div>
@@ -329,6 +336,7 @@
                     </div>
                 </div>
 
+                <a href="{{ route('industries') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Industries</a>
                 <a href="{{ route('case-studies') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Case Studies</a>
                 <a href="{{ route('insights') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Insights</a>
                 <a href="{{ route('contact') }}" @click="open = false" class="rounded-xl px-3 py-3 text-[#172033] hover:bg-[#f7f3ea]">Contact</a>
@@ -347,7 +355,7 @@
 
     <footer class="bg-[#07172f] text-white">
         <div class="mx-auto max-w-[1440px] px-6 py-16">
-            <div class="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+            <div class="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
 
                 {{-- Brand column --}}
                 <div>
@@ -405,6 +413,16 @@
                     <h4 class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Services</h4>
                     <div class="mt-4 space-y-2.5 text-sm text-slate-300">
                         @foreach ($cmsFooterLinks->get('services', collect()) as $footerLink)
+                            <a href="{{ $footerLink->url }}" class="block hover:text-white">{{ $footerLink->label }}</a>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- Industries column --}}
+                <div>
+                    <h4 class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#c9a24d]">Industries</h4>
+                    <div class="mt-4 space-y-2.5 text-sm text-slate-300">
+                        @foreach ($cmsFooterLinks->get('industries', collect()) as $footerLink)
                             <a href="{{ $footerLink->url }}" class="block hover:text-white">{{ $footerLink->label }}</a>
                         @endforeach
                     </div>

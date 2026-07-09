@@ -79,3 +79,18 @@ test('services admin editor renders every expected section', function () {
     $response->assertSee(route('admin.cms.services.groups.index'), false);
     $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
 });
+
+test('industries admin editor renders every expected section', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $page = Page::factory()->create(['slug' => 'industries']);
+
+    $response = $this->actingAs($admin)->get(route('admin.cms.pages.edit', $page));
+
+    $response->assertOk();
+    $response->assertSee('Hero');
+    $response->assertSee('Introduction');
+    $response->assertSee('Industry Grid');
+    $response->assertSee('Get Started');
+    $response->assertSee('Search Engine Metadata');
+    $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
+});

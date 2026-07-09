@@ -413,6 +413,25 @@ Merged into main. All sections follow the same architectural pattern established
 
 ---
 
+# Industries We Serve Page CMS Status (Implemented, pending merge)
+
+The Industries We Serve page now follows the same enterprise CMS architecture as the Homepage, About, and Services pages — the first one designed from scratch rather than migrated, since no standalone Industries page existed before this phase. See `.claude/decisions/011_industries_page_architecture.md` for the full architecture note.
+
+Real Industries page sections (per the approved Decision 011 blueprint):
+
+- Hero (existing `Page` fields, componentized)
+- Introduction
+- Industry Grid (8 cards: Energy & Utilities, Infrastructure & Civil, Financial Services, Government & Public Sector, Technology & Digital, Oil & Gas / Industrial, Professional Services, Education & Training)
+- Services cross-link (developer-composed, static, not CMS content)
+- Related Case Studies / Insights (unfiltered featured/recent, reuses existing `CaseStudy`/`Insight` services, no new schema)
+- Closing CTA
+
+Navigation integration: added to primary navigation, removed the dead About mega-menu `#industries` anchor, added a Services mega-menu cross-link, added a new Industries footer column — exactly the 5 touchpoints scoped in the implementation, no broader Navigation Governance v1.0 restructuring (Insights/Case Studies consolidation remains separate future work).
+
+Implemented on a review branch, pending review/merge approval.
+
+---
+
 ## Enterprise CMS Current Baseline
 
 Completed enterprise CMS pages:
@@ -420,11 +439,11 @@ Completed enterprise CMS pages:
 - Homepage
 - About
 - Services
+- Industries (pending merge)
 
-Current regression baseline:
+Current regression baseline (pending final validation on this branch):
 
-- 43 tests
-- 153 assertions
+- 43 tests + new Industries/navigation tests
 - Vite build passing
 
 Current architecture:
@@ -441,5 +460,5 @@ Current architecture:
 
 Next enterprise CMS page:
 
-- Industries
+- To be determined per Navigation Governance v1.0's roadmap (Solutions/Platforms/Trust all explicitly deferred pending real product justification)
 

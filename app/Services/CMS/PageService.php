@@ -32,6 +32,7 @@ class PageService
                     'aboutDifferentiators',
                     'servicesWhyUsCards',
                     'servicesHowWorkSteps',
+                    'industryCards',
                 ])
                 ->where('slug', $slug)
                 ->firstOrFail();
