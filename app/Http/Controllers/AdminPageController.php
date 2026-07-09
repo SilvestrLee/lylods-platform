@@ -14,6 +14,7 @@ use App\Models\PageAboutPrinciple;
 use App\Models\PageAboutValue;
 use App\Models\PageEngagementStep;
 use App\Models\PageIndustry;
+use App\Models\PageIndustryCard;
 use App\Models\PageServiceCard;
 use App\Models\PageServicesHowWorkStep;
 use App\Models\PageServicesWhyUsCard;
@@ -50,6 +51,7 @@ class AdminPageController extends Controller
     private const DIFFERENTIATOR_COUNT = 6;
     private const SERVICES_WHY_US_COUNT = 6;
     private const SERVICES_HOW_WORK_COUNT = 4;
+    private const INDUSTRY_CARD_COUNT = 8;
 
     public function __construct(
         private PageService $service,
@@ -85,6 +87,7 @@ class AdminPageController extends Controller
             'aboutDifferentiators',
             'servicesWhyUsCards',
             'servicesHowWorkSteps',
+            'industryCards',
         );
 
         $testimonials = null;
@@ -151,6 +154,7 @@ class AdminPageController extends Controller
         $differentiatorsInput = $data['differentiators'] ?? [];
         $servicesWhyUsInput = $data['services_why_us'] ?? [];
         $servicesHowWorkInput = $data['services_how_work_steps'] ?? [];
+        $industryCardsInput = $data['industry_cards'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
@@ -162,6 +166,7 @@ class AdminPageController extends Controller
             $data['how_we_work_steps'], $data['focus_areas'], $data['principles'],
             $data['audience_tags'], $data['differentiators'],
             $data['services_why_us'], $data['services_how_work_steps'],
+            $data['industry_cards'],
         );
 
         if ($page->slug === 'home') {
@@ -204,6 +209,10 @@ class AdminPageController extends Controller
         if ($page->slug === 'services') {
             $this->syncRows($page, PageServicesWhyUsCard::class, $servicesWhyUsInput, self::SERVICES_WHY_US_COUNT, ['icon', 'title', 'description', 'visibility']);
             $this->syncRows($page, PageServicesHowWorkStep::class, $servicesHowWorkInput, self::SERVICES_HOW_WORK_COUNT, ['title', 'description', 'visibility']);
+        }
+
+        if ($page->slug === 'industries') {
+            $this->syncRows($page, PageIndustryCard::class, $industryCardsInput, self::INDUSTRY_CARD_COUNT, ['icon', 'title', 'slug', 'description', 'visibility']);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -298,6 +307,27 @@ class AdminPageController extends Controller
                 'services_page_cta_primary_url'          => 'nullable|string|max:500',
                 'services_page_cta_secondary_label'      => 'nullable|string|max:100',
                 'services_page_cta_secondary_url'        => 'nullable|string|max:500',
+            ]);
+        }
+
+        if ($page->slug === 'industries') {
+            return array_merge($rules, [
+                'industries_page_intro_heading'          => 'nullable|string|max:255',
+                'industries_page_intro_body'              => 'nullable|string',
+
+                'industry_cards'                            => 'nullable|array',
+                'industry_cards.*.icon'                     => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'industry_cards.*.title'                    => 'nullable|string|max:255',
+                'industry_cards.*.slug'                      => 'nullable|string|max:255',
+                'industry_cards.*.description'              => 'nullable|string|max:2000',
+                'industry_cards.*.visibility'                => 'nullable|boolean',
+
+                'industries_page_cta_heading'              => 'nullable|string|max:255',
+                'industries_page_cta_description'          => 'nullable|string|max:2000',
+                'industries_page_cta_primary_label'        => 'nullable|string|max:100',
+                'industries_page_cta_primary_url'          => 'nullable|string|max:500',
+                'industries_page_cta_secondary_label'      => 'nullable|string|max:100',
+                'industries_page_cta_secondary_url'        => 'nullable|string|max:500',
             ]);
         }
 

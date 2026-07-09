@@ -27,6 +27,9 @@ class FooterLinkSeeder extends Seeder
             ['group' => 'services', 'label' => 'Community Projects',       'url' => '/community-projects',             'display_order' => 5],
             ['group' => 'services', 'label' => 'View All Services →',      'url' => '/services',                       'display_order' => 6],
 
+            // Industries column
+            ['group' => 'industries', 'label' => 'Explore Industries →', 'url' => '/industries', 'display_order' => 1],
+
             // Portal column
             ['group' => 'portal', 'label' => 'Investment Information', 'url' => '/investment', 'display_order' => 1],
         ];

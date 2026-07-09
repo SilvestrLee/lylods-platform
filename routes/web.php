@@ -32,6 +32,7 @@ Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/', [PublicPageController::class, 'home'])->name('home');
 Route::get('/about', [PublicPageController::class, 'about'])->name('about');
 Route::get('/services', [PublicPageController::class, 'services'])->name('services');
+Route::get('/industries', [PublicPageController::class, 'industries'])->name('industries');
 Route::get('/investment', [PublicPageController::class, 'investment'])->name('investment');
 Route::get('/contact', [PublicPageController::class, 'contact'])->name('contact');
 Route::get('/case-studies', [PublicPageController::class, 'caseStudies'])->name('case-studies');

@@ -88,6 +88,14 @@ class Page extends Model
         'services_page_cta_primary_url',
         'services_page_cta_secondary_label',
         'services_page_cta_secondary_url',
+        'industries_page_intro_heading',
+        'industries_page_intro_body',
+        'industries_page_cta_heading',
+        'industries_page_cta_description',
+        'industries_page_cta_primary_label',
+        'industries_page_cta_primary_url',
+        'industries_page_cta_secondary_label',
+        'industries_page_cta_secondary_url',
     ];
 
     protected $casts = [
@@ -186,6 +194,11 @@ class Page extends Model
     public function servicesHowWorkSteps(): HasMany
     {
         return $this->hasMany(PageServicesHowWorkStep::class)->orderBy('order');
+    }
+
+    public function industryCards(): HasMany
+    {
+        return $this->hasMany(PageIndustryCard::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo
