@@ -24,7 +24,7 @@ class AdminFooterLinkController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'group'         => ['required', 'string', 'in:company,services,portal'],
+            'group'         => ['required', 'string', 'in:company,services,industries,portal'],
             'label'         => ['required', 'string', 'max:255'],
             'url'           => ['required', 'string', 'max:255'],
             'display_order' => ['nullable', 'integer', 'min:0'],
@@ -46,7 +46,7 @@ class AdminFooterLinkController extends Controller
     public function update(Request $request, FooterLink $footerLink)
     {
         $data = $request->validate([
-            'group'         => ['required', 'string', 'in:company,services,portal'],
+            'group'         => ['required', 'string', 'in:company,services,industries,portal'],
             'label'         => ['required', 'string', 'max:255'],
             'url'           => ['required', 'string', 'max:255'],
             'display_order' => ['nullable', 'integer', 'min:0'],

@@ -141,9 +141,6 @@
                             </div>
                             {{-- Column 2 --}}
                             <div class="space-y-3">
-                                <a href="{{ route('about') }}#who-we-are" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Who We Are</a>
-                                <a href="{{ route('about') }}#how-we-work" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">How We Work</a>
-                                <a href="{{ route('about') }}#why-clients" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Why Clients Choose Us</a>
                                 <a href="{{ route('careers') }}" class="block rounded text-[14px] font-medium text-[#172033] transition-colors hover:text-[#c9a24d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">Careers &amp; Placements</a>
                             </div>
                         </div>
@@ -311,8 +308,6 @@
                         </svg>
                     </button>
                     <div x-show="mobileAbout" class="ml-3 mt-0.5 space-y-0.5 border-l border-[#e6e8ee] pl-3" style="display:none;">
-                        <a href="{{ route('about') }}#who-we-are" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Who We Are</a>
-                        <a href="{{ route('about') }}#how-we-work" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">How We Work</a>
                         <a href="{{ route('careers') }}" @click="open = false" class="block rounded-xl px-3 py-2.5 text-sm text-[#667085] hover:bg-[#f7f3ea] hover:text-[#07172f]">Careers</a>
                     </div>
                 </div>

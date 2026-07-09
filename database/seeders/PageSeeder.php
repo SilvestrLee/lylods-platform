@@ -101,6 +101,17 @@ class PageSeeder extends Seeder
                 'secondary_cta_url'   => '/contact',
             ],
             [
+                'slug'                => 'industries',
+                'title'               => 'Industries We Serve',
+                'hero_title'          => 'Industries We Serve',
+                'hero_subtitle'       => 'Sectors of Practice',
+                'hero_description'    => 'The Lylods Group works with organisations across Energy & Utilities, Infrastructure & Civil, Financial Services, Government & Public Sector, Technology & Digital, Oil & Gas / Industrial, Professional Services and Education & Training — bringing the same disciplined, practical approach to every sector we serve.',
+                'primary_cta_label'   => 'Explore our disciplines →',
+                'primary_cta_url'     => '/services',
+                'secondary_cta_label' => 'Discuss Your Project',
+                'secondary_cta_url'   => '/contact',
+            ],
+            [
                 'slug'                => 'investment',
                 'title'               => 'Investment Information',
                 'hero_title'          => 'Structured Investment Relationships Built on Transparency and Accountability',

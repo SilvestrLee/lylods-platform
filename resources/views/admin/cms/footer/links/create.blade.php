@@ -22,7 +22,7 @@
                     <div>
                         <label class="block text-sm font-semibold text-[#07172f]">Column Group</label>
                         <select name="group" class="mt-1.5 w-full rounded-xl border border-[#e6e8ee] bg-white px-4 py-2.5 text-sm focus:border-[#c9a24d] focus:outline-none focus:ring-1 focus:ring-[#c9a24d]">
-                            @foreach (['company' => 'Company', 'services' => 'Services', 'portal' => 'Portal'] as $val => $lbl)
+                            @foreach (['company' => 'Company', 'services' => 'Services', 'industries' => 'Industries', 'portal' => 'Portal'] as $val => $lbl)
                                 <option value="{{ $val }}" {{ old('group') === $val ? 'selected' : '' }}>{{ $lbl }}</option>
                             @endforeach
                         </select>
