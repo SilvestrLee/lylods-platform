@@ -28,6 +28,15 @@
                         <textarea name="industry_cards[{{ $i }}][description]" rows="3"
                                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old("industry_cards.$i.description", $card?->description) }}</textarea>
                     </x-admin.field>
+                    <x-admin.image-field
+                        label="Card Image"
+                        helper="Optional — falls back to the icon when no image is uploaded."
+                        :media="$card?->image"
+                        input-name="industry_cards[{{ $i }}][image_file]"
+                        remove-name="industry_cards[{{ $i }}][remove_image]"
+                        alt-name="industry_cards[{{ $i }}][image_alt]"
+                        :alt-value="$card?->image_alt"
+                    />
                     <label class="flex items-center gap-2 text-xs font-semibold text-[#07172f]">
                         <input type="checkbox" name="industry_cards[{{ $i }}][visibility]" value="1"
                                {{ old("industry_cards.$i.visibility", $card?->visibility ?? true) ? 'checked' : '' }}

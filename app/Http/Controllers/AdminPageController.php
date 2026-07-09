@@ -212,7 +212,7 @@ class AdminPageController extends Controller
         }
 
         if ($page->slug === 'industries') {
-            $this->syncRows($page, PageIndustryCard::class, $industryCardsInput, self::INDUSTRY_CARD_COUNT, ['icon', 'title', 'slug', 'description', 'visibility']);
+            $this->syncIndustryCards($request, $page, $industryCardsInput);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -320,6 +320,9 @@ class AdminPageController extends Controller
                 'industry_cards.*.title'                    => 'nullable|string|max:255',
                 'industry_cards.*.slug'                      => 'nullable|string|max:255',
                 'industry_cards.*.description'              => 'nullable|string|max:2000',
+                'industry_cards.*.image_file'                => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'industry_cards.*.remove_image'              => 'nullable|boolean',
+                'industry_cards.*.image_alt'                 => 'nullable|string|max:255',
                 'industry_cards.*.visibility'                => 'nullable|boolean',
 
                 'industries_page_cta_heading'              => 'nullable|string|max:255',
@@ -533,6 +536,33 @@ class AdminPageController extends Controller
 
             if ($request->hasFile("service_cards.{$i}.image_file")) {
                 $image = $this->media->store($request->file("service_cards.{$i}.image_file"), 'pages', auth()->id());
+                $card->image_media_id = $image->id;
+            } elseif (! empty($input['remove_image'])) {
+                $card->image_media_id = null;
+            }
+
+            $card->image_alt = $input['image_alt'] ?? $card->image_alt;
+
+            $card->save();
+        }
+    }
+
+    private function syncIndustryCards(Request $request, Page $page, array $rows): void
+    {
+        for ($i = 0; $i < self::INDUSTRY_CARD_COUNT; $i++) {
+            $input = $rows[$i] ?? [];
+            $order = $i + 1;
+
+            $card = PageIndustryCard::firstOrNew(['page_id' => $page->id, 'order' => $order]);
+
+            $card->icon        = $input['icon'] ?? null;
+            $card->title       = $input['title'] ?? null;
+            $card->slug        = $input['slug'] ?? null;
+            $card->description = $input['description'] ?? null;
+            $card->visibility  = ! empty($input['visibility']);
+
+            if ($request->hasFile("industry_cards.{$i}.image_file")) {
+                $image = $this->media->store($request->file("industry_cards.{$i}.image_file"), 'pages', auth()->id());
                 $card->image_media_id = $image->id;
             } elseif (! empty($input['remove_image'])) {
                 $card->image_media_id = null;

@@ -22,6 +22,11 @@
             <div class="mt-5 grid gap-5 sm:grid-cols-3">
                 @foreach ($caseStudies as $caseStudy)
                     <a href="{{ route('case-study', $caseStudy->slug) }}" class="tlg-reveal block rounded-2xl border border-[#e6e8ee] bg-white p-6 transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
+                        @if ($caseStudy->featuredMedia)
+                            <div class="mb-4 aspect-[4/3] w-full overflow-hidden rounded-2xl">
+                                <img src="{{ $caseStudy->featuredMedia->url() }}" alt="{{ $caseStudy->featuredMedia->alt_text ?: $caseStudy->title }}" loading="lazy" decoding="async" class="h-full w-full object-cover">
+                            </div>
+                        @endif
                         @if ($caseStudy->industry)
                             <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#c9a24d]">{{ $caseStudy->industry }}</p>
                         @endif
@@ -41,6 +46,11 @@
             <div class="mt-5 grid gap-5 sm:grid-cols-3">
                 @foreach ($insights as $insight)
                     <a href="{{ route('insight', $insight->slug) }}" class="tlg-reveal block rounded-2xl border border-[#e6e8ee] bg-white p-6 transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
+                        @if ($insight->featuredMedia)
+                            <div class="mb-4 aspect-[4/3] w-full overflow-hidden rounded-2xl">
+                                <img src="{{ $insight->featuredMedia->url() }}" alt="{{ $insight->featuredMedia->alt_text ?: $insight->title }}" loading="lazy" decoding="async" class="h-full w-full object-cover">
+                            </div>
+                        @endif
                         @if ($insight->category)
                             <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#c9a24d]">{{ $insight->category }}</p>
                         @endif

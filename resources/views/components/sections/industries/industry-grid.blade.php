@@ -24,6 +24,8 @@
                     :icon="$card['icon'] ?? null"
                     :title="$card['title'] ?? null"
                     :description="$card['description'] ?? null"
+                    :image="$card['image'] ?? null"
+                    :image-alt="$card['imageAlt'] ?? null"
                 />
             @endforeach
         </div>

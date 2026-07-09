@@ -6,9 +6,17 @@
     'primaryCtaUrl' => null,
     'secondaryCtaLabel' => null,
     'secondaryCtaUrl' => null,
+    'backgroundImage' => null,
+    'backgroundImageAlt' => null,
 ])
 
 <section class="relative overflow-hidden bg-[#07172f] text-white">
+    @if ($backgroundImage)
+        <div class="absolute inset-0">
+            <img src="{{ $backgroundImage }}" alt="{{ $backgroundImageAlt ?? '' }}" class="h-full w-full object-cover opacity-25">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#07172f] via-[#07172f]/85 to-[#07172f]/50"></div>
+        </div>
+    @endif
     <div class="relative mx-auto max-w-[1440px] px-6 py-28">
         <div class="tlg-reveal max-w-4xl">
             @if ($eyebrow)

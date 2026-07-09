@@ -31,4 +31,10 @@
                    class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
         </x-admin.field>
     </div>
+    <x-admin.image-field
+        label="Hero Background Image"
+        :media="$page->heroMedia"
+        input-name="hero_image_file"
+        remove-name="remove_hero_image"
+    />
 </x-admin.panel>

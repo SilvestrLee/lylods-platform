@@ -17,6 +17,8 @@ class PageIndustryCard extends Model
         'slug',
         'description',
         'icon',
+        'image_media_id',
+        'image_alt',
         'visibility',
     ];
 
@@ -27,5 +29,10 @@ class PageIndustryCard extends Model
     public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
+    }
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'image_media_id');
     }
 }

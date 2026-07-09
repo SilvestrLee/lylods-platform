@@ -13,6 +13,8 @@
         :primary-cta-url="$page->primary_cta_url"
         :secondary-cta-label="$page->secondary_cta_label"
         :secondary-cta-url="$page->secondary_cta_url"
+        :background-image="$page->heroMedia?->url()"
+        :background-image-alt="$page->heroMedia?->alt_text"
     />
 
     <x-sections.industries.intro
@@ -28,6 +30,8 @@
                 'icon' => \App\Support\HeroIconRegistry::path($card->icon),
                 'title' => $card->title,
                 'description' => $card->description,
+                'image' => $card->image?->url(),
+                'imageAlt' => $card->image_alt,
             ])
             ->all();
     @endphp
