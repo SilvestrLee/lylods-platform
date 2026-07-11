@@ -17,6 +17,7 @@ use App\Models\PageCommunityEngagementCard;
 use App\Models\PageCommunityHowWorkStep;
 use App\Models\PageCommunityRoleStep;
 use App\Models\PageCommunitySupportCard;
+use App\Models\PageContactEnquiryCard;
 use App\Models\PageEngagementStep;
 use App\Models\PageIndustry;
 use App\Models\PageIndustryCard;
@@ -80,6 +81,7 @@ class AdminPageController extends Controller
     private const INVESTMENT_APPROACH_CARD_COUNT = 4;
     private const INVESTMENT_WHY_CARD_COUNT = 3;
     private const INVESTMENT_PROCESS_STEP_COUNT = 4;
+    private const CONTACT_ENQUIRY_CARD_COUNT = 3;
 
     public function __construct(
         private PageService $service,
@@ -134,6 +136,8 @@ class AdminPageController extends Controller
             'investmentApproachCards',
             'investmentWhyCards',
             'investmentProcessSteps',
+            'contactInfoMedia',
+            'contactEnquiryCards',
         );
 
         $testimonials = null;
@@ -217,6 +221,15 @@ class AdminPageController extends Controller
             }
         }
 
+        if ($page->slug === 'contact') {
+            if ($request->hasFile('contact_info_media_file')) {
+                $contactInfoImage = $this->media->store($request->file('contact_info_media_file'), 'pages', auth()->id());
+                $data['contact_info_media_id'] = $contactInfoImage->id;
+            } elseif ($request->boolean('remove_contact_info_media')) {
+                $data['contact_info_media_id'] = null;
+            }
+        }
+
         $heroCardsInput = $data['hero_cards'] ?? [];
         $statisticsInput = $data['statistics'] ?? [];
         $serviceCardsInput = $data['service_cards'] ?? [];
@@ -249,6 +262,7 @@ class AdminPageController extends Controller
         $investmentApproachCardsInput = $data['investment_approach_cards'] ?? [];
         $investmentWhyCardsInput = $data['investment_why_cards'] ?? [];
         $investmentProcessStepsInput = $data['investment_process_steps'] ?? [];
+        $contactEnquiryCardsInput = $data['contact_enquiry_cards'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
@@ -258,6 +272,7 @@ class AdminPageController extends Controller
             $data['community_audience_media_file'], $data['remove_community_audience_media'],
             $data['community_role_media_file'], $data['remove_community_role_media'],
             $data['investment_approach_media_file'], $data['remove_investment_approach_media'],
+            $data['contact_info_media_file'], $data['remove_contact_info_media'],
             $data['hero_cards'], $data['statistics'], $data['service_cards'],
             $data['industries'], $data['why_choose_us'], $data['engagement_steps'],
             $data['about_values'], $data['discipline_items'], $data['testimonials'], $data['partners'],
@@ -271,6 +286,7 @@ class AdminPageController extends Controller
             $data['community_how_work_steps'], $data['community_engagement_cards'],
             $data['investment_credibility_cards'], $data['investment_approach_cards'],
             $data['investment_why_cards'], $data['investment_process_steps'],
+            $data['contact_enquiry_cards'],
         );
 
         if ($page->slug === 'home') {
@@ -341,6 +357,11 @@ class AdminPageController extends Controller
             $this->syncRows($page, PageInvestmentApproachCard::class, $investmentApproachCardsInput, self::INVESTMENT_APPROACH_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
             $this->syncRows($page, PageInvestmentWhyCard::class, $investmentWhyCardsInput, self::INVESTMENT_WHY_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
             $this->syncRows($page, PageInvestmentProcessStep::class, $investmentProcessStepsInput, self::INVESTMENT_PROCESS_STEP_COUNT, ['icon', 'title', 'description', 'visibility']);
+        }
+
+        if ($page->slug === 'contact') {
+            $this->syncRows($page, PageStatistic::class, $statisticsInput, self::STATISTIC_COUNT, ['label', 'value', 'caption']);
+            $this->syncRows($page, PageContactEnquiryCard::class, $contactEnquiryCardsInput, self::CONTACT_ENQUIRY_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -646,6 +667,45 @@ class AdminPageController extends Controller
                 'investment_cta_primary_label'        => 'nullable|string|max:100',
                 'investment_cta_secondary_label'      => 'nullable|string|max:100',
                 'investment_cta_secondary_url'        => 'nullable|string|max:500',
+            ]);
+        }
+
+        if ($page->slug === 'contact') {
+            return array_merge($rules, [
+                'statistics'                       => 'nullable|array',
+                'statistics.*.label'               => 'nullable|string|max:255',
+                'statistics.*.value'               => 'nullable|string|max:100',
+                'statistics.*.caption'              => 'nullable|string|max:255',
+
+                'contact_info_eyebrow'               => 'nullable|string|max:255',
+                'contact_info_heading'               => 'nullable|string|max:255',
+                'contact_info_body'                   => 'nullable|string',
+
+                'contact_general_label'              => 'nullable|string|max:255',
+                'contact_general_description'        => 'nullable|string|max:500',
+
+                'contact_office_label'                => 'nullable|string|max:255',
+                'contact_office_description'          => 'nullable|string|max:500',
+
+                'contact_hours_label'                 => 'nullable|string|max:255',
+
+                'contact_info_media_file'            => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'remove_contact_info_media'          => 'nullable|boolean',
+                'contact_info_media_alt'              => 'nullable|string|max:255',
+
+                'contact_investor_eyebrow'            => 'nullable|string|max:255',
+                'contact_investor_heading'            => 'nullable|string|max:255',
+                'contact_investor_body'                => 'nullable|string|max:500',
+                'contact_investor_cta_label'          => 'nullable|string|max:100',
+
+                'contact_enquiry_eyebrow'              => 'nullable|string|max:255',
+                'contact_enquiry_heading'              => 'nullable|string|max:255',
+
+                'contact_enquiry_cards'                 => 'nullable|array',
+                'contact_enquiry_cards.*.icon'                 => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'contact_enquiry_cards.*.title'                => 'nullable|string|max:255',
+                'contact_enquiry_cards.*.description'          => 'nullable|string|max:2000',
+                'contact_enquiry_cards.*.visibility'            => 'nullable|boolean',
             ]);
         }
 

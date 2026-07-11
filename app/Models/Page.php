@@ -162,6 +162,22 @@ class Page extends Model
         'investment_cta_primary_label',
         'investment_cta_secondary_label',
         'investment_cta_secondary_url',
+        'contact_info_eyebrow',
+        'contact_info_heading',
+        'contact_info_body',
+        'contact_general_label',
+        'contact_general_description',
+        'contact_office_label',
+        'contact_office_description',
+        'contact_hours_label',
+        'contact_info_media_id',
+        'contact_info_media_alt',
+        'contact_investor_eyebrow',
+        'contact_investor_heading',
+        'contact_investor_body',
+        'contact_investor_cta_label',
+        'contact_enquiry_eyebrow',
+        'contact_enquiry_heading',
     ];
 
     protected $casts = [
@@ -210,6 +226,11 @@ class Page extends Model
     public function investmentApproachMedia(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'investment_approach_media_id');
+    }
+
+    public function contactInfoMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'contact_info_media_id');
     }
 
     public function heroCards(): HasMany
@@ -355,6 +376,11 @@ class Page extends Model
     public function investmentProcessSteps(): HasMany
     {
         return $this->hasMany(PageInvestmentProcessStep::class)->orderBy('order');
+    }
+
+    public function contactEnquiryCards(): HasMany
+    {
+        return $this->hasMany(PageContactEnquiryCard::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo

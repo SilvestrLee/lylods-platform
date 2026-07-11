@@ -280,6 +280,41 @@
                         </button>
                     </div>
                 </div>
+            @elseif ($page->slug === 'contact')
+                {{-- Enterprise structured editor: independently collapsible panels, one per Contact section. --}}
+                <div class="space-y-6">
+                    <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee] p-6">
+                        <x-admin.field label="Page Title" required helper="Internal reference name for this page.">
+                            <input type="text" name="title" value="{{ old('title', $page->title) }}" required
+                                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('title') border-red-400 @enderror">
+                            @error('title') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </x-admin.field>
+                    </div>
+
+                    @include('admin.cms.pages.partials.contact.hero')
+                    @include('admin.cms.pages.partials.contact.stats')
+                    @include('admin.cms.pages.partials.contact.info-panel')
+                    @include('admin.cms.pages.partials.contact.enquiry-cards')
+
+                    <x-admin.panel subtitle="SEO" title="Search Engine Metadata">
+                        @include('admin.cms.pages.partials.seo-fields')
+                    </x-admin.panel>
+
+                    <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee] p-6">
+                        <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#123f8c]">Managed Elsewhere</p>
+                        <p class="mt-2 text-sm leading-6 text-[#667085]">The email address, office address and business hours shown in the contact info panel come from Site Settings, not this screen. The enquiry form itself (fields, enquiry types, submit behaviour) is developer-maintained and not CMS-editable.</p>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <a href="{{ route('admin.cms.site-settings.edit') }}" class="rounded-full border border-[#d0d5dd] px-5 py-2 text-sm font-semibold text-[#07172f] hover:border-[#07172f]">Manage Site Settings ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="submit"
+                                class="inline-flex rounded-full bg-[#07172f] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#123f8c]">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
             @else
                 {{-- Existing flat editing interface — unchanged for every non-homepage page. --}}
                 <div class="space-y-6">

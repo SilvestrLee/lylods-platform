@@ -51,6 +51,8 @@ class PageService
                     'investmentApproachCards',
                     'investmentWhyCards',
                     'investmentProcessSteps',
+                    'contactInfoMedia',
+                    'contactEnquiryCards',
                 ])
                 ->where('slug', $slug)
                 ->firstOrFail();
