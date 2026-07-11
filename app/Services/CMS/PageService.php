@@ -46,6 +46,11 @@ class PageService
                     'communityRoleSteps',
                     'communityHowWorkSteps',
                     'communityEngagementCards.image',
+                    'investmentApproachMedia',
+                    'investmentCredibilityCards',
+                    'investmentApproachCards',
+                    'investmentWhyCards',
+                    'investmentProcessSteps',
                 ])
                 ->where('slug', $slug)
                 ->firstOrFail();

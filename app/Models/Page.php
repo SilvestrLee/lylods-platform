@@ -148,6 +148,20 @@ class Page extends Model
         'community_page_cta_primary_url',
         'community_page_cta_secondary_label',
         'community_page_cta_secondary_url',
+        'investment_approach_media_id',
+        'investment_approach_eyebrow',
+        'investment_approach_heading',
+        'investment_approach_body',
+        'investment_why_eyebrow',
+        'investment_why_heading',
+        'investment_process_eyebrow',
+        'investment_process_heading',
+        'investment_cta_eyebrow',
+        'investment_cta_heading',
+        'investment_cta_body',
+        'investment_cta_primary_label',
+        'investment_cta_secondary_label',
+        'investment_cta_secondary_url',
     ];
 
     protected $casts = [
@@ -191,6 +205,11 @@ class Page extends Model
     public function communityRoleMedia(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'community_role_media_id');
+    }
+
+    public function investmentApproachMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'investment_approach_media_id');
     }
 
     public function heroCards(): HasMany
@@ -316,6 +335,26 @@ class Page extends Model
     public function communityEngagementCards(): HasMany
     {
         return $this->hasMany(PageCommunityEngagementCard::class)->orderBy('order');
+    }
+
+    public function investmentCredibilityCards(): HasMany
+    {
+        return $this->hasMany(PageInvestmentCredibilityCard::class)->orderBy('order');
+    }
+
+    public function investmentApproachCards(): HasMany
+    {
+        return $this->hasMany(PageInvestmentApproachCard::class)->orderBy('order');
+    }
+
+    public function investmentWhyCards(): HasMany
+    {
+        return $this->hasMany(PageInvestmentWhyCard::class)->orderBy('order');
+    }
+
+    public function investmentProcessSteps(): HasMany
+    {
+        return $this->hasMany(PageInvestmentProcessStep::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo

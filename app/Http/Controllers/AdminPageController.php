@@ -20,6 +20,10 @@ use App\Models\PageCommunitySupportCard;
 use App\Models\PageEngagementStep;
 use App\Models\PageIndustry;
 use App\Models\PageIndustryCard;
+use App\Models\PageInvestmentApproachCard;
+use App\Models\PageInvestmentCredibilityCard;
+use App\Models\PageInvestmentProcessStep;
+use App\Models\PageInvestmentWhyCard;
 use App\Models\PagePropertyAudienceCard;
 use App\Models\PagePropertyNetworkTag;
 use App\Models\PagePropertyRoleStep;
@@ -72,6 +76,10 @@ class AdminPageController extends Controller
     private const COMMUNITY_ROLE_STEP_COUNT = 7;
     private const COMMUNITY_HOW_WORK_COUNT = 4;
     private const COMMUNITY_ENGAGEMENT_CARD_COUNT = 6;
+    private const INVESTMENT_CREDIBILITY_COUNT = 3;
+    private const INVESTMENT_APPROACH_CARD_COUNT = 4;
+    private const INVESTMENT_WHY_CARD_COUNT = 3;
+    private const INVESTMENT_PROCESS_STEP_COUNT = 4;
 
     public function __construct(
         private PageService $service,
@@ -121,6 +129,11 @@ class AdminPageController extends Controller
             'communityRoleSteps',
             'communityHowWorkSteps',
             'communityEngagementCards.image',
+            'investmentApproachMedia',
+            'investmentCredibilityCards',
+            'investmentApproachCards',
+            'investmentWhyCards',
+            'investmentProcessSteps',
         );
 
         $testimonials = null;
@@ -195,6 +208,15 @@ class AdminPageController extends Controller
             }
         }
 
+        if ($page->slug === 'investment') {
+            if ($request->hasFile('investment_approach_media_file')) {
+                $approachImage = $this->media->store($request->file('investment_approach_media_file'), 'pages', auth()->id());
+                $data['investment_approach_media_id'] = $approachImage->id;
+            } elseif ($request->boolean('remove_investment_approach_media')) {
+                $data['investment_approach_media_id'] = null;
+            }
+        }
+
         $heroCardsInput = $data['hero_cards'] ?? [];
         $statisticsInput = $data['statistics'] ?? [];
         $serviceCardsInput = $data['service_cards'] ?? [];
@@ -223,6 +245,10 @@ class AdminPageController extends Controller
         $communityRoleStepsInput = $data['community_role_steps'] ?? [];
         $communityHowWorkStepsInput = $data['community_how_work_steps'] ?? [];
         $communityEngagementCardsInput = $data['community_engagement_cards'] ?? [];
+        $investmentCredibilityCardsInput = $data['investment_credibility_cards'] ?? [];
+        $investmentApproachCardsInput = $data['investment_approach_cards'] ?? [];
+        $investmentWhyCardsInput = $data['investment_why_cards'] ?? [];
+        $investmentProcessStepsInput = $data['investment_process_steps'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
@@ -231,6 +257,7 @@ class AdminPageController extends Controller
             $data['property_context_media_file'], $data['remove_property_context_media'],
             $data['community_audience_media_file'], $data['remove_community_audience_media'],
             $data['community_role_media_file'], $data['remove_community_role_media'],
+            $data['investment_approach_media_file'], $data['remove_investment_approach_media'],
             $data['hero_cards'], $data['statistics'], $data['service_cards'],
             $data['industries'], $data['why_choose_us'], $data['engagement_steps'],
             $data['about_values'], $data['discipline_items'], $data['testimonials'], $data['partners'],
@@ -242,6 +269,8 @@ class AdminPageController extends Controller
             $data['property_role_steps'], $data['property_network_tags'],
             $data['community_support_cards'], $data['community_audience_tags'], $data['community_role_steps'],
             $data['community_how_work_steps'], $data['community_engagement_cards'],
+            $data['investment_credibility_cards'], $data['investment_approach_cards'],
+            $data['investment_why_cards'], $data['investment_process_steps'],
         );
 
         if ($page->slug === 'home') {
@@ -304,6 +333,14 @@ class AdminPageController extends Controller
             $this->syncRows($page, PageCommunityRoleStep::class, $communityRoleStepsInput, self::COMMUNITY_ROLE_STEP_COUNT, ['description', 'visibility']);
             $this->syncRows($page, PageCommunityHowWorkStep::class, $communityHowWorkStepsInput, self::COMMUNITY_HOW_WORK_COUNT, ['title', 'description', 'visibility']);
             $this->syncCommunityEngagementCards($request, $page, $communityEngagementCardsInput);
+        }
+
+        if ($page->slug === 'investment') {
+            $this->syncRows($page, PageStatistic::class, $statisticsInput, self::STATISTIC_COUNT, ['label', 'value', 'caption']);
+            $this->syncRows($page, PageInvestmentCredibilityCard::class, $investmentCredibilityCardsInput, self::INVESTMENT_CREDIBILITY_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageInvestmentApproachCard::class, $investmentApproachCardsInput, self::INVESTMENT_APPROACH_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageInvestmentWhyCard::class, $investmentWhyCardsInput, self::INVESTMENT_WHY_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageInvestmentProcessStep::class, $investmentProcessStepsInput, self::INVESTMENT_PROCESS_STEP_COUNT, ['icon', 'title', 'description', 'visibility']);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -557,6 +594,58 @@ class AdminPageController extends Controller
                 'community_page_cta_primary_url'              => 'nullable|string|max:500',
                 'community_page_cta_secondary_label'          => 'nullable|string|max:100',
                 'community_page_cta_secondary_url'            => 'nullable|string|max:500',
+            ]);
+        }
+
+        if ($page->slug === 'investment') {
+            return array_merge($rules, [
+                'statistics'                       => 'nullable|array',
+                'statistics.*.label'               => 'nullable|string|max:255',
+                'statistics.*.value'               => 'nullable|string|max:100',
+                'statistics.*.caption'              => 'nullable|string|max:255',
+
+                'investment_credibility_cards'       => 'nullable|array',
+                'investment_credibility_cards.*.icon'        => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'investment_credibility_cards.*.title'       => 'nullable|string|max:255',
+                'investment_credibility_cards.*.description' => 'nullable|string|max:2000',
+                'investment_credibility_cards.*.visibility'  => 'nullable|boolean',
+
+                'investment_approach_media_file'    => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'remove_investment_approach_media'  => 'nullable|boolean',
+                'investment_approach_eyebrow'        => 'nullable|string|max:255',
+                'investment_approach_heading'        => 'nullable|string|max:255',
+                'investment_approach_body'            => 'nullable|string',
+
+                'investment_approach_cards'           => 'nullable|array',
+                'investment_approach_cards.*.icon'            => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'investment_approach_cards.*.title'           => 'nullable|string|max:255',
+                'investment_approach_cards.*.description'     => 'nullable|string|max:2000',
+                'investment_approach_cards.*.visibility'       => 'nullable|boolean',
+
+                'investment_why_eyebrow'              => 'nullable|string|max:255',
+                'investment_why_heading'              => 'nullable|string|max:255',
+
+                'investment_why_cards'                 => 'nullable|array',
+                'investment_why_cards.*.icon'                 => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'investment_why_cards.*.title'                => 'nullable|string|max:255',
+                'investment_why_cards.*.description'          => 'nullable|string|max:2000',
+                'investment_why_cards.*.visibility'            => 'nullable|boolean',
+
+                'investment_process_eyebrow'          => 'nullable|string|max:255',
+                'investment_process_heading'          => 'nullable|string|max:255',
+
+                'investment_process_steps'             => 'nullable|array',
+                'investment_process_steps.*.icon'             => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'investment_process_steps.*.title'            => 'nullable|string|max:255',
+                'investment_process_steps.*.description'      => 'nullable|string|max:2000',
+                'investment_process_steps.*.visibility'        => 'nullable|boolean',
+
+                'investment_cta_eyebrow'              => 'nullable|string|max:255',
+                'investment_cta_heading'              => 'nullable|string|max:255',
+                'investment_cta_body'                  => 'nullable|string|max:2000',
+                'investment_cta_primary_label'        => 'nullable|string|max:100',
+                'investment_cta_secondary_label'      => 'nullable|string|max:100',
+                'investment_cta_secondary_url'        => 'nullable|string|max:500',
             ]);
         }
 

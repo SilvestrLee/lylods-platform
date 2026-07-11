@@ -132,3 +132,21 @@ test('community projects admin editor renders every expected section', function 
     $response->assertSee('Search Engine Metadata');
     $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
 });
+
+test('investment admin editor renders every expected section', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $page = Page::factory()->create(['slug' => 'investment']);
+
+    $response = $this->actingAs($admin)->get(route('admin.cms.pages.edit', $page));
+
+    $response->assertOk();
+    $response->assertSee('Hero');
+    $response->assertSee('Statistics');
+    $response->assertSee('Credibility Signals');
+    $response->assertSee('Our Approach');
+    $response->assertSee('Why The Lylods Group');
+    $response->assertSee('The Process');
+    $response->assertSee('Investor Access');
+    $response->assertSee('Search Engine Metadata');
+    $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
+});
