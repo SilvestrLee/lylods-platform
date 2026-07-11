@@ -69,9 +69,21 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.cms.content.case-studies.update', $caseStudy) }}" method="POST" class="space-y-6">
+            <form action="{{ route('admin.cms.content.case-studies.update', $caseStudy) }}" method="POST" class="space-y-6" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
+
+                {{-- Media --}}
+                <div class="rounded-2xl border border-[#e6e8ee] p-6 space-y-5">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#07172f]">Featured Image</h2>
+                    <x-admin.image-field
+                        label="Featured Image"
+                        helper="Shown as the thumbnail on case study listings and cross-links (e.g. the Industries page). Alt text is edited from the Media Library."
+                        :media="$caseStudy->featuredMedia"
+                        input-name="featured_media_file"
+                        remove-name="remove_featured_media"
+                    />
+                </div>
 
                 {{-- Core --}}
                 <div class="rounded-2xl border border-[#e6e8ee] p-6 space-y-5">

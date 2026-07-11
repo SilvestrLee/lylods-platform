@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Insight;
 use App\Services\CMS\InsightService;
+use App\Services\CMS\MediaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -11,7 +12,10 @@ use Illuminate\Validation\Rule;
 
 class AdminInsightController extends Controller
 {
-    public function __construct(private InsightService $insightService) {}
+    public function __construct(
+        private InsightService $insightService,
+        private MediaService $media,
+    ) {}
 
     public function index()
     {
@@ -80,6 +84,8 @@ class AdminInsightController extends Controller
             'seo_description' => ['nullable', 'string'],
             'canonical_url'   => ['nullable', 'url', 'max:500'],
             'robots'          => ['nullable', Rule::in(['index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow'])],
+            'featured_media_file'   => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'remove_featured_media' => ['nullable', 'boolean'],
         ]);
 
         $oldSlug = $insight->slug;
@@ -103,6 +109,15 @@ class AdminInsightController extends Controller
         $data['featured']        = $request->boolean('featured');
         $data['sitemap_include'] = $request->boolean('sitemap_include', true);
         $data['updated_by']      = Auth::id();
+
+        unset($data['featured_media_file'], $data['remove_featured_media']);
+
+        if ($request->hasFile('featured_media_file')) {
+            $featuredMedia = $this->media->store($request->file('featured_media_file'), 'insights', auth()->id());
+            $data['featured_media_id'] = $featuredMedia->id;
+        } elseif ($request->boolean('remove_featured_media')) {
+            $data['featured_media_id'] = null;
+        }
 
         $insight->update($data);
         $this->insightService->flush($oldSlug);

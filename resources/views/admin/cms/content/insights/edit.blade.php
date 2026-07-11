@@ -68,9 +68,20 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.cms.content.insights.update', $insight) }}" method="POST" class="space-y-6">
+            <form action="{{ route('admin.cms.content.insights.update', $insight) }}" method="POST" class="space-y-6" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
+
+                <div class="rounded-2xl border border-[#e6e8ee] p-6 space-y-5">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#07172f]">Featured Image</h2>
+                    <x-admin.image-field
+                        label="Featured Image"
+                        helper="Shown as the thumbnail on insight listings and cross-links (e.g. the Industries page). Alt text is edited from the Media Library."
+                        :media="$insight->featuredMedia"
+                        input-name="featured_media_file"
+                        remove-name="remove_featured_media"
+                    />
+                </div>
 
                 <div class="rounded-2xl border border-[#e6e8ee] p-6 space-y-5">
                     <h2 class="text-sm font-bold uppercase tracking-wider text-[#07172f]">Core Details</h2>
