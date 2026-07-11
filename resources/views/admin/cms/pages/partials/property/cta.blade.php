@@ -1,0 +1,31 @@
+<x-admin.panel subtitle="Closing CTA" title="Get Started">
+    <x-admin.field label="Heading">
+        <input type="text" name="property_page_cta_heading" value="{{ old('property_page_cta_heading', $page->property_page_cta_heading) }}"
+               placeholder="Ready to discuss a property opportunity?"
+               class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+    </x-admin.field>
+    <x-admin.field label="Description">
+        <textarea name="property_page_cta_description" rows="3"
+                  class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('property_page_cta_description', $page->property_page_cta_description) }}</textarea>
+    </x-admin.field>
+    <div class="grid gap-6 sm:grid-cols-2">
+        <x-admin.field label="Primary CTA Label">
+            <input type="text" name="property_page_cta_primary_label" value="{{ old('property_page_cta_primary_label', $page->property_page_cta_primary_label) }}"
+                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+        </x-admin.field>
+        <x-admin.field label="Primary CTA URL">
+            <input type="text" name="property_page_cta_primary_url" value="{{ old('property_page_cta_primary_url', $page->property_page_cta_primary_url) }}"
+                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+        </x-admin.field>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2">
+        <x-admin.field label="Secondary CTA Label">
+            <input type="text" name="property_page_cta_secondary_label" value="{{ old('property_page_cta_secondary_label', $page->property_page_cta_secondary_label) }}"
+                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+        </x-admin.field>
+        <x-admin.field label="Secondary CTA URL">
+            <input type="text" name="property_page_cta_secondary_url" value="{{ old('property_page_cta_secondary_url', $page->property_page_cta_secondary_url) }}"
+                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+        </x-admin.field>
+    </div>
+</x-admin.panel>

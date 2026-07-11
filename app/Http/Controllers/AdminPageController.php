@@ -12,9 +12,19 @@ use App\Models\PageAboutFocusArea;
 use App\Models\PageAboutHowWeWorkStep;
 use App\Models\PageAboutPrinciple;
 use App\Models\PageAboutValue;
+use App\Models\PageCommunityAudienceTag;
+use App\Models\PageCommunityEngagementCard;
+use App\Models\PageCommunityHowWorkStep;
+use App\Models\PageCommunityRoleStep;
+use App\Models\PageCommunitySupportCard;
 use App\Models\PageEngagementStep;
 use App\Models\PageIndustry;
 use App\Models\PageIndustryCard;
+use App\Models\PagePropertyAudienceCard;
+use App\Models\PagePropertyNetworkTag;
+use App\Models\PagePropertyRoleStep;
+use App\Models\PagePropertySupportCard;
+use App\Models\PagePropertyWhyUsCard;
 use App\Models\PageServiceCard;
 use App\Models\PageServicesHowWorkStep;
 use App\Models\PageServicesWhyUsCard;
@@ -52,6 +62,16 @@ class AdminPageController extends Controller
     private const SERVICES_WHY_US_COUNT = 6;
     private const SERVICES_HOW_WORK_COUNT = 4;
     private const INDUSTRY_CARD_COUNT = 8;
+    private const PROPERTY_SUPPORT_COUNT = 9;
+    private const PROPERTY_AUDIENCE_COUNT = 8;
+    private const PROPERTY_WHY_US_COUNT = 6;
+    private const PROPERTY_ROLE_STEP_COUNT = 4;
+    private const PROPERTY_NETWORK_TAG_COUNT = 7;
+    private const COMMUNITY_SUPPORT_COUNT = 8;
+    private const COMMUNITY_AUDIENCE_TAG_COUNT = 8;
+    private const COMMUNITY_ROLE_STEP_COUNT = 7;
+    private const COMMUNITY_HOW_WORK_COUNT = 4;
+    private const COMMUNITY_ENGAGEMENT_CARD_COUNT = 6;
 
     public function __construct(
         private PageService $service,
@@ -88,6 +108,19 @@ class AdminPageController extends Controller
             'servicesWhyUsCards',
             'servicesHowWorkSteps',
             'industryCards',
+            'propertyContextMedia',
+            'propertySupportCards',
+            'propertyAudienceCards',
+            'propertyWhyUsCards',
+            'propertyRoleSteps',
+            'propertyNetworkTags',
+            'communityAudienceMedia',
+            'communityRoleMedia',
+            'communitySupportCards',
+            'communityAudienceTags',
+            'communityRoleSteps',
+            'communityHowWorkSteps',
+            'communityEngagementCards.image',
         );
 
         $testimonials = null;
@@ -137,6 +170,31 @@ class AdminPageController extends Controller
             }
         }
 
+        if ($page->slug === 'property') {
+            if ($request->hasFile('property_context_media_file')) {
+                $contextImage = $this->media->store($request->file('property_context_media_file'), 'pages', auth()->id());
+                $data['property_context_media_id'] = $contextImage->id;
+            } elseif ($request->boolean('remove_property_context_media')) {
+                $data['property_context_media_id'] = null;
+            }
+        }
+
+        if ($page->slug === 'community-projects') {
+            if ($request->hasFile('community_audience_media_file')) {
+                $audienceImage = $this->media->store($request->file('community_audience_media_file'), 'pages', auth()->id());
+                $data['community_audience_media_id'] = $audienceImage->id;
+            } elseif ($request->boolean('remove_community_audience_media')) {
+                $data['community_audience_media_id'] = null;
+            }
+
+            if ($request->hasFile('community_role_media_file')) {
+                $roleImage = $this->media->store($request->file('community_role_media_file'), 'pages', auth()->id());
+                $data['community_role_media_id'] = $roleImage->id;
+            } elseif ($request->boolean('remove_community_role_media')) {
+                $data['community_role_media_id'] = null;
+            }
+        }
+
         $heroCardsInput = $data['hero_cards'] ?? [];
         $statisticsInput = $data['statistics'] ?? [];
         $serviceCardsInput = $data['service_cards'] ?? [];
@@ -155,11 +213,24 @@ class AdminPageController extends Controller
         $servicesWhyUsInput = $data['services_why_us'] ?? [];
         $servicesHowWorkInput = $data['services_how_work_steps'] ?? [];
         $industryCardsInput = $data['industry_cards'] ?? [];
+        $propertySupportCardsInput = $data['property_support_cards'] ?? [];
+        $propertyAudienceCardsInput = $data['property_audience_cards'] ?? [];
+        $propertyWhyUsCardsInput = $data['property_why_us_cards'] ?? [];
+        $propertyRoleStepsInput = $data['property_role_steps'] ?? [];
+        $propertyNetworkTagsInput = $data['property_network_tags'] ?? [];
+        $communitySupportCardsInput = $data['community_support_cards'] ?? [];
+        $communityAudienceTagsInput = $data['community_audience_tags'] ?? [];
+        $communityRoleStepsInput = $data['community_role_steps'] ?? [];
+        $communityHowWorkStepsInput = $data['community_how_work_steps'] ?? [];
+        $communityEngagementCardsInput = $data['community_engagement_cards'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
             $data['about_media_file'], $data['remove_about_media'],
             $data['about_page_intro_media_file'], $data['remove_about_page_intro_media'],
+            $data['property_context_media_file'], $data['remove_property_context_media'],
+            $data['community_audience_media_file'], $data['remove_community_audience_media'],
+            $data['community_role_media_file'], $data['remove_community_role_media'],
             $data['hero_cards'], $data['statistics'], $data['service_cards'],
             $data['industries'], $data['why_choose_us'], $data['engagement_steps'],
             $data['about_values'], $data['discipline_items'], $data['testimonials'], $data['partners'],
@@ -167,6 +238,10 @@ class AdminPageController extends Controller
             $data['audience_tags'], $data['differentiators'],
             $data['services_why_us'], $data['services_how_work_steps'],
             $data['industry_cards'],
+            $data['property_support_cards'], $data['property_audience_cards'], $data['property_why_us_cards'],
+            $data['property_role_steps'], $data['property_network_tags'],
+            $data['community_support_cards'], $data['community_audience_tags'], $data['community_role_steps'],
+            $data['community_how_work_steps'], $data['community_engagement_cards'],
         );
 
         if ($page->slug === 'home') {
@@ -213,6 +288,22 @@ class AdminPageController extends Controller
 
         if ($page->slug === 'industries') {
             $this->syncIndustryCards($request, $page, $industryCardsInput);
+        }
+
+        if ($page->slug === 'property') {
+            $this->syncRows($page, PagePropertySupportCard::class, $propertySupportCardsInput, self::PROPERTY_SUPPORT_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PagePropertyAudienceCard::class, $propertyAudienceCardsInput, self::PROPERTY_AUDIENCE_COUNT, ['icon', 'title', 'description', 'is_dark', 'visibility']);
+            $this->syncRows($page, PagePropertyWhyUsCard::class, $propertyWhyUsCardsInput, self::PROPERTY_WHY_US_COUNT, ['icon', 'title', 'description', 'is_dark', 'visibility']);
+            $this->syncRows($page, PagePropertyRoleStep::class, $propertyRoleStepsInput, self::PROPERTY_ROLE_STEP_COUNT, ['title', 'description', 'visibility']);
+            $this->syncRows($page, PagePropertyNetworkTag::class, $propertyNetworkTagsInput, self::PROPERTY_NETWORK_TAG_COUNT, ['label', 'visibility']);
+        }
+
+        if ($page->slug === 'community-projects') {
+            $this->syncRows($page, PageCommunitySupportCard::class, $communitySupportCardsInput, self::COMMUNITY_SUPPORT_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageCommunityAudienceTag::class, $communityAudienceTagsInput, self::COMMUNITY_AUDIENCE_TAG_COUNT, ['icon', 'label', 'visibility']);
+            $this->syncRows($page, PageCommunityRoleStep::class, $communityRoleStepsInput, self::COMMUNITY_ROLE_STEP_COUNT, ['description', 'visibility']);
+            $this->syncRows($page, PageCommunityHowWorkStep::class, $communityHowWorkStepsInput, self::COMMUNITY_HOW_WORK_COUNT, ['title', 'description', 'visibility']);
+            $this->syncCommunityEngagementCards($request, $page, $communityEngagementCardsInput);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -331,6 +422,141 @@ class AdminPageController extends Controller
                 'industries_page_cta_primary_url'          => 'nullable|string|max:500',
                 'industries_page_cta_secondary_label'      => 'nullable|string|max:100',
                 'industries_page_cta_secondary_url'        => 'nullable|string|max:500',
+            ]);
+        }
+
+        if ($page->slug === 'property') {
+            return array_merge($rules, [
+                'property_support_eyebrow'                => 'nullable|string|max:255',
+                'property_support_heading'                => 'nullable|string|max:255',
+                'property_support_body'                    => 'nullable|string',
+
+                'property_support_cards'                    => 'nullable|array',
+                'property_support_cards.*.icon'             => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'property_support_cards.*.title'            => 'nullable|string|max:255',
+                'property_support_cards.*.description'      => 'nullable|string|max:2000',
+                'property_support_cards.*.visibility'       => 'nullable|boolean',
+
+                'property_context_media_file'              => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'remove_property_context_media'            => 'nullable|boolean',
+                'property_context_eyebrow'                  => 'nullable|string|max:255',
+                'property_context_heading'                  => 'nullable|string|max:255',
+
+                'property_audience_eyebrow'                 => 'nullable|string|max:255',
+                'property_audience_heading'                 => 'nullable|string|max:255',
+                'property_audience_body'                     => 'nullable|string',
+
+                'property_audience_cards'                    => 'nullable|array',
+                'property_audience_cards.*.icon'             => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'property_audience_cards.*.title'            => 'nullable|string|max:255',
+                'property_audience_cards.*.description'      => 'nullable|string|max:2000',
+                'property_audience_cards.*.is_dark'          => 'nullable|boolean',
+                'property_audience_cards.*.visibility'       => 'nullable|boolean',
+
+                'property_why_us_eyebrow'                   => 'nullable|string|max:255',
+                'property_why_us_heading'                   => 'nullable|string|max:255',
+                'property_why_us_body'                       => 'nullable|string',
+
+                'property_why_us_cards'                       => 'nullable|array',
+                'property_why_us_cards.*.icon'                => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'property_why_us_cards.*.title'                => 'nullable|string|max:255',
+                'property_why_us_cards.*.description'          => 'nullable|string|max:2000',
+                'property_why_us_cards.*.is_dark'              => 'nullable|boolean',
+                'property_why_us_cards.*.visibility'           => 'nullable|boolean',
+
+                'property_role_eyebrow'                     => 'nullable|string|max:255',
+                'property_role_heading'                     => 'nullable|string|max:255',
+                'property_role_body'                         => 'nullable|string',
+
+                'property_role_steps'                         => 'nullable|array',
+                'property_role_steps.*.title'                 => 'nullable|string|max:255',
+                'property_role_steps.*.description'           => 'nullable|string|max:2000',
+                'property_role_steps.*.visibility'            => 'nullable|boolean',
+
+                'property_network_eyebrow'                   => 'nullable|string|max:255',
+                'property_network_heading'                   => 'nullable|string|max:255',
+                'property_network_body'                       => 'nullable|string',
+                'property_network_footnote'                   => 'nullable|string|max:2000',
+
+                'property_network_tags'                        => 'nullable|array',
+                'property_network_tags.*.label'                => 'nullable|string|max:255',
+                'property_network_tags.*.visibility'           => 'nullable|boolean',
+
+                'property_disclaimer_heading'                => 'nullable|string|max:255',
+                'property_disclaimer_body'                    => 'nullable|string',
+
+                'property_page_cta_heading'                  => 'nullable|string|max:255',
+                'property_page_cta_description'              => 'nullable|string|max:2000',
+                'property_page_cta_primary_label'            => 'nullable|string|max:100',
+                'property_page_cta_primary_url'              => 'nullable|string|max:500',
+                'property_page_cta_secondary_label'          => 'nullable|string|max:100',
+                'property_page_cta_secondary_url'            => 'nullable|string|max:500',
+            ]);
+        }
+
+        if ($page->slug === 'community-projects') {
+            return array_merge($rules, [
+                'community_support_eyebrow'                => 'nullable|string|max:255',
+                'community_support_heading'                => 'nullable|string|max:255',
+                'community_support_body'                    => 'nullable|string',
+
+                'community_support_cards'                    => 'nullable|array',
+                'community_support_cards.*.icon'             => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'community_support_cards.*.title'            => 'nullable|string|max:255',
+                'community_support_cards.*.description'      => 'nullable|string|max:2000',
+                'community_support_cards.*.visibility'       => 'nullable|boolean',
+
+                'community_audience_media_file'            => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'remove_community_audience_media'          => 'nullable|boolean',
+                'community_audience_eyebrow'                => 'nullable|string|max:255',
+                'community_audience_heading'                => 'nullable|string|max:255',
+                'community_audience_body'                    => 'nullable|string',
+                'community_audience_cta_label'              => 'nullable|string|max:100',
+                'community_audience_cta_url'                => 'nullable|string|max:500',
+
+                'community_audience_tags'                    => 'nullable|array',
+                'community_audience_tags.*.icon'             => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'community_audience_tags.*.label'            => 'nullable|string|max:255',
+                'community_audience_tags.*.visibility'       => 'nullable|boolean',
+
+                'community_role_media_file'                 => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'remove_community_role_media'               => 'nullable|boolean',
+                'community_role_eyebrow'                     => 'nullable|string|max:255',
+                'community_role_heading'                     => 'nullable|string|max:255',
+                'community_role_body'                         => 'nullable|string',
+
+                'community_role_steps'                        => 'nullable|array',
+                'community_role_steps.*.description'          => 'nullable|string|max:2000',
+                'community_role_steps.*.visibility'           => 'nullable|boolean',
+
+                'community_how_work_eyebrow'                 => 'nullable|string|max:255',
+                'community_how_work_heading'                 => 'nullable|string|max:255',
+                'community_how_work_body'                     => 'nullable|string',
+
+                'community_how_work_steps'                    => 'nullable|array',
+                'community_how_work_steps.*.title'            => 'nullable|string|max:255',
+                'community_how_work_steps.*.description'      => 'nullable|string|max:2000',
+                'community_how_work_steps.*.visibility'       => 'nullable|boolean',
+
+                'community_engagement_eyebrow'                => 'nullable|string|max:255',
+                'community_engagement_heading'                => 'nullable|string|max:255',
+                'community_engagement_body'                    => 'nullable|string',
+
+                'community_engagement_cards'                    => 'nullable|array',
+                'community_engagement_cards.*.icon'             => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'community_engagement_cards.*.title'            => 'nullable|string|max:255',
+                'community_engagement_cards.*.description'      => 'nullable|string|max:2000',
+                'community_engagement_cards.*.image_file'        => 'nullable|file|mimes:jpg,jpeg,png,webp|max:4096',
+                'community_engagement_cards.*.remove_image'      => 'nullable|boolean',
+                'community_engagement_cards.*.image_alt'         => 'nullable|string|max:255',
+                'community_engagement_cards.*.visibility'        => 'nullable|boolean',
+
+                'community_page_cta_heading'                  => 'nullable|string|max:255',
+                'community_page_cta_description'              => 'nullable|string|max:2000',
+                'community_page_cta_primary_label'            => 'nullable|string|max:100',
+                'community_page_cta_primary_url'              => 'nullable|string|max:500',
+                'community_page_cta_secondary_label'          => 'nullable|string|max:100',
+                'community_page_cta_secondary_url'            => 'nullable|string|max:500',
             ]);
         }
 
@@ -563,6 +789,32 @@ class AdminPageController extends Controller
 
             if ($request->hasFile("industry_cards.{$i}.image_file")) {
                 $image = $this->media->store($request->file("industry_cards.{$i}.image_file"), 'pages', auth()->id());
+                $card->image_media_id = $image->id;
+            } elseif (! empty($input['remove_image'])) {
+                $card->image_media_id = null;
+            }
+
+            $card->image_alt = $input['image_alt'] ?? $card->image_alt;
+
+            $card->save();
+        }
+    }
+
+    private function syncCommunityEngagementCards(Request $request, Page $page, array $rows): void
+    {
+        for ($i = 0; $i < self::COMMUNITY_ENGAGEMENT_CARD_COUNT; $i++) {
+            $input = $rows[$i] ?? [];
+            $order = $i + 1;
+
+            $card = PageCommunityEngagementCard::firstOrNew(['page_id' => $page->id, 'order' => $order]);
+
+            $card->icon        = $input['icon'] ?? null;
+            $card->title       = $input['title'] ?? null;
+            $card->description = $input['description'] ?? null;
+            $card->visibility  = ! empty($input['visibility']);
+
+            if ($request->hasFile("community_engagement_cards.{$i}.image_file")) {
+                $image = $this->media->store($request->file("community_engagement_cards.{$i}.image_file"), 'pages', auth()->id());
                 $card->image_media_id = $image->id;
             } elseif (! empty($input['remove_image'])) {
                 $card->image_media_id = null;

@@ -94,3 +94,41 @@ test('industries admin editor renders every expected section', function () {
     $response->assertSee('Search Engine Metadata');
     $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
 });
+
+test('property admin editor renders every expected section', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $page = Page::factory()->create(['slug' => 'property']);
+
+    $response = $this->actingAs($admin)->get(route('admin.cms.pages.edit', $page));
+
+    $response->assertOk();
+    $response->assertSee('Hero');
+    $response->assertSee('What We Support');
+    $response->assertSee('Context Banner');
+    $response->assertSee('Who We Help');
+    $response->assertSee('Why Clients Work With Us');
+    $response->assertSee('Our Role');
+    $response->assertSee('Professional Network');
+    $response->assertSee('Important Notice');
+    $response->assertSee('Get Started');
+    $response->assertSee('Search Engine Metadata');
+    $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
+});
+
+test('community projects admin editor renders every expected section', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $page = Page::factory()->create(['slug' => 'community-projects']);
+
+    $response = $this->actingAs($admin)->get(route('admin.cms.pages.edit', $page));
+
+    $response->assertOk();
+    $response->assertSee('Hero');
+    $response->assertSee('What We Support');
+    $response->assertSee('Who We Support');
+    $response->assertSee('Our Role');
+    $response->assertSee('How We Work');
+    $response->assertSee('Example Engagement Areas');
+    $response->assertSee('Get Started');
+    $response->assertSee('Search Engine Metadata');
+    $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
+});

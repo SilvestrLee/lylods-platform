@@ -33,6 +33,19 @@ class PageService
                     'servicesWhyUsCards',
                     'servicesHowWorkSteps',
                     'industryCards.image',
+                    'propertyContextMedia',
+                    'propertySupportCards',
+                    'propertyAudienceCards',
+                    'propertyWhyUsCards',
+                    'propertyRoleSteps',
+                    'propertyNetworkTags',
+                    'communityAudienceMedia',
+                    'communityRoleMedia',
+                    'communitySupportCards',
+                    'communityAudienceTags',
+                    'communityRoleSteps',
+                    'communityHowWorkSteps',
+                    'communityEngagementCards.image',
                 ])
                 ->where('slug', $slug)
                 ->firstOrFail();

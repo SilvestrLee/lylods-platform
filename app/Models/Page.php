@@ -96,6 +96,58 @@ class Page extends Model
         'industries_page_cta_primary_url',
         'industries_page_cta_secondary_label',
         'industries_page_cta_secondary_url',
+        'property_support_eyebrow',
+        'property_support_heading',
+        'property_support_body',
+        'property_context_media_id',
+        'property_context_eyebrow',
+        'property_context_heading',
+        'property_audience_eyebrow',
+        'property_audience_heading',
+        'property_audience_body',
+        'property_why_us_eyebrow',
+        'property_why_us_heading',
+        'property_why_us_body',
+        'property_role_eyebrow',
+        'property_role_heading',
+        'property_role_body',
+        'property_network_eyebrow',
+        'property_network_heading',
+        'property_network_body',
+        'property_network_footnote',
+        'property_disclaimer_heading',
+        'property_disclaimer_body',
+        'property_page_cta_heading',
+        'property_page_cta_description',
+        'property_page_cta_primary_label',
+        'property_page_cta_primary_url',
+        'property_page_cta_secondary_label',
+        'property_page_cta_secondary_url',
+        'community_support_eyebrow',
+        'community_support_heading',
+        'community_support_body',
+        'community_audience_media_id',
+        'community_audience_eyebrow',
+        'community_audience_heading',
+        'community_audience_body',
+        'community_audience_cta_label',
+        'community_audience_cta_url',
+        'community_role_media_id',
+        'community_role_eyebrow',
+        'community_role_heading',
+        'community_role_body',
+        'community_how_work_eyebrow',
+        'community_how_work_heading',
+        'community_how_work_body',
+        'community_engagement_eyebrow',
+        'community_engagement_heading',
+        'community_engagement_body',
+        'community_page_cta_heading',
+        'community_page_cta_description',
+        'community_page_cta_primary_label',
+        'community_page_cta_primary_url',
+        'community_page_cta_secondary_label',
+        'community_page_cta_secondary_url',
     ];
 
     protected $casts = [
@@ -124,6 +176,21 @@ class Page extends Model
     public function aboutPageIntroMedia(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'about_page_intro_media_id');
+    }
+
+    public function propertyContextMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'property_context_media_id');
+    }
+
+    public function communityAudienceMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'community_audience_media_id');
+    }
+
+    public function communityRoleMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'community_role_media_id');
     }
 
     public function heroCards(): HasMany
@@ -199,6 +266,56 @@ class Page extends Model
     public function industryCards(): HasMany
     {
         return $this->hasMany(PageIndustryCard::class)->orderBy('order');
+    }
+
+    public function propertySupportCards(): HasMany
+    {
+        return $this->hasMany(PagePropertySupportCard::class)->orderBy('order');
+    }
+
+    public function propertyAudienceCards(): HasMany
+    {
+        return $this->hasMany(PagePropertyAudienceCard::class)->orderBy('order');
+    }
+
+    public function propertyWhyUsCards(): HasMany
+    {
+        return $this->hasMany(PagePropertyWhyUsCard::class)->orderBy('order');
+    }
+
+    public function propertyRoleSteps(): HasMany
+    {
+        return $this->hasMany(PagePropertyRoleStep::class)->orderBy('order');
+    }
+
+    public function propertyNetworkTags(): HasMany
+    {
+        return $this->hasMany(PagePropertyNetworkTag::class)->orderBy('order');
+    }
+
+    public function communitySupportCards(): HasMany
+    {
+        return $this->hasMany(PageCommunitySupportCard::class)->orderBy('order');
+    }
+
+    public function communityAudienceTags(): HasMany
+    {
+        return $this->hasMany(PageCommunityAudienceTag::class)->orderBy('order');
+    }
+
+    public function communityRoleSteps(): HasMany
+    {
+        return $this->hasMany(PageCommunityRoleStep::class)->orderBy('order');
+    }
+
+    public function communityHowWorkSteps(): HasMany
+    {
+        return $this->hasMany(PageCommunityHowWorkStep::class)->orderBy('order');
+    }
+
+    public function communityEngagementCards(): HasMany
+    {
+        return $this->hasMany(PageCommunityEngagementCard::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo
