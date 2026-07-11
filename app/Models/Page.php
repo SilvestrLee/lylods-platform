@@ -178,6 +178,19 @@ class Page extends Model
         'contact_investor_cta_label',
         'contact_enquiry_eyebrow',
         'contact_enquiry_heading',
+        'careers_opportunity_eyebrow',
+        'careers_opportunity_heading',
+        'careers_opportunity_body',
+        'careers_message_eyebrow',
+        'careers_message_heading',
+        'careers_message_body',
+        'careers_notice_body',
+        'careers_how_eyebrow',
+        'careers_how_heading',
+        'careers_page_cta_eyebrow',
+        'careers_page_cta_heading',
+        'careers_page_cta_body',
+        'careers_page_cta_label',
     ];
 
     protected $casts = [
@@ -381,6 +394,16 @@ class Page extends Model
     public function contactEnquiryCards(): HasMany
     {
         return $this->hasMany(PageContactEnquiryCard::class)->orderBy('order');
+    }
+
+    public function careersOpportunityCards(): HasMany
+    {
+        return $this->hasMany(PageCareersOpportunityCard::class)->orderBy('order');
+    }
+
+    public function careersHowItWorksSteps(): HasMany
+    {
+        return $this->hasMany(PageCareersHowItWorksStep::class)->orderBy('order');
     }
 
     public function creator(): BelongsTo

@@ -315,6 +315,33 @@
                         </button>
                     </div>
                 </div>
+            @elseif ($page->slug === 'careers')
+                {{-- Enterprise structured editor: independently collapsible panels, one per Careers section. --}}
+                <div class="space-y-6">
+                    <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee] p-6">
+                        <x-admin.field label="Page Title" required helper="Internal reference name for this page.">
+                            <input type="text" name="title" value="{{ old('title', $page->title) }}" required
+                                   class="w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('title') border-red-400 @enderror">
+                            @error('title') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </x-admin.field>
+                    </div>
+
+                    @include('admin.cms.pages.partials.careers.hero')
+                    @include('admin.cms.pages.partials.careers.opportunities')
+                    @include('admin.cms.pages.partials.careers.message-and-process')
+                    @include('admin.cms.pages.partials.careers.cta')
+
+                    <x-admin.panel subtitle="SEO" title="Search Engine Metadata">
+                        @include('admin.cms.pages.partials.seo-fields')
+                    </x-admin.panel>
+
+                    <div class="flex justify-end">
+                        <button type="submit"
+                                class="inline-flex rounded-full bg-[#07172f] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#123f8c]">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
             @else
                 {{-- Existing flat editing interface — unchanged for every non-homepage page. --}}
                 <div class="space-y-6">

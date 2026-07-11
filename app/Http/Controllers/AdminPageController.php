@@ -12,6 +12,8 @@ use App\Models\PageAboutFocusArea;
 use App\Models\PageAboutHowWeWorkStep;
 use App\Models\PageAboutPrinciple;
 use App\Models\PageAboutValue;
+use App\Models\PageCareersHowItWorksStep;
+use App\Models\PageCareersOpportunityCard;
 use App\Models\PageCommunityAudienceTag;
 use App\Models\PageCommunityEngagementCard;
 use App\Models\PageCommunityHowWorkStep;
@@ -82,6 +84,8 @@ class AdminPageController extends Controller
     private const INVESTMENT_WHY_CARD_COUNT = 3;
     private const INVESTMENT_PROCESS_STEP_COUNT = 4;
     private const CONTACT_ENQUIRY_CARD_COUNT = 3;
+    private const CAREERS_OPPORTUNITY_CARD_COUNT = 6;
+    private const CAREERS_HOW_IT_WORKS_STEP_COUNT = 4;
 
     public function __construct(
         private PageService $service,
@@ -138,6 +142,8 @@ class AdminPageController extends Controller
             'investmentProcessSteps',
             'contactInfoMedia',
             'contactEnquiryCards',
+            'careersOpportunityCards',
+            'careersHowItWorksSteps',
         );
 
         $testimonials = null;
@@ -263,6 +269,8 @@ class AdminPageController extends Controller
         $investmentWhyCardsInput = $data['investment_why_cards'] ?? [];
         $investmentProcessStepsInput = $data['investment_process_steps'] ?? [];
         $contactEnquiryCardsInput = $data['contact_enquiry_cards'] ?? [];
+        $careersOpportunityCardsInput = $data['careers_opportunity_cards'] ?? [];
+        $careersHowItWorksStepsInput = $data['careers_how_it_works_steps'] ?? [];
 
         unset(
             $data['hero_image_file'], $data['remove_hero_image'],
@@ -287,6 +295,7 @@ class AdminPageController extends Controller
             $data['investment_credibility_cards'], $data['investment_approach_cards'],
             $data['investment_why_cards'], $data['investment_process_steps'],
             $data['contact_enquiry_cards'],
+            $data['careers_opportunity_cards'], $data['careers_how_it_works_steps'],
         );
 
         if ($page->slug === 'home') {
@@ -362,6 +371,11 @@ class AdminPageController extends Controller
         if ($page->slug === 'contact') {
             $this->syncRows($page, PageStatistic::class, $statisticsInput, self::STATISTIC_COUNT, ['label', 'value', 'caption']);
             $this->syncRows($page, PageContactEnquiryCard::class, $contactEnquiryCardsInput, self::CONTACT_ENQUIRY_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
+        }
+
+        if ($page->slug === 'careers') {
+            $this->syncRows($page, PageCareersOpportunityCard::class, $careersOpportunityCardsInput, self::CAREERS_OPPORTUNITY_CARD_COUNT, ['icon', 'title', 'description', 'visibility']);
+            $this->syncRows($page, PageCareersHowItWorksStep::class, $careersHowItWorksStepsInput, self::CAREERS_HOW_IT_WORKS_STEP_COUNT, ['title', 'description', 'visibility']);
         }
 
         return redirect()->route('admin.cms.pages.edit', $page)
@@ -706,6 +720,38 @@ class AdminPageController extends Controller
                 'contact_enquiry_cards.*.title'                => 'nullable|string|max:255',
                 'contact_enquiry_cards.*.description'          => 'nullable|string|max:2000',
                 'contact_enquiry_cards.*.visibility'            => 'nullable|boolean',
+            ]);
+        }
+
+        if ($page->slug === 'careers') {
+            return array_merge($rules, [
+                'careers_opportunity_eyebrow'          => 'nullable|string|max:255',
+                'careers_opportunity_heading'          => 'nullable|string|max:255',
+                'careers_opportunity_body'              => 'nullable|string',
+
+                'careers_opportunity_cards'              => 'nullable|array',
+                'careers_opportunity_cards.*.icon'              => ['nullable', 'string', Rule::in(HeroIconRegistry::options())],
+                'careers_opportunity_cards.*.title'             => 'nullable|string|max:255',
+                'careers_opportunity_cards.*.description'       => 'nullable|string|max:2000',
+                'careers_opportunity_cards.*.visibility'         => 'nullable|boolean',
+
+                'careers_message_eyebrow'                => 'nullable|string|max:255',
+                'careers_message_heading'                => 'nullable|string|max:255',
+                'careers_message_body'                    => 'nullable|string|max:2000',
+                'careers_notice_body'                     => 'nullable|string|max:2000',
+
+                'careers_how_eyebrow'                    => 'nullable|string|max:255',
+                'careers_how_heading'                    => 'nullable|string|max:255',
+
+                'careers_how_it_works_steps'               => 'nullable|array',
+                'careers_how_it_works_steps.*.title'              => 'nullable|string|max:255',
+                'careers_how_it_works_steps.*.description'        => 'nullable|string|max:2000',
+                'careers_how_it_works_steps.*.visibility'          => 'nullable|boolean',
+
+                'careers_page_cta_eyebrow'                => 'nullable|string|max:255',
+                'careers_page_cta_heading'                => 'nullable|string|max:255',
+                'careers_page_cta_body'                    => 'nullable|string|max:2000',
+                'careers_page_cta_label'                    => 'nullable|string|max:100',
             ]);
         }
 

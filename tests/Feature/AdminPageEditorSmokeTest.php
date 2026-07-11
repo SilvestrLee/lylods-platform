@@ -168,3 +168,19 @@ test('contact admin editor renders every expected section', function () {
     $response->assertSee(route('admin.cms.site-settings.edit'), false);
     $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
 });
+
+test('careers admin editor renders every expected section', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $page = Page::factory()->create(['slug' => 'careers']);
+
+    $response = $this->actingAs($admin)->get(route('admin.cms.pages.edit', $page));
+
+    $response->assertOk();
+    $response->assertSee('Hero');
+    $response->assertSee('Opportunity Areas');
+    $response->assertSee('What to Tell Us');
+    $response->assertSee('How It Works');
+    $response->assertSee('Get In Touch');
+    $response->assertSee('Search Engine Metadata');
+    $response->assertSee('action="' . route('admin.cms.pages.update', $page) . '"', false);
+});
