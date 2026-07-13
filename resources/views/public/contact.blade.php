@@ -58,30 +58,36 @@
                  list, and submit/success behaviour stay in Blade/Alpine, same as
                  Services reusing ServiceGroup CRUD rather than duplicating it. --}}
             <div class="tlg-reveal tlg-d1 rounded-[2rem] border border-[#e6e8ee] bg-white p-8 shadow-sm"
-                 x-data="{ submitted: false, enquiryType: '' }">
+                 x-data="{ submitted: {{ session('enquiry_sent') ? 'true' : 'false' }}, enquiryType: '{{ old('enquiry_type') }}' }">
 
                 <div x-show="!submitted">
                     <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#123f8c]">Send an Enquiry</p>
                     <h3 class="mt-2 text-2xl font-bold text-[#07172f]">What can we help you with?</h3>
                     <p class="mt-2 text-sm leading-6 text-[#667085]">Complete the form and a member of our team will be in touch within two business days.</p>
 
-                    <form class="mt-8 space-y-5" @submit.prevent="submitted = true">
+                    <form method="POST" action="{{ route('contact.store') }}" class="mt-8 space-y-5">
+                        @csrf
+                        {{-- Honeypot: hidden from real visitors, bots tend to fill every field --}}
+                        <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+
                         <div class="grid gap-5 sm:grid-cols-2">
                             <div>
                                 <label class="block text-sm font-semibold text-[#07172f]">Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" required
+                                <input type="text" name="name" required value="{{ old('name') }}"
                                        class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                @error('name')<p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>@enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-[#07172f]">Email Address <span class="text-red-500">*</span></label>
-                                <input type="email" required
+                                <input type="email" name="email" required value="{{ old('email') }}"
                                        class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                @error('email')<p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>@enderror
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold text-[#07172f]">Enquiry Type <span class="text-red-500">*</span></label>
-                            <select required x-model="enquiryType"
+                            <select name="enquiry_type" required x-model="enquiryType"
                                     class="mt-2 w-full rounded-2xl border border-[#d0d5dd] bg-white px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
                                 <option value="">Select an option</option>
                                 <option value="business-consultancy">Business consultancy</option>
@@ -96,6 +102,7 @@
                                 <option value="partnership-investment">Partnership or investment</option>
                                 <option value="other">Other</option>
                             </select>
+                            @error('enquiry_type')<p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>@enderror
                         </div>
 
                         {{-- Careers / placement guidance --}}
@@ -110,21 +117,24 @@
 
                         <div>
                             <label class="block text-sm font-semibold text-[#07172f]">Organisation <span class="text-sm font-normal text-[#667085]">(optional)</span></label>
-                            <input type="text"
+                            <input type="text" name="organisation" value="{{ old('organisation') }}"
                                    class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                                @error('organisation')<p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>@enderror
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold text-[#07172f]">Message <span class="text-red-500">*</span></label>
-                            <textarea required rows="5"
-                                      class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]"></textarea>
+                            <textarea name="message" required rows="5" maxlength="5000"
+                                      class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">{{ old('message') }}</textarea>
+                            @error('message')<p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>@enderror
                         </div>
 
                         <div class="border-t border-[#e6e8ee] pt-5">
                             <p class="mb-4 text-xs leading-5 text-[#667085]">By submitting this form, you agree that The Lylods Group may use your details to respond to your enquiry. Please read our <a href="{{ route('privacy-notice') }}" class="font-semibold text-[#123f8c] underline underline-offset-2 hover:text-[#07172f]">Privacy Notice</a> to understand how we collect, use, store and protect your personal data.</p>
-                            <button type="submit"
-                                    class="w-full rounded-full bg-[#07172f] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-[#123f8c] sm:w-auto">
-                                Send Enquiry
+                            <button type="submit" x-data="{ sending: false }" @click="sending = true" :disabled="sending"
+                                    class="w-full rounded-full bg-[#07172f] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-[#123f8c] disabled:opacity-60 sm:w-auto">
+                                <span x-show="!sending">Send Enquiry</span>
+                                <span x-show="sending" style="display:none;">Sending…</span>
                             </button>
                             <p class="mt-3 text-xs text-[#667085]">We aim to respond within two business days.</p>
                         </div>

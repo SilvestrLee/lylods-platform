@@ -1,52 +1,712 @@
-Read .claude/adjust and follow it exactly.
+# Phase 17.4 — Premium Footer Redesign
+## Immediate UI Correction Using UI UX Pro Max + 21st.dev
 
-Phase 11.2 — Documentation & Test Completion
+Read and follow all project instructions in the `.claude` folder.
 
-Implement the two remaining architecture gaps discovered during the documentation sync.
+This is an approved design-refinement task.
 
-### Part 1 — Recover Architecture Decision Records
+The current footer is functionally correct but visually unacceptable. It technically satisfies the seven governed content groups, but it presents them as seven narrow, equally weighted columns, producing poor hierarchy, weak branding, excessive visual density, and an unpolished enterprise appearance.
 
-Recover the missing decision documents for:
+Fix the footer now.
 
-- About Enterprise CMS
-- Services Enterprise CMS
+This task explicitly authorises a visual redesign of the footer while preserving the existing CMS, routes, content ownership, legal links, portal access, and navigation governance.
 
-Requirements:
+---
 
-- Do not duplicate existing decision numbers.
-- If numbering conflicts, renumber appropriately and update all references.
-- Preserve historical implementation details.
-- Ensure PROJECT.md, ROADMAP.md, ARCHITECTURE.md and any documentation references point to the correct decision files.
-- No application code changes.
+# Mandatory Tooling
 
-### Part 2 — Homepage Admin Smoke Tests
+Before implementation:
 
-Implement permanent authenticated GET render smoke tests for the Homepage CMS editor equivalent to those already protecting About and Services.
+1. Invoke the **UI UX Pro Max skill** for:
+   - enterprise footer hierarchy
+   - visual rhythm
+   - spacing
+   - typography
+   - responsive composition
+   - accessibility
+   - premium corporate presentation
 
-The tests must verify:
+2. Use the **21st.dev MCP** to search for:
+   - enterprise corporate footers
+   - professional services footers
+   - premium multi-column footers
+   - footer CTA cards
+   - responsive footer navigation
+   - trust and contact blocks
 
-- GET edit page returns HTTP 200
-- expected admin sections render
-- expected forms render
-- expected "Manage Elsewhere" links render (when applicable)
-- no RouteNotFoundException
-- no ViewException
-- no MissingVariableException
+Do not copy a component blindly.
 
-These tests should permanently protect the Home, About and Services Enterprise CMS editors against future admin rendering regressions.
+Use discovered components only as references for structure, hierarchy, spacing, and responsive behaviour.
 
-Validation:
+The result must remain visually consistent with The Lylods Group brand.
 
-- php artisan test
-- npm run build
+---
 
-Report:
+# Core Clarification
 
-- files created
-- files modified
-- validation results
-- documentation updates
-- rollback plan
+The approved seven footer groups are **logical content groups**, not a requirement to display seven equal-width physical columns.
 
-Do not commit, merge or push.
-Wait for approval.
+The governed groups remain:
+
+1. Company
+2. Services
+3. Industries
+4. Insights
+5. Support
+6. Legal
+7. Portal
+
+These groups may be visually consolidated into a better layout.
+
+Do not remove their content ownership.
+
+Do not discard CMS support.
+
+Do not fabricate content.
+
+---
+
+# Objective
+
+Replace the current crowded footer with a premium enterprise footer that:
+
+- reinforces the brand
+- provides clear information hierarchy
+- feels spacious and intentional
+- supports navigation without resembling a directory
+- gives the Client Portal proper visual prominence
+- handles seven logical groups without seven cramped columns
+- feels appropriate for a multidisciplinary engineering, technology, property, infrastructure, consulting, and project-delivery organisation
+
+The footer should feel like the closing statement of a serious corporate website.
+
+---
+
+# Approved Footer Architecture
+
+Implement the footer in four visual layers.
+
+---
+
+## Layer 1 — Brand and Primary Action
+
+Create a spacious top row.
+
+### Left side
+
+Display:
+
+- The approved logo
+- A concise corporate positioning statement
+- Optional location or operating-region text
+- Social links when available
+
+Use the current CMS-controlled company description where possible.
+
+Do not invent certifications, registration numbers, office addresses, telephone numbers, or claims that are not in the CMS.
+
+The brand area should be substantially wider than a standard navigation column.
+
+Recommended desktop width:
+
+- Brand area: approximately 40%
+- Primary action area: approximately 30–35%
+- Remaining space for layout balance
+
+### Right side
+
+Create a premium **Client Access** panel.
+
+Content:
+
+- Eyebrow: `Client Access`
+- Heading: `Access your secure portal`
+- Short description using existing portal copy
+- Primary CTA: `Client Portal`
+- Secondary text link: `Investment Information`
+
+The panel should feel integrated into the footer, not like a detached yellow button.
+
+Use:
+
+- subtle border
+- slightly lighter navy surface or controlled gold accent
+- strong spacing
+- clear button hierarchy
+- accessible contrast
+
+Do not add registration or account-creation functionality.
+
+---
+
+## Layer 2 — Main Footer Navigation
+
+Use a balanced grid with **four physical columns**, not seven.
+
+### Column 1 — Company
+
+Include:
+
+- About Us
+- Careers
+- Contact
+
+CMS group:
+
+```text
+company
+```
+
+---
+
+### Column 2 — What We Do
+
+Combine the logical groups:
+
+- Services
+- Industries
+
+Use a compact two-part structure inside the same column.
+
+Subheading:
+
+```text
+Services
+```
+
+Then service links.
+
+Secondary subheading:
+
+```text
+Industries
+```
+
+Then industry links.
+
+CMS groups remain separate internally:
+
+```text
+services
+industries
+```
+
+Do not merge their database groups.
+
+---
+
+### Column 3 — Knowledge & Support
+
+Combine:
+
+- Insights
+- Support
+
+Subheading:
+
+```text
+Insights
+```
+
+Links:
+
+- Insights
+- Case Studies
+
+Secondary subheading:
+
+```text
+Support
+```
+
+Use only real, existing CMS links.
+
+CMS groups remain:
+
+```text
+insights
+support
+```
+
+---
+
+### Column 4 — Legal & Access
+
+Combine:
+
+- Legal
+- Portal navigation links not already represented in the Client Access panel
+
+Subheading:
+
+```text
+Legal
+```
+
+Include the existing verified legal routes.
+
+Subheading:
+
+```text
+Portal
+```
+
+Include only additional portal-related links that do not unnecessarily duplicate the primary Client Portal CTA.
+
+CMS groups remain:
+
+```text
+legal
+portal
+```
+
+---
+
+# Layer 3 — Contact and Trust Strip
+
+Create a restrained horizontal strip above the copyright bar.
+
+Only render content that exists in the CMS or current project configuration.
+
+Possible items:
+
+- United Kingdom
+- General enquiries
+- LinkedIn
+- Registered company statement
+- Existing organisation description
+
+Do not invent:
+
+- addresses
+- phone numbers
+- registration numbers
+- certifications
+- accreditations
+- office hours
+
+If verified contact information is not available, omit the item gracefully.
+
+This strip should add institutional credibility without clutter.
+
+---
+
+# Layer 4 — Bottom Bar
+
+Create a clean, compact bottom bar.
+
+Left:
+
+```text
+© 2026 The Lylods Group. All rights reserved.
+```
+
+Right:
+
+- Privacy Notice
+- Cookie Notice
+- Accessibility Statement
+- Terms of Use
+
+The Complaints Process link may remain in the main Legal group if including it in the bottom bar makes the row too crowded.
+
+Remove the long, weak sentence currently floating alone on the right unless it contains unique CMS-managed information that should remain visible.
+
+If retained, place it naturally within the brand or trust strip rather than leaving it isolated in the bottom bar.
+
+---
+
+# Visual Direction
+
+Use the existing Lylods palette.
+
+Primary background:
+
+```text
+#07172f
+```
+
+Gold accent:
+
+```text
+#c9a24d
+```
+
+Text hierarchy:
+
+- primary text: white or near-white
+- secondary text: controlled slate/blue-white
+- labels: gold
+- muted text: accessible subdued blue-grey
+
+Do not use arbitrary new colours.
+
+---
+
+# Typography
+
+Increase hierarchy.
+
+### Section labels
+
+- uppercase
+- moderate tracking
+- gold
+- larger and clearer than the current labels
+- avoid tiny 10px text where readability suffers
+
+### Links
+
+- comfortable line height
+- clearer hover state
+- accessible focus-visible state
+- no cramped stacking
+
+### Brand statement
+
+- larger than navigation copy
+- controlled maximum width
+- concise
+- readable line length
+
+---
+
+# Spacing
+
+The current footer is too compressed vertically and too narrow horizontally.
+
+Improve:
+
+- top padding
+- section separation
+- column gaps
+- line-height
+- spacing between group headings and links
+- spacing around the Client Access panel
+- bottom-bar breathing room
+
+Do not create excessive empty space, but prioritise calm visual rhythm over fitting everything into one dense row.
+
+---
+
+# Desktop Layout
+
+Recommended structure:
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ Brand / Positioning                    Client Access Panel    │
+├──────────────────────────────────────────────────────────────┤
+│ Company   What We Do   Knowledge & Support   Legal & Access   │
+├──────────────────────────────────────────────────────────────┤
+│ Contact / Location / Social / Trust Strip                    │
+├──────────────────────────────────────────────────────────────┤
+│ Copyright                       Privacy · Cookies · Terms     │
+└──────────────────────────────────────────────────────────────┘
+```
+
+The footer must not resemble seven narrow spreadsheet columns.
+
+---
+
+# Tablet Layout
+
+Use two balanced columns.
+
+Suggested order:
+
+1. Brand
+2. Client Access
+3. Company
+4. What We Do
+5. Knowledge & Support
+6. Legal & Access
+7. Trust strip
+8. Bottom bar
+
+Do not allow long links to create awkward wrapping.
+
+---
+
+# Mobile Layout
+
+Use stacked sections.
+
+Order:
+
+1. Brand
+2. Client Access panel
+3. Company
+4. What We Do
+5. Knowledge & Support
+6. Legal & Access
+7. Trust/contact
+8. Copyright and legal row
+
+Mobile requirements:
+
+- generous tap targets
+- no horizontal scrolling
+- clear group separation
+- no seven-column compression
+- footer links should not feel like an endless unstructured list
+
+Accordion behaviour is optional only if it materially improves the mobile footer and remains accessible.
+
+Do not add accordion complexity unnecessarily.
+
+---
+
+# CMS Preservation
+
+The redesign must continue using the existing:
+
+- `FooterLink` model
+- `FooterService`
+- footer group values
+- CMS create/edit screens
+- social link collection
+- footer description fields
+- copyright fields
+- portal routes
+- legal routes
+
+Do not hardcode CMS-managed links merely to achieve the layout.
+
+Logical group ownership must remain intact even when groups share a physical visual column.
+
+---
+
+# Empty-State Behaviour
+
+If a CMS group is empty:
+
+- do not render an empty heading
+- do not leave a blank column
+- let neighbouring content use the available space naturally
+- preserve layout integrity
+
+If the Client Access description is empty, retain the heading and CTA without leaving awkward gaps.
+
+---
+
+# Accessibility
+
+Implement:
+
+- visible keyboard focus on every footer link and button
+- adequate colour contrast
+- semantic `<footer>`
+- meaningful navigation labels
+- descriptive `aria-label` where needed
+- sensible DOM order
+- no inaccessible hover-only interactions
+- sufficient mobile tap targets
+
+Do not use gold text on backgrounds where contrast is insufficient.
+
+---
+
+# Animation
+
+Keep motion restrained.
+
+Allowed:
+
+- subtle link underline or colour transitions
+- minimal Client Access panel hover response
+- gentle reveal consistent with the site
+
+Do not add:
+
+- excessive movement
+- floating graphics
+- animated gradients
+- attention-seeking effects
+
+The footer should feel stable and authoritative.
+
+---
+
+# Performance
+
+Do not introduce:
+
+- external JavaScript
+- heavy component libraries
+- external image requests
+- large new assets
+
+Reuse existing Tailwind, Blade, Alpine, and site assets.
+
+---
+
+# Content Rules
+
+Do not fabricate:
+
+- office addresses
+- phone numbers
+- company registration numbers
+- certifications
+- accreditations
+- investor claims
+- operating statistics
+
+Use only existing CMS content and verified routes.
+
+Where content is unavailable, simplify the section rather than inserting placeholder claims.
+
+---
+
+# Implementation Process
+
+Before modifying code:
+
+1. Audit the existing footer markup.
+2. Inspect all available footer CMS fields and groups.
+3. Invoke UI UX Pro Max.
+4. Search 21st.dev for relevant enterprise footer references.
+5. Produce a concise proposed layout map.
+6. Implement the approved architecture above.
+7. Preserve routes and CMS behaviour.
+8. Run validation.
+9. Report results.
+
+Do not pause for another design-choice question unless a genuine content or route decision blocks implementation.
+
+The current footer is already rejected.
+
+Proceed with the approved redesign direction.
+
+---
+
+# Validation
+
+Run:
+
+```bash
+php artisan optimize:clear
+php artisan test --filter=NavigationFooterGovernanceTest
+php artisan test
+npm run build
+```
+
+Verify manually where possible:
+
+- desktop footer
+- tablet footer
+- mobile footer
+- populated CMS groups
+- empty CMS groups
+- portal CTA
+- legal links
+- social links
+- focus states
+- no overflow
+- no broken routes
+
+---
+
+# Required Tests
+
+Update tests to verify:
+
+1. All seven logical CMS groups remain supported.
+2. The footer no longer renders seven equal top-level physical columns.
+3. Company content renders.
+4. Services and Industries render inside the What We Do region.
+5. Insights and Support render inside the Knowledge & Support region.
+6. Legal and Portal content render inside the final navigation region.
+7. Client Portal CTA remains present.
+8. Empty groups do not render empty headings.
+9. Legal routes remain correct.
+10. All nine public pages return HTTP 200.
+11. No regression in desktop or mobile navigation.
+
+Tests should validate semantics and content, not fragile Tailwind class strings unless necessary.
+
+---
+
+# Files Expected to Change
+
+Likely:
+
+```text
+resources/views/components/layouts/public.blade.php
+tests/Feature/NavigationFooterGovernanceTest.php
+```
+
+Potentially:
+
+```text
+resources/views/components/footer/*
+```
+
+only if extracting the footer improves maintainability without creating unnecessary architecture.
+
+Do not modify page-specific public templates.
+
+Do not modify CMS page schemas.
+
+---
+
+# Final Report
+
+Return:
+
+## Executive Summary
+
+## UI UX Pro Max Findings
+
+## 21st.dev References Used
+
+## Existing Footer Problems Confirmed
+
+## New Footer Architecture
+
+## CMS Groups Preserved
+
+## Files Changed
+
+## Desktop Behaviour
+
+## Tablet Behaviour
+
+## Mobile Behaviour
+
+## Accessibility
+
+## Empty-State Handling
+
+## Route Verification
+
+## Tests
+
+## Assertions
+
+## Build
+
+## Visual Review Limitations
+
+## Remaining Content Gaps
+
+## Regression Status
+
+## Ready for Review
+
+---
+
+# Approval Gate
+
+Do not commit, merge, or push.
+
+Finish with:
+
+```text
+Premium footer redesign complete.
+
+Ready for visual review.
+
+Waiting for approval before commit or merge.
+```

@@ -462,3 +462,95 @@ Next enterprise CMS page:
 
 - To be determined per Navigation Governance v1.0's roadmap (Solutions/Platforms/Trust all explicitly deferred pending real product justification)
 
+
+## Phase 14 Implementation Guardrails
+
+### Zero Architectural Drift
+
+Implementation MUST exactly follow the approved architecture decision record.
+
+No architectural changes may be introduced during implementation.
+
+If implementation appears to require a new architectural decision:
+
+- STOP
+- Report the issue
+- Wait for approval
+
+Do not invent new architecture during implementation.
+
+Implementation phases are expected to be mechanical.
+
+---
+
+### Pixel Preservation
+
+This project is NOT a redesign.
+
+Preserve the existing public appearance unless an approved architectural decision explicitly requires a visual change.
+
+Component extraction must preserve:
+
+- spacing
+- visual hierarchy
+- DOM order
+- responsive behaviour
+- CSS classes
+- animations
+- accessibility
+
+Do not "clean up" working frontend markup simply because it could be rewritten differently.
+
+Maintain pixel-equivalent output wherever practical.
+
+---
+
+### Required Implementation Progress Report
+
+Every implementation phase MUST conclude with:
+
+Implementation Progress
+
+? Schema
+
+? Models
+
+? Relationships
+
+? Controller
+
+? Components
+
+? Admin
+
+? Public
+
+? Tests
+
+? Build
+
+? Regression
+
+? Documentation
+
+? Review
+
+Ready for merge
+
+---
+
+### Enterprise CMS Pattern v1.0
+
+Homepage, About, Services and Industries are the canonical enterprise CMS reference implementations.
+
+Every future enterprise page MUST follow these implementations unless an approved decision record explicitly authorizes a deviation.
+
+Reference implementations:
+
+- Homepage CMS
+- About CMS
+- Services CMS
+- Industries CMS
+
+Do not introduce new implementation patterns without approval.
+

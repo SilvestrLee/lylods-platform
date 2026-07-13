@@ -36,6 +36,20 @@
     />
 
     @php
+        $liveOpportunities = $careers
+            ->map(fn ($opportunity) => [
+                'title' => $opportunity->title,
+                'location' => $opportunity->location,
+                'type' => $opportunity->type ? ucwords(str_replace('-', ' ', $opportunity->type)) : null,
+                'description' => $opportunity->description,
+                'closingDate' => $opportunity->closing_date?->format('d M Y'),
+            ])
+            ->values()
+            ->all();
+    @endphp
+    <x-sections.careers.live-opportunities :opportunities="$liveOpportunities" />
+
+    @php
         $howItWorksSteps = $page->careersHowItWorksSteps
             ->where('visibility', true)
             ->values()

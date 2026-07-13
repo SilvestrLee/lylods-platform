@@ -21,6 +21,7 @@ use App\Http\Controllers\AdminServiceGroupController;
 use App\Http\Controllers\AdminSiteSettingController;
 use App\Http\Controllers\AdminTeamMemberController;
 use App\Http\Controllers\AdminTestimonialController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\InvestorDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicPageController;
@@ -35,6 +36,7 @@ Route::get('/services', [PublicPageController::class, 'services'])->name('servic
 Route::get('/industries', [PublicPageController::class, 'industries'])->name('industries');
 Route::get('/investment', [PublicPageController::class, 'investment'])->name('investment');
 Route::get('/contact', [PublicPageController::class, 'contact'])->name('contact');
+Route::post('/contact', [EnquiryController::class, 'store'])->name('contact.store')->middleware('throttle:5,1');
 Route::get('/case-studies', [PublicPageController::class, 'caseStudies'])->name('case-studies');
 Route::get('/case-studies/{slug}', [PublicPageController::class, 'caseStudy'])->name('case-study');
 Route::get('/insights', [PublicPageController::class, 'insights'])->name('insights');
