@@ -63,7 +63,7 @@ Do not refactor during v1.
                     </a>
                 @endif
                 <div class="mt-10 overflow-hidden rounded-2xl shadow-md">
-                    <img src="{{ $image }}" alt="{{ $imageAlt }}" class="h-64 w-full object-cover object-center">
+                    <img src="{{ $image }}" alt="{{ $imageAlt }}" loading="lazy" decoding="async" class="h-64 w-full object-cover object-center">
                 </div>
             </div>
             <div class="grid gap-3 sm:grid-cols-2">

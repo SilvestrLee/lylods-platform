@@ -46,6 +46,9 @@
     $portalExtraLinks = $portalHighlight ? $footerPortalAll->slice(1) : collect();
     $footerLinkedIn   = $cmsSocialLinks->firstWhere('platform', 'linkedin');
     $footerRegisteredStatement = 'The Lylods Group is a professional services organisation registered in the United Kingdom.';
+    $footerLocation   = $cmsSite?->address
+        ? trim(collect(preg_split('/\r\n|\r|\n/', $cmsSite->address))->filter()->last())
+        : 'United Kingdom';
     // --- End footer navigation groups ---
 
     // --- Structured Data ---
@@ -93,9 +96,9 @@
 </head>
 <body class="bg-[#f7f3ea] text-[#172033] antialiased">
 
-    <header x-data="{ open: false, openMenu: null, mobileServices: false, mobileAbout: false, mobileIndustries: false, mobileInsights: false, scrolled: false }"
+    <header x-data="{ open: false, openMenu: null, menuTimer: null, mobileServices: false, mobileAbout: false, mobileIndustries: false, mobileInsights: false, scrolled: false }"
             @scroll.window="scrolled = window.scrollY > 8"
-            @keydown.escape.window="openMenu = null; open = false"
+            @keydown.escape.window="clearTimeout(menuTimer); openMenu = null; open = false"
             :class="scrolled ? 'shadow-[0_2px_20px_rgba(7,23,47,0.08)]' : ''"
             class="sticky top-0 z-50 border-b border-[#e6e8ee] bg-white/95 backdrop-blur-xl transition-shadow duration-300">
         <div class="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-4">
@@ -118,8 +121,9 @@
                 </a>
 
                 {{-- About mega menu --}}
-                <div @mouseenter="$el._t = setTimeout(() => openMenu = 'about', 175)"
-                     @mouseleave="clearTimeout($el._t); openMenu = null">
+                <div @mouseenter="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = 'about', 150)"
+                     @mouseleave="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = null, 300)"
+                     @focusout="if (! $el.contains($event.relatedTarget)) { clearTimeout(menuTimer); openMenu = null }">
                     <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('about') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}"
                             aria-haspopup="true"
                             :aria-expanded="openMenu === 'about'"
@@ -161,8 +165,9 @@
                 </div>
 
                 {{-- Services mega menu --}}
-                <div @mouseenter="$el._t = setTimeout(() => openMenu = 'services', 175)"
-                     @mouseleave="clearTimeout($el._t); openMenu = null">
+                <div @mouseenter="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = 'services', 150)"
+                     @mouseleave="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = null, 300)"
+                     @focusout="if (! $el.contains($event.relatedTarget)) { clearTimeout(menuTimer); openMenu = null }">
                     <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('services') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}"
                             aria-haspopup="true"
                             :aria-expanded="openMenu === 'services'"
@@ -262,8 +267,9 @@
                 </div>
 
                 {{-- Industries mega menu --}}
-                <div @mouseenter="$el._t = setTimeout(() => openMenu = 'industries', 175)"
-                     @mouseleave="clearTimeout($el._t); openMenu = null">
+                <div @mouseenter="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = 'industries', 150)"
+                     @mouseleave="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = null, 300)"
+                     @focusout="if (! $el.contains($event.relatedTarget)) { clearTimeout(menuTimer); openMenu = null }">
                     <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('industries') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}"
                             aria-haspopup="true"
                             :aria-expanded="openMenu === 'industries'"
@@ -299,8 +305,9 @@
                 </div>
 
                 {{-- Insights mega menu — absorbs Case Studies per Navigation Governance v1.0 §3 --}}
-                <div @mouseenter="$el._t = setTimeout(() => openMenu = 'insights', 175)"
-                     @mouseleave="clearTimeout($el._t); openMenu = null">
+                <div @mouseenter="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = 'insights', 150)"
+                     @mouseleave="clearTimeout(menuTimer); menuTimer = setTimeout(() => openMenu = null, 300)"
+                     @focusout="if (! $el.contains($event.relatedTarget)) { clearTimeout(menuTimer); openMenu = null }">
                     <button class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 hover:bg-[#f7f3ea] hover:text-[#07172f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d] {{ request()->routeIs('insights') || request()->routeIs('insight') || request()->routeIs('case-studies') || request()->routeIs('case-study') ? 'bg-[#f7f3ea] text-[#07172f]' : 'text-[#172033]' }}"
                             aria-haspopup="true"
                             :aria-expanded="openMenu === 'insights'"
@@ -643,7 +650,10 @@
         <div class="border-b border-white/10">
             <div class="mx-auto max-w-[1440px] px-6 py-6">
                 <div class="flex flex-wrap items-center gap-x-8 gap-y-2 text-xs leading-6 text-slate-400">
-                    <span>United Kingdom</span>
+                    <span>{{ $footerLocation }}</span>
+                    @if($cmsSite?->phone)
+                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $cmsSite->phone) }}" class="rounded transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">{{ $cmsSite->phone }}</a>
+                    @endif
                     @if($cmsSite?->primary_email)
                         <a href="mailto:{{ $cmsSite->primary_email }}" class="rounded transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a24d]">General enquiries: {{ $cmsSite->primary_email }}</a>
                     @endif

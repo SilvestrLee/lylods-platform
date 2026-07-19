@@ -52,7 +52,7 @@ Do not refactor during v1.
                     <p class="mt-5 leading-8 text-slate-300">{{ $body }}</p>
                 @endif
                 <div class="mt-8 overflow-hidden rounded-2xl border border-white/10">
-                    <img src="{{ $image }}" alt="{{ $imageAlt }}" class="h-60 w-full object-cover object-center">
+                    <img src="{{ $image }}" alt="{{ $imageAlt }}" loading="lazy" decoding="async" class="h-60 w-full object-cover object-center">
                 </div>
             </div>
             <div class="space-y-4">

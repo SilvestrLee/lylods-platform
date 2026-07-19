@@ -19,16 +19,17 @@ Do not refactor during v1.
 ])
 
 @php
-    $image = $image ?? 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=80';
     $eyebrow = $eyebrow ?? 'Our Reach';
     $heading = $heading ?? 'Supporting a wide range of clients across residential, commercial, land and development contexts.';
 @endphp
 
+@if ($image)
 <div class="bg-white">
     <div class="mx-auto max-w-[1440px] px-6 py-6">
         <div class="relative overflow-hidden rounded-[2rem] shadow-xl">
             <img src="{{ $image }}"
                  alt="{{ $imageAlt ?? 'Property coordination and professional facilitation' }}"
+                 loading="lazy" decoding="async"
                  class="h-72 w-full object-cover object-center lg:h-[420px]">
             <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/55 to-transparent"></div>
             <div class="absolute bottom-8 left-8 right-8">
@@ -42,3 +43,4 @@ Do not refactor during v1.
         </div>
     </div>
 </div>
+@endif

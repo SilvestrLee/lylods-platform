@@ -24,7 +24,7 @@
                     <div class="tlg-reveal rounded-[2rem] border border-[#e6e8ee] bg-[#f7f3ea] p-8 text-center">
                         <div class="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-[#07172f]">
                             @if ($member->photo)
-                                <img src="{{ $member->photo->url() }}" alt="{{ $member->name }}" class="h-full w-full object-cover">
+                                <img src="{{ $member->photo->url() }}" alt="{{ $member->name }}" loading="lazy" decoding="async" class="h-full w-full object-cover">
                             @else
                                 <svg class="h-10 w-10 text-white/40" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"/></svg>
                             @endif

@@ -28,7 +28,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('admin.cms.services.items.update', [$serviceGroup, $service]) }}">
+        <form method="POST" action="{{ route('admin.cms.services.items.update', [$serviceGroup, $service]) }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
 
@@ -72,6 +72,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <x-admin.image-field
+                        label="Thumbnail Image (optional)"
+                        helper="Shown next to this service in the catalogue when set. JPG, PNG, WEBP · max 4 MB."
+                        :media="$service->image"
+                        input-name="image_file"
+                        remove-name="remove_image"
+                    />
 
                 </div>
 

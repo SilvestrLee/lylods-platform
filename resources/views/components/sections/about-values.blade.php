@@ -9,6 +9,10 @@
     'ctaUrl' => null,
 ])
 
+@php
+    $image = $image ?? asset('images/placeholders/community-placeholder.svg');
+@endphp
+
 <section class="bg-[#f7f3ea]">
     <div class="mx-auto max-w-[1440px] px-6 py-24">
         <div class="grid gap-16 lg:grid-cols-2 lg:items-center">
@@ -16,6 +20,7 @@
             <div class="tlg-reveal relative overflow-hidden rounded-[2rem] shadow-2xl">
                 <img src="{{ $image }}"
                      alt="{{ $imageAlt }}"
+                     loading="lazy" decoding="async"
                      class="h-full w-full object-cover" style="min-height: 480px;">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/30 to-transparent"></div>
             </div>

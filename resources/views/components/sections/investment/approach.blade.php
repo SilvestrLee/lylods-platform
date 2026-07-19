@@ -85,7 +85,7 @@ Do not refactor during v1.
         </div>
 
         <div class="tlg-reveal tlg-d1 relative overflow-hidden rounded-[2rem] shadow-2xl">
-            <img src="{{ $image }}" alt="{{ $imageAlt }}" class="h-full w-full object-cover" style="min-height:460px;">
+            <img src="{{ $image }}" alt="{{ $imageAlt }}" loading="lazy" decoding="async" class="h-full w-full object-cover" style="min-height:460px;">
             <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/30 to-transparent"></div>
         </div>
     </div>

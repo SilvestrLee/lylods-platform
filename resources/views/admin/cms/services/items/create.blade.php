@@ -22,7 +22,7 @@
             ]" />
         </x-slot>
 
-        <form method="POST" action="{{ route('admin.cms.services.items.store', $serviceGroup) }}">
+        <form method="POST" action="{{ route('admin.cms.services.items.store', $serviceGroup) }}" enctype="multipart/form-data">
             @csrf
 
             <div class="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-[#e6e8ee]">
@@ -65,6 +65,13 @@
                             </div>
                         </div>
                     </div>
+
+                    <x-admin.image-field
+                        label="Thumbnail Image (optional)"
+                        helper="Shown next to this service in the catalogue when set. JPG, PNG, WEBP · max 4 MB."
+                        input-name="image_file"
+                        remove-name="remove_image"
+                    />
 
                 </div>
 

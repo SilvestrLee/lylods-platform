@@ -48,7 +48,12 @@
                         <div class="mt-7 grid grid-cols-2 gap-2 border-t border-[#e6e8ee] pt-7 sm:grid-cols-4">
                             @foreach($group->activeServices as $serviceItem)
                             <div class="flex items-center gap-2 text-sm text-[#667085]">
-                                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>{{ $serviceItem->title }}
+                                @if($serviceItem->image)
+                                    <img src="{{ $serviceItem->image->url() }}" alt="" loading="lazy" decoding="async" class="h-5 w-5 shrink-0 rounded-full object-cover">
+                                @else
+                                    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a24d]"></span>
+                                @endif
+                                {{ $serviceItem->title }}
                             </div>
                             @endforeach
                         </div>

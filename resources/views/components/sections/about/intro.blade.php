@@ -38,7 +38,7 @@
 
         @if ($image)
             <div class="tlg-reveal tlg-d1 relative overflow-hidden rounded-[2rem] shadow-2xl">
-                <img src="{{ $image }}" alt="{{ $imageAlt }}" class="h-full w-full object-cover" style="min-height: 480px;">
+                <img src="{{ $image }}" alt="{{ $imageAlt }}" loading="lazy" decoding="async" class="h-full w-full object-cover" style="min-height: 480px;">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/30 to-transparent" aria-hidden="true"></div>
             </div>
         @else

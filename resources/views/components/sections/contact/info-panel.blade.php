@@ -111,7 +111,7 @@ Do not refactor during v1.
         </div>
 
         <div class="relative overflow-hidden rounded-2xl shadow-md">
-            <img src="{{ $image }}" alt="{{ $imageAlt }}" class="h-44 w-full object-cover object-center">
+            <img src="{{ $image }}" alt="{{ $imageAlt }}" loading="lazy" decoding="async" class="h-44 w-full object-cover object-center">
             <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/50 to-transparent"></div>
         </div>
 

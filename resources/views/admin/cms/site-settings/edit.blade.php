@@ -186,6 +186,33 @@
                             <input type="text" name="phone" value="{{ old('phone', $setting->phone) }}"
                                    class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
                         </div>
+
+                        {{-- Alternative Phone --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-[#07172f]">Alternative Phone</label>
+                            <input type="text" name="alternative_phone" value="{{ old('alternative_phone', $setting->alternative_phone) }}"
+                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c]">
+                        </div>
+
+                        {{-- Support Email --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-[#07172f]">Support Email</label>
+                            <input type="email" name="support_email" value="{{ old('support_email', $setting->support_email) }}"
+                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('support_email') border-red-400 @enderror">
+                            @error('support_email')
+                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Enquiries Email --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-[#07172f]">Enquiries Email</label>
+                            <input type="email" name="enquiries_email" value="{{ old('enquiries_email', $setting->enquiries_email) }}"
+                                   class="mt-2 w-full rounded-2xl border border-[#d0d5dd] px-4 py-3 text-sm text-[#07172f] shadow-sm focus:border-[#123f8c] focus:outline-none focus:ring-1 focus:ring-[#123f8c] @error('enquiries_email') border-red-400 @enderror">
+                            @error('enquiries_email')
+                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
                     {{-- Address --}}

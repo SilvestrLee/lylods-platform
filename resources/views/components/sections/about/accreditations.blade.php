@@ -25,7 +25,7 @@
                     @foreach ($accreditations as $accreditation)
                         @if ($accreditation->logo)
                             <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-[#e6e8ee] bg-white shadow-sm px-4">
-                                <img src="{{ $accreditation->logo->url() }}" alt="{{ $accreditation->name }}" class="max-h-10 max-w-full object-contain">
+                                <img src="{{ $accreditation->logo->url() }}" alt="{{ $accreditation->name }}" loading="lazy" decoding="async" class="max-h-10 max-w-full object-contain">
                             </div>
                         @else
                             <div class="flex h-16 w-40 items-center justify-center rounded-2xl border border-[#e6e8ee] bg-white shadow-sm px-3 text-center">

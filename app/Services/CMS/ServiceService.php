@@ -15,7 +15,7 @@ class ServiceService
     public function allGroups(): Collection
     {
         return Cache::remember(self::CACHE_KEY, self::TTL, fn () =>
-            ServiceGroup::with(['activeServices'])
+            ServiceGroup::with(['activeServices.image'])
                 ->where('is_active', true)
                 ->orderBy('display_order')
                 ->get()
@@ -25,7 +25,7 @@ class ServiceService
     public function groupBySlug(string $slug): ServiceGroup
     {
         return Cache::remember("cms.service_group.{$slug}", self::TTL, fn () =>
-            ServiceGroup::with(['activeServices'])
+            ServiceGroup::with(['activeServices.image'])
                 ->where('slug', $slug)
                 ->firstOrFail()
         );

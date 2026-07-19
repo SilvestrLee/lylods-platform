@@ -39,7 +39,7 @@
                 :body="$page->contact_info_body"
                 :general-label="$page->contact_general_label"
                 :general-description="$page->contact_general_description"
-                :general-value="$siteSetting->primary_email ?? null"
+                :general-value="$siteSetting->enquiries_email ?? $siteSetting->primary_email ?? null"
                 :office-label="$page->contact_office_label"
                 :office-description="$page->contact_office_description"
                 :office-value="$siteSetting->address ?? null"

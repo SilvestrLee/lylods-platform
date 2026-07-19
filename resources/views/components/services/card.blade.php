@@ -7,9 +7,13 @@
     'description' => null,
 ])
 
+@php
+    $image = $image ?? asset('images/placeholders/community-placeholder.svg');
+@endphp
+
 <a href="{{ $href }}" class="tlg-reveal group overflow-hidden rounded-3xl border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a24d] hover:shadow-lg">
     <div class="relative h-44 overflow-hidden">
-        <img src="{{ $image }}" alt="{{ $alt }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <img src="{{ $image }}" alt="{{ $alt }}" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
         <div class="absolute inset-0 bg-gradient-to-t from-[#07172f]/60 to-transparent"></div>
         @if ($icon)
             <div class="absolute bottom-3 left-4">

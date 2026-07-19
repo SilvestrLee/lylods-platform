@@ -28,18 +28,18 @@
         :eyebrow="$page->hero_subtitle"
         :heading="$page->hero_title"
         :description="$page->hero_description"
-        :background-image="$page->heroMedia?->url() ?? 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80'"
+        :background-image="$page->heroMedia?->url()"
         :primary-cta-label="$page->primary_cta_label"
         :primary-cta-url="$page->primary_cta_url"
         :secondary-cta-label="$page->secondary_cta_label"
         :secondary-cta-url="$page->secondary_cta_url"
-        :card-one-image="$showHeroCardOne ? ($heroCardOne?->image?->url() ?? 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80') : null"
+        :card-one-image="$showHeroCardOne ? $heroCardOne?->image?->url() : null"
         :card-one-alt="$heroCardOne?->image_alt ?? 'Business advisory'"
         :card-one-label="$heroCardOne?->badge ?? 'Business Advisory'"
         :card-one-rows="$heroCardOneIcons"
         :card-one-cta-label="$heroCardOne?->cta_label ?? 'Learn More'"
         :card-one-cta-url="$heroCardOne?->cta_url ?? (route('services') . '#business-technology')"
-        :card-two-image="$showHeroCardTwo ? ($heroCardTwo?->image?->url() ?? 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80') : null"
+        :card-two-image="$showHeroCardTwo ? $heroCardTwo?->image?->url() : null"
         :card-two-alt="$heroCardTwo?->image_alt ?? 'Training and community development'"
         :card-two-label="$heroCardTwo?->badge ?? 'Community Projects'"
         :card-two-title="$heroCardTwo?->title ?? 'Capacity Building'"
@@ -82,7 +82,7 @@
         $services = $page->serviceCards->isNotEmpty()
             ? $page->serviceCards->map(fn ($card) => [
                 'href' => $card->href ?? route('services'),
-                'image' => $card->image?->url() ?? 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+                'image' => $card->image?->url(),
                 'alt' => $card->image_alt ?? $card->title,
                 'icon' => \App\Support\HeroIconRegistry::path($card->icon) ?? \App\Support\HeroIconRegistry::path('cog'),
                 'title' => $card->title,
@@ -91,7 +91,7 @@
             : [
                 [
                     'href' => route('services') . '#business-technology',
-                    'image' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+                    'image' => null,
                     'alt' => 'Business Technology and Digital Solutions',
                     'icon' => \App\Support\HeroIconRegistry::path('cog'),
                     'title' => 'Business, Technology and Digital Solutions',
@@ -99,7 +99,7 @@
                 ],
                 [
                     'href' => route('services') . '#training-recruitment',
-                    'image' => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80',
+                    'image' => null,
                     'alt' => 'Training Recruitment and Capacity Building',
                     'icon' => \App\Support\HeroIconRegistry::path('academic-cap'),
                     'title' => 'Training, Recruitment and Capacity Building',
@@ -107,7 +107,7 @@
                 ],
                 [
                     'href' => route('services') . '#compliance-governance',
-                    'image' => 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=600&q=80',
+                    'image' => null,
                     'alt' => 'Governance Compliance and Data Protection',
                     'icon' => \App\Support\HeroIconRegistry::path('check-circle'),
                     'title' => 'Governance, Compliance and Data Protection',
@@ -115,7 +115,7 @@
                 ],
                 [
                     'href' => route('services') . '#property-development',
-                    'image' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80',
+                    'image' => null,
                     'alt' => 'Property Packaging Facilitation Management and Development',
                     'icon' => \App\Support\HeroIconRegistry::path('building-office'),
                     'title' => 'Property Packaging, Facilitation, Management and Development',
@@ -123,7 +123,7 @@
                 ],
                 [
                     'href' => route('services') . '#community-projects',
-                    'image' => 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80',
+                    'image' => null,
                     'alt' => 'Community and Project Development',
                     'icon' => \App\Support\HeroIconRegistry::path('user-group'),
                     'title' => 'Community and Project Development',
@@ -208,7 +208,7 @@
         :eyebrow="$page->about_eyebrow ?? 'About The Lylods Group'"
         :heading="$page->about_heading ?? 'Professional services built on expertise and integrity.'"
         :description="$page->about_description ?? 'The Lylods Group is a multidisciplinary professional services organisation working across business, technology, training, compliance, property and community development. We work with clients who need a capable, accountable partner across multiple disciplines.'"
-        :image="$page->aboutMedia?->url() ?? 'https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=900&q=80'"
+        :image="$page->aboutMedia?->url()"
         :image-alt="$page->about_media_alt ?? 'The Lylods Group — professionals collaborating'"
         :values="$aboutValues"
         :ctaLabel="$page->about_cta_label ?? 'About The Group'"
