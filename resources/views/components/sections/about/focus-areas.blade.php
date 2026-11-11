@@ -43,10 +43,16 @@
                     $extraClass = ($index === count($items) - 1 && count($items) % 3 !== 0) ? ' sm:col-span-2 lg:col-span-1' : '';
                 @endphp
                 <div class="tlg-reveal tlg-d{{ ($index % 4) + 1 }} flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] shadow-sm{{ $extraClass }}">
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('about.focus.' . ($index + 1)))
                     <div class="relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br {{ $gradient['classes'] }}">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ $item['title'] ?? 'Our work' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 {{ $gradient['opacity'] }}" style="background-image: {{ $gradient['radial'] }}" aria-hidden="true"></div>
                         @if ($item['icon'] ?? null)
                             <svg class="h-14 w-14 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}"/></svg>
+                        @endif
+                    
                         @endif
                     </div>
                     <div class="flex flex-1 flex-col bg-[#f7f3ea] p-7">

@@ -29,9 +29,15 @@
             @endphp
             <div id="{{ $group->slug }}" class="tlg-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm transition-all duration-300 hover:border-[#c9a24d] hover:shadow-lg">
                 <div class="lg:grid lg:grid-cols-[300px_1fr]">
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('services.group.' . $group->id))
                     <div class="relative hidden min-h-[280px] items-center justify-center overflow-hidden {{ $panelGradient }} lg:flex">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ $group->name }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 65% 35%, #c9a24d 0%, transparent 55%)" aria-hidden="true"></div>
                         <svg class="h-20 w-20 text-white/15" fill="none" stroke="currentColor" stroke-width="0.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
+                    
+                        @endif
                     </div>
                     <div class="p-10">
                         <div class="flex items-center gap-3">

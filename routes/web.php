@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminInvestorController;
 use App\Http\Controllers\AdminCompliancePageController;
 use App\Http\Controllers\AdminFooterLinkController;
 use App\Http\Controllers\AdminMediaController;
+use App\Http\Controllers\AdminPublicImageSlotController;
 use App\Http\Controllers\AdminNoticeController;
 use App\Http\Controllers\AdminSocialLinkController;
 use App\Http\Controllers\AdminCareerController;
@@ -102,6 +103,8 @@ Route::middleware(['auth', 'admin'])
             Route::get('/pages/{page}/edit', [AdminPageController::class, 'edit'])->name('pages.edit');
             Route::patch('/pages/{page}', [AdminPageController::class, 'update'])->name('pages.update');
 
+            Route::get('/image-slots', [AdminPublicImageSlotController::class, 'index'])->name('image-slots.index');
+            Route::patch('/image-slots/{imageSlot}', [AdminPublicImageSlotController::class, 'update'])->name('image-slots.update');
             Route::get('/media', [AdminMediaController::class, 'index'])->name('media.index');
             Route::post('/media', [AdminMediaController::class, 'store'])->name('media.store');
             Route::post('/media/bulk-delete', [AdminMediaController::class, 'bulkDelete'])->name('media.bulk-delete');

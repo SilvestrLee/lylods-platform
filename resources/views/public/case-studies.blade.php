@@ -39,9 +39,15 @@
             <div class="mt-8 grid gap-6 lg:grid-cols-2">
                 @foreach ($caseStudies as $cs)
                 <div class="tlg-reveal flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
+                    @php($tlgPhotoUrl = $cs->featuredMedia?->url() ?: \App\Support\PublicImageSlots::url('case-studies.example.' . (($loop->index % 6) + 1)))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#123f8c] to-[#07172f]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ $cs->title }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 70% 30%, #c9a24d 0%, transparent 60%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3"/></svg>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">
@@ -90,7 +96,11 @@
                 {{-- Case Study 1: Business Digital Transformation --}}
                 <div class="tlg-reveal tlg-d1 flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
                     {{-- Future CMS-managed image --}}
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('case-studies.example.1'))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#123f8c] to-[#07172f]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ 'Illustrative case study' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 70% 30%, #c9a24d 0%, transparent 60%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3"/></svg>
                         <div class="absolute bottom-4 left-5 flex items-center gap-2">
@@ -98,6 +108,8 @@
                             <div class="h-1.5 w-8 rounded-full bg-[#c9a24d]/40"></div>
                             <div class="h-1.5 w-4 rounded-full bg-[#c9a24d]/20"></div>
                         </div>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">
@@ -125,7 +137,11 @@
                 {{-- Case Study 2: Training Programme --}}
                 <div class="tlg-reveal tlg-d2 flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
                     {{-- Future CMS-managed image --}}
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('case-studies.example.2'))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#0d2d5e] to-[#123f8c]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ 'Illustrative case study' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 30% 70%, #c9a24d 0%, transparent 55%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
                         <div class="absolute bottom-4 right-5 flex items-center gap-2">
@@ -133,6 +149,8 @@
                             <div class="h-1.5 w-8 rounded-full bg-[#c9a24d]/40"></div>
                             <div class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></div>
                         </div>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">
@@ -160,7 +178,11 @@
                 {{-- Case Study 3: Compliance Support --}}
                 <div class="tlg-reveal tlg-d1 flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
                     {{-- Future CMS-managed image --}}
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('case-studies.example.3'))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#051220] via-[#07172f] to-[#0a1f42]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ 'Illustrative case study' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 60% 40%, #c9a24d 0%, transparent 50%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
                         <div class="absolute bottom-4 left-5 flex items-center gap-2">
@@ -168,6 +190,8 @@
                             <div class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></div>
                             <div class="h-1.5 w-10 rounded-full bg-[#c9a24d]/20"></div>
                         </div>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">
@@ -195,7 +219,11 @@
                 {{-- Case Study 4: Community Project --}}
                 <div class="tlg-reveal tlg-d2 flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
                     {{-- Future CMS-managed image --}}
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('case-studies.example.4'))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#102a50] to-[#07172f]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ 'Illustrative case study' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle at 25% 60%, #c9a24d 0%, transparent 50%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>
                         <div class="absolute bottom-4 right-5 flex items-center gap-2">
@@ -203,6 +231,8 @@
                             <div class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></div>
                             <div class="h-1.5 w-6 rounded-full bg-[#c9a24d]/30"></div>
                         </div>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">
@@ -230,7 +260,11 @@
                 {{-- Case Study 5: Property Project Coordination --}}
                 <div class="tlg-reveal tlg-d1 flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
                     {{-- Future CMS-managed image --}}
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('case-studies.example.5'))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#0e243d] to-[#1a3a5c]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ 'Illustrative case study' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 75% 25%, #c9a24d 0%, transparent 55%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg>
                         <div class="absolute bottom-4 left-5 flex items-center gap-2">
@@ -238,6 +272,8 @@
                             <div class="h-1.5 w-12 rounded-full bg-[#c9a24d]/30"></div>
                             <div class="h-1.5 w-4 rounded-full bg-[#c9a24d]/20"></div>
                         </div>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">
@@ -265,7 +301,11 @@
                 {{-- Case Study 6: Recruitment Support --}}
                 <div class="tlg-reveal tlg-d2 flex flex-col overflow-hidden rounded-[2rem] border border-[#e6e8ee] bg-white shadow-sm">
                     {{-- Future CMS-managed image --}}
+                    @php($tlgPhotoUrl = \App\Support\PublicImageSlots::url('case-studies.example.6'))
                     <div class="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-[#07172f] via-[#123f8c] to-[#0a1f42]">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ 'Illustrative case study' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
                         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 40% 60%, #c9a24d 0%, transparent 55%)"></div>
                         <svg class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg>
                         <div class="absolute bottom-4 right-5 flex items-center gap-2">
@@ -273,6 +313,8 @@
                             <div class="h-1.5 w-1.5 rounded-full bg-[#c9a24d]"></div>
                             <div class="h-1.5 w-8 rounded-full bg-[#c9a24d]/40"></div>
                         </div>
+                    
+                        @endif
                     </div>
                     <div class="border-b border-[#e6e8ee] bg-[#f7f3ea] px-8 py-6">
                         <div class="flex items-center justify-between gap-4">

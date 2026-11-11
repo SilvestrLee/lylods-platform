@@ -118,6 +118,12 @@
                     <div class="my-3 border-t border-white/10"></div>
                     <p class="px-4 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Website CMS</p>
 
+                    {{-- Contextual photography --}}
+                    <a href="{{ route('admin.cms.image-slots.index') }}"
+                       class="flex items-center gap-3 rounded-2xl px-4 py-2.5 text-slate-300 transition hover:bg-white/10 hover:text-white">
+                        Public Image Slots
+                    </a>
+
                     {{-- Site Settings --}}
                     <a href="{{ route('admin.cms.site-settings.edit') }}"
                        class="flex items-center gap-3 rounded-2xl px-4 py-2.5 transition {{ request()->routeIs('admin.cms.site-settings.*') ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">

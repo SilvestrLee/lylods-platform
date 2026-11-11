@@ -62,6 +62,7 @@ Do not refactor during v1.
                 @php $d = $decor[$index % count($decor)]; @endphp
                 <x-sections.careers.opportunity-card
                     :icon="$card['icon'] ?? null"
+                    :image-slot="'careers.card.' . ($index + 1)"
                     :title="$card['title'] ?? null"
                     :description="$card['description'] ?? null"
                     :gradient="$d['gradient']"

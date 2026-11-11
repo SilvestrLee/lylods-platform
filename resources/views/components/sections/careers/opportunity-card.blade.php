@@ -13,6 +13,7 @@ Do not refactor during v1.
 ---------------------------------------------------- --}}
 @props([
     'icon' => null,
+    'imageSlot' => null,
     'title' => null,
     'description' => null,
     'gradient' => 'from-[#07172f] via-[#123f8c] to-[#07172f]',
@@ -22,12 +23,18 @@ Do not refactor during v1.
 ])
 
 <div class="tlg-reveal{{ $stagger ? ' tlg-d'.$stagger : '' }} flex flex-col overflow-hidden rounded-3xl border {{ $dark ? 'bg-[#07172f]' : 'border-[#e6e8ee] bg-[#f7f3ea]' }}">
-    <div class="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br {{ $gradient }}">
+    @php($tlgPhotoUrl = $imageSlot ? \App\Support\PublicImageSlots::url($imageSlot) : null)
+                    <div class="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br {{ $gradient }}">
+                        @if($tlgPhotoUrl)
+                            <img src="{{ $tlgPhotoUrl }}" alt="{{ $title ?? 'Career opportunity' }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                        @else
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at {{ $radialPosition }}, #c9a24d 0%, transparent 55%)"></div>
         @if ($icon)
             <svg class="h-14 w-14 text-white/20" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}"/></svg>
         @endif
-    </div>
+    
+                        @endif
+                    </div>
     <div class="flex flex-1 flex-col p-7">
         @if ($title)
             <h3 class="font-bold {{ $dark ? 'text-white' : 'text-[#07172f]' }}">{{ $title }}</h3>
